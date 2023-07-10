@@ -398,3 +398,313 @@ The PHP conditional assignment operators are used to set a value depending on co
 Operator	    Name	                 Example	                Result	
 **?:**	       **Ternary**	        **$x = expr1 ? expr2 : expr3**	Returns the value of $x.The value of $x is expr2 if expr1 = TRUE.The value of $x is expr3 if expr1 = FALSE	
 **??**	      **Null coalescing**	  **$x = expr1 ?? expr2**	Returns the value of $x.The value of $x is expr1 if expr1 exists, and is not NULL.If expr1 does not exist, or is NULL, the value of $x is expr2.Introduced in PHP 7
+
+
+-----------------------------------------------------------------------------------------------------
+|                                         CONDITIONAL STATEMENT                                     |
+-----------------------------------------------------------------------------------------------------
+Conditional statements are used to perform different actions based on different conditions.
+
+>>> **if statement** - executes some code if one condition is true
+>>> **if...else statement** - executes some code if a condition is true and another code if that condition is false
+>>> **if...elseif...else statement** - executes different codes for more than two conditions
+>>> **switch statement** - selects one of many blocks of code to be executed
+
+if (condition) {
+  code to be executed if this condition is true;
+} elseif (condition) {
+  code to be executed if first condition is false and this condition is true;
+} else {
+  code to be executed if all conditions are false;
+}
+
+**Switch Statement**
+Use the switch statement to select one of many blocks of code to be executed.
+
+switch (n) {
+  case label1:
+    code to be executed if n=label1;
+    break;
+  case label2:
+    code to be executed if n=label2;
+    break;
+  case label3:
+    code to be executed if n=label3;
+    break;
+    ...
+  default:
+    code to be executed if n is different from all labels;
+}
+
+
+-----------------------------------------------------------------------------------------------------
+|                                                 LOOPS                                             |
+-----------------------------------------------------------------------------------------------------
+Loops are used to execute the same block of code again and again, as long as a certain condition is true.
+
+**while** - loops through a block of code as long as the specified condition is true
+**do...while** - loops through a block of code once, and then repeats the loop as long as the specified condition is true
+**for** - loops through a block of code a specified number of times
+**foreach** - loops through a block of code for each element in an array
+
+**While**
+The while loop - Loops through a block of code as long as the specified condition is true.
+
+while (condition is true) {
+  code to be executed;
+}
+
+**do while**
+The do...while loop will always execute the block of code once, it will then check the condition, and repeat the loop while the specified condition is true.
+
+do {
+  code to be executed;
+} while (condition is true);
+
+**for**
+The for loop - Loops through a block of code a specified number of times.
+
+for (init counter; test counter; increment counter) {
+  code to be executed for each iteration;
+}
+
+**foreeach**
+The foreach loop - Loops through a block of code for each element in an array.
+
+foreach ($array as $value) {
+  code to be executed;
+}
+
+**Break and Continue**
+>>> The break statement can also be used to jump out of a loop.
+
+>>> The continue statement breaks one iteration (in the loop), if a specified condition occurs, and continues with the next iteration in the loop.
+
+
+-----------------------------------------------------------------------------------------------------
+|                                                 PHP Functions                                     |
+-----------------------------------------------------------------------------------------------------
+A function is a block of statements that can be used repeatedly in a program.
+
+>>> A function will not execute automatically when a page loads.
+>>> A function will be executed by a call to the function.
+
+**Why function**
+1. Decrease LOC
+2. Readablity
+3. Repeatation
+
+**Function Arguments**
+An argument is just like a variable. In which Information can be passed to functions through arguments. 
+
+>>> Arguments are specified after the function name, inside the parentheses. You can add as many arguments as you want, just separate them with a comma.
+
+<?php
+function familyName($fname, $year) {
+  echo "$fname Refsnes. Born in $year <br>";
+}
+
+**strict declaration**
+PHP is loosely type language so it automatically associates a data type to the variable, depending on its value. Since the data types are not set in a strict sense, you can do things like adding a string to an integer without causing an error.
+
+<?php
+function addNumbers(int $a, int $b) {
+  return $a + $b;
+}
+echo addNumbers(5, "5 days");
+// since strict is NOT enabled "5 days" is changed to int(5), and it will return 10
+?>
+
+>>> To specify strict we need to set declare(strict_types=1);. This must be on the very first line of the PHP file.
+
+<?php declare(strict_types=1); // strict requirement
+
+function addNumbers(int $a, int $b) {
+  return $a + $b;
+}
+echo addNumbers(5, "5 days");
+// since strict is enabled and "5 days" is not an integer, an error will be thrown
+?>
+
+**Default Argument Value**
+The following example shows how to use a default parameter. If we call the function setHeight() without arguments it takes the default value as argument:
+
+Example
+<?php declare(strict_types=1); // strict requirement
+function setHeight(int $minheight = 50) {
+  echo "The height is : $minheight <br>";
+}
+
+setHeight(350);
+setHeight(); // will use the default value of 50
+setHeight(135);
+setHeight(80);
+?>
+
+**Returning values**
+To let a function return a value, use the return statement:
+
+<?php declare(strict_types=1); // strict requirement
+function addNumbers(float $a, float $b) : float {
+  return $a + $b;
+}
+echo addNumbers(1.2, 5.2);
+?>
+
+**Return Type Declarations**
+PHP 7 also supports Type Declarations for the return statement. Like with the type declaration for function arguments, by enabling the strict requirement, it will throw a "Fatal Error" on a type mismatch.
+
+To declare a type for the function return, add a colon ( : ) and the type right before the opening curly ( { )bracket when declaring the function.
+
+<?php declare(strict_types=1); // strict requirement
+function addNumbers(float $a, float $b) : float {
+  return $a + $b;
+}
+echo addNumbers(1.2, 5.2);
+?>
+
+
+**Passing Arguments by Reference**
+In PHP, arguments are usually passed by value, which means that a copy of the value is used in the function and the variable that was passed into the function cannot be changed.
+
+When a function argument is passed by reference, changes to the argument also change the variable that was passed in. To turn a function argument into a reference, the & operator is used:
+
+Example
+Use a pass-by-reference argument to update a variable:
+
+<?php
+function add_five(&$value) {
+  $value += 5;
+}
+
+$num = 2;
+add_five($num);
+echo $num;
+?>
+
+
+-----------------------------------------------------------------------------------------------------
+|                                                  ARRAY                                            |
+-----------------------------------------------------------------------------------------------------
+An array is a special variable, which can hold more than one value at a time.
+
+**Create an Array in PHP**
+array() function is used to create an array.
+
+<?php
+$array = array(
+    "foo" => "bar",
+    "bar" => "foo",
+);
+
+// Using the short array syntax
+$array = [
+    "foo" => "bar",
+    "bar" => "foo",
+];
+?>
+
+**Indexed arrays** - Arrays with a numeric index
+>>> $cars = array("Volvo", "BMW", "Toyota");
+
+>>> $cars[0] = "Volvo";
+$cars[1] = "BMW";           //Manually
+$cars[2] = "Toyota";
+
+**Associative arrays** - Arrays with named keys
+Associative arrays are arrays that use named keys that you assign to them.
+
+**Two ways to create an associative array:** 
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+or:
+
+$age['Peter'] = "35";
+$age['Ben'] = "37";
+$age['Joe'] = "43";
+The named keys can then be used in a script:
+
+**Example**
+<?php
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+echo "Peter is " . $age['Peter'] . " years old.";
+?>
+
+**Loop Through an Associative Array**
+To loop through and print all the values of an associative array, you could use a foreach loop, like this:
+
+<?php
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+
+foreach($age as $x => $x_value) {
+  echo "Key=" . $x . ", Value=" . $x_value;
+  echo "<br>";
+}
+?>
+
+**Multidimensional arrays** - Arrays containing one or more arrays:-
+A multidimensional array is an array containing one or more arrays.
+
+**Two-dimensional Arrays**
+A two-dimensional array is an array of arrays (a three-dimensional array is an array of arrays of arrays).
+
+Name    	Stock   	Sold
+Volvo	     22	       18
+BMW	       15	       13
+Saab	     5	       2
+
+>>> We can store the data from the table above in a two-dimensional array, like this:
+
+$cars = array )
+  array("Volvo",22,18),
+  array("BMW",15,13),
+  array("Saab",5,2),
+  array("Land Rover",17,15)
+$);
+
+**Sorting Arrays**
+The elements in an array can be sorted in alphabetical or numerical order, descending or ascending.
+
+**sort()** - sort arrays in ascending order
+**rsort()** - sort arrays in descending order
+**asort()** - sort associative arrays in ascending order, according to the value
+**ksort()** - sort associative arrays in ascending order, according to the key
+**arsort()** - sort associative arrays in descending order, according to the value
+**krsort()** - sort associative arrays in descending order, according to the key
+
+
+-----------------------------------------------------------------------------------------------------
+|                                 Global Variables - Superglobals                                   |
+-----------------------------------------------------------------------------------------------------
+"superglobals" are predefine variables. It is always accessible, regardless of scope - and we can access them from any function, class or file.
+
+The PHP superglobal variables are:
+
+$$GLOBALS
+$_SERVER
+$_REQUEST
+$_POST
+$_GET
+$_FILES
+$_ENV
+$_COOKIE
+$$_SESSION
+
+>>> https://www.w3schools.com/php/php_superglobals.asp
+
+-----------------------------------------------------------------------------------------------------
+|                                           Regular Expressions                                     |
+-----------------------------------------------------------------------------------------------------
+A regular expression is a sequence of characters that forms a search pattern. When you search for data in a text, you can use this search pattern to describe what you are searching for.
+
+>>> A regular expression can be a single character, or a more complicated pattern.
+
+$exp = "/w3schools/i";   $
+>>> / is the delimiter, w3schools is the pattern that is being searched for, and **i** is a modifier that makes the search case-insensitive.
+
+**Regular Expression Functions**
+
+**preg_match()**	Returns 1 if the pattern was found in the string and 0 if not
+**preg_match_all()**	Returns the number of times the pattern was found in the string, which may also be 0
+**preg_replace()**	Returns a new string where matched patterns have been replaced with another string
+
+>>> https://www.w3schools.com/php/php_regex.asp
