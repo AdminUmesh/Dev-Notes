@@ -1,7 +1,7 @@
 # <p style="text-align: center;">OOPS IN PHP</p>
 
-**What is oops?**
 Oops is a way of programming that help us to make code simple, reusable, and Secure.
+
 
 **Benefits of OOP**
 1. Simple and faster
@@ -9,20 +9,24 @@ Oops is a way of programming that help us to make code simple, reusable, and Sec
 3. Easier to debug
 4. Securely protects sensitive information through encapsulation
 
+
 **What are Classes and Object?**
+
 Class is a template for objects, and an object is an instance of a class.
 
 - A class is defined by using the class keyword, followed by curly braces.
 - Objects of a class are created using the new keyword.
 
 **Benifits of class**
+
 A class is used to bind data as well as methods together as a single unit.
+
 
 ## $this Keyword
 The $this keyword refers to the current object, and is only available inside methods.
 
 ## instanceof
-You can use the instanceof keyword to check if an object belongs to a specific class <?php
+You can use the instanceof keyword to check if an object belongs to a specific class.
 
 https://www.w3schools.com/php/php_oop_classes_objects.asp
 
@@ -51,6 +55,7 @@ echo Goodbye::LEAVING_MESSAGE;
 ## COSTRUCTOR AND DESTRUCTOR
 
 **Define constructor?**
+
 If you create a __construct() function, PHP will automatically call this function when you create an object from a class.
 
 - Constructor is a magic method in php
@@ -75,7 +80,7 @@ echo $apple->get_name();
 ?>
 ```
 
-##Define Destructor?
+## Define Destructor?
 If you create a __destruct() function, PHP will automatically call this function at the end of the script.
 
 - Destructor is a magic method in php
@@ -175,6 +180,7 @@ $animal->makeSound();
 ```
 
 **Why we use Interface?**
+
 In php we can't inherit many parent classes in a single class, this problem is solved by interface.
 
 **Interface vs astract class**
@@ -221,6 +227,7 @@ $obj2->msg1();
 ```
 
 **Why Use Trait?**
+
 PHP only supports single inheritance: a child class can inherit only from one single parent. so using OOP traits we can solve this problem.
 
 
@@ -297,13 +304,14 @@ printIterable($arr);
 ```
 
 **Creating Iterables**
+
 All arrays are iterables, so any array can be used as an argument of a function that requires an iterable
 
-1. current() - Returns the element that the pointer is currently pointing to. It can be any data type
-2. key() Returns the key associated with the current element in the list. It can only be an integer, float, boolean or string
-3. next() Moves the pointer to the next element in the list
-4. rewind() Moves the pointer to the first element in the list
-5. valid() If the internal pointer is not pointing to any element (for example, if next() was called at the end of the list), this should return false. It returns true in any other case
+1. **current()** - Returns the element that the pointer is currently pointing to. It can be any data type
+2. **key()** - Returns the key associated with the current element in the list. It can only be an integer, float, boolean or string
+3. **next()** - Moves the pointer to the next element in the list
+4. **rewind()** Moves the pointer to the first element in the list
+5. **valid()** - If the internal pointer is not pointing to any element (for example, if next() was called at the end of the list), this should return false. It returns true in any other case
 
 ```php
 <!DOCTYPE html>
