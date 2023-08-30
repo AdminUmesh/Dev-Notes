@@ -1,4 +1,5 @@
 # <p style="text-align: center;">OOPS IN Java</p>
+*****
 
 Oops is a way of programming that help us to make code simple, reusable, and Secure.
 
@@ -446,7 +447,7 @@ Polymorphism is a concept in which a class containg more than one method with th
 **Usually, polymorphism is of two types**
 
 1. **Compile time polymorphism** (Example of method overloading)
-a polymorphism which is exists at the time of compilation is called compile time or carly binding or static polymorphism.
+A polymorphism which is exists at the time of compilation is called **`compile time`** or **`early binding`** or **`static polymorphism`**.
 
 - **Method Overloading:-** Whenever a class contain more than one method with same name and different types of parameters called method overloading.
 ```java
@@ -482,6 +483,7 @@ public class Sum {
 ```
 
 2. **Run time polymorphism** Example of method overriding
+A polymorphism which is exists at run time is called **`run time`** or **`late binding`** or **`dynamic polymorphism`**.
 
 **Method Overriding**
 Whenever we writting method in super and sub classes in such a way thats method name and parameter must be same called method overiding.
@@ -540,3 +542,70 @@ class Main {
   }
 }
 ```
+
+## Binding
+Connecting a method call to the method body is known as binding.
+
+**1. Static binding**
+The binding which can be resolved at compile time by compiler is called Static binding. `Ex- Private,static...`
+
+- compile time polymorephism.
+- method overloading.
+
+**2. Dynamic binding**
+The binding which can be resolve at run time by JVM is known as dynamic binding or late binding.
+
+- Run time polymorephysm
+- Method Overriding
+
+## Call by Reference vs Call by Value
+ 
+**1. Call by value:-**
+Call by Value means calling a method with a parameter as value. Through this, the argument value is passed to the parameter.
+
+**Ex-1**
+```java
+class Operation{  
+ int data=50;  
+  
+ void change(int data){  
+ data=data+100;//changes will be in the local variable only  
+ }  
+     
+ public static void main(String args[]){  
+   Operation op=new Operation();  
+  
+   System.out.println("before change "+op.data);  
+   op.change(500);  
+   System.out.println("after change "+op.data);  
+  
+ }  
+}  
+/* Output:  before change 50
+            after change 50 */
+```
+
+**Ex-2**
+```java
+class Operation2{  
+ int data=50;  
+  
+ void change(Operation2 op){  
+ op.data=op.data+100;//changes will be in the instance variable  
+ }  
+     
+    
+ public static void main(String args[]){  
+   Operation2 op=new Operation2();  
+  
+   System.out.println("before change "+op.data);  
+   op.change(op);//passing object  
+   System.out.println("after change "+op.data);  
+  
+ }  
+}  
+/* Output:before change 50
+       after change 150	*/
+```
+**2. Call by Reference:-**
+While Call by Reference means calling a method with a parameter as a reference. Through this, the argument reference is passed to the parameter. `Java does not support call by reference.`
