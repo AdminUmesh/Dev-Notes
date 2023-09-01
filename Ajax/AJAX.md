@@ -22,6 +22,148 @@ Ajax stand for Asynchronous Javascript and XML. It is used to communicate with t
 
 2. Asynchronous-->Asynchronous means that the script will send a request to the server, and continue it's execution without waiting for the reply. As soon as reply is received a browser event is fired, which in turn allows the script to execute associated actions.
 
+## XMLHttpRequest Object
+The XMLHttpRequest object can be used to exchange data with a web server behind the scenes.
+
+**Create XMLHttpRequest Object**
+```javaScript
+function Ajax() {
+
+  const xhttp = new XMLHttpRequest();
+
+}
+```
+
+## Send a Request
+To send a request to a server, you can use the open() and send() methods of the XMLHttpRequest object
+
+**For GET method**
+```javaScript
+xhttp.open("GET", "url", true/false); //true means its asynchronous
+xhttp.send();
+```
+
+**For POST method**
+```javaScript
+xhttp.open("POST", "url", true/false); // false means its synchronous
+xhttp.send(string);
+```
+
+## XMLHttpRequest Object Methods
+| Method | Description |
+| ------ | ----------- |
+| new XMLHttpRequest() |	Creates a new |
+|XMLHttpRequest object | abort()	Cancels the current request
+| getAllResponseHeaders() | Returns header information |
+| getResponseHeader() |	Returns specific header information |
+| open(method, url, async, user, psw)| Specifies the request method: the request type GET or POST url: the file location async: true (asynchronous) or false (synchronous) user: optional user name psw: optional password |
+| send() | Sends the request to the server Used for GET requests |
+| send(string)	| Sends the request to the server. Used for POST requests |
+| setRequestHeader() |	Adds a label/value pair to the header to be sent |
+
+## XMLHttpRequest Object Properties
+
+| Property |	Description |
+| -------- |  ------------- |
+| onload |	Defines a function to be called when the request is received (loaded) |
+| onreadystatechange |	Defines a function to be called when the readyState property changes readyState	Holds the status of the XMLHttpRequest. 0: request not initialized 1: server connection established 2: request received 3: processing request 4: request finished and response is ready
+| responseText	| Returns the response data as a string |
+| responseXML |	Returns the response data as XML data |
+| status |	Returns the status-number of a request 200: "OK" 403: "Forbidden" 404: "Not Found"
+| statusText	| Returns the status-text (e.g. "OK" or "Not Found") |
+
+## .onload
+.onload is a callback function that to be executed when the request receives an answer.
+
+```javaScript
+function Ajax() {
+
+xhttp.onload = function() {
+  // What to do when the response is ready
+}
+
+}
+```
+
+## onreadystatechange
+The onreadystatechange property defines a callback function to be executed when the readyState changes. `The onreadystatechange function is called every time the readyState changes.`
+
+## readyState
+The readyState property holds the status of the XMLHttpRequest.
+
+```javascript
+function loadDoc() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "ajax_info.txt");
+  xhttp.send();
+}
+```
+## AJAX - Server Response
+
+**Server Response Property**
+
+**responseText:-**	get the response data as a javaScript string
+
+**responseXML:-**	get the response data as XML data
+```javaScript
+const xhttp = new XMLHttpRequest();
+xhttp.onload = function() {
+  const xmlDoc = this.responseXML;
+  const x = xmlDoc.getElementsByTagName("ARTIST");
+  let txt = "";
+  for (let i = 0; i < x.length; i++) {
+    txt = txt + x[i].childNodes[0].nodeValue + "<br>";
+  }
+  document.getElementById("demo").innerHTML = txt;
+}
+xhttp.open("GET", "cd_catalog.xml");
+xhttp.send();
+
+/* Output:-
+The XMLHttpRequest Object
+Bob Dylan
+Bonnie Tyler
+Dolly Parton
+Gary Moore
+Eros Ramazzotti
+Bee Gees
+Dr.Hook
+Rod Stewart */
+```
+**getResponseHeader():-**	Returns specific header information from the server resource
+```javaScript
+const xhttp = new XMLHttpRequest();
+xhttp.onload = function() {
+  document.getElementById("demo").innerHTML =
+  this.getAllResponseHeaders();
+}
+xhttp.open("GET", "ajax_info.txt");
+xhttp.send();
+
+/* Output:-
+accept-ranges: bytes age: 2693 cache-control: public,max-age=14400,public content-encoding: gzip content-length: 147 content-security-policy: frame-ancestors 'self' https://mycourses.w3schools.com; content-type: text/plain date: Fri, 01 Sep 2023 10:15:42 GMT etag: "0b1a94319dbd91:0+gzip" last-modified: Wed, 30 Aug 2023 08:09:14 GMT server: ECS (ndl/D35C) vary: Accept-Encoding x-cache: HIT x-content-security-policy: frame-ancestors 'self' https://mycourses.w3schools.com; x-powered-by: ASP.NET */
+```
+
+**getAllResponseHeaders():-**	Returns all the header information from the server resource
+```javaScript
+const xhttp=new XMLHttpRequest();
+xhttp.onload = function() {
+  document.getElementById("demo").innerHTML =
+  this.getResponseHeader("Last-Modified");
+}
+xhttp.open("GET", "ajax_info.txt");
+xhttp.send();
+
+/* Output:-
+Last modified: Wed, 30 Aug 2023 08:09:14 GMT
+*/
+```
 
 ## Advantages of AJAX 
 1. Speed is enhanced as there is no need to reload the page again.
@@ -30,7 +172,6 @@ Ajax stand for Asynchronous Javascript and XML. It is used to communicate with t
 4. Bandwidth utilization – It saves memory when the data is fetched from the same page.
 5. More interactive.
 
-
 ## Disadvantages of AJAX
 1. Ajax is dependent on Javascript. If there is some Javascript problem with the browser or in the OS, Ajax will not support.
 2. Ajax can be problematic in Search engines as it uses Javascript for most of its parts.
@@ -38,35 +179,93 @@ Ajax stand for Asynchronous Javascript and XML. It is used to communicate with t
 4. Debugging is difficult.
 5. Problem with browser back button when using AJAX enabled pages.
 
-
-## Create Object
-- req.open("GET", "abc.php", true);
-- req.send();
-
-
-## There are two types of methods **open()** and **send()**
-- req.open("GET", "abc.php", true);
-- req.send();
+**Ex-1** CodeWithHarry
+```javascript
+console.log("Ajax tutorial in one video");
 
 
-## Sending the parameter through getting or GET request 
-- req.open("GET", "abc.php?x=25", true);
-- req.send();
+let fetchBtn = document.getElementById('fetchBtn');
+fetchBtn.addEventListener('click', buttonClickHandler)
 
-## Sending the parameter through getting or POST request.
-req.send("name=johndoe&marks=99");
+function buttonClickHandler() {
+     console.log('You have clicked the fetchBtn');
+
+    // Instantiate an xhr object
+    const xhr = new XMLHttpRequest();
+
+    // Open the object
+    // xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', true);
+
+    // USE THIS FOR POST REQUEST
+    xhr.open('POST', 'http://dummy.restapiexample.com/api/v1/create', true);
+    xhr.getResponseHeader('Content-type', 'application/json');
 
 
-## XMLHttpRequest also has a property named as status
-- 200: “OK”
-- 404: “Page not found”
+    // What to do on progress (optional)
+    xhr.onprogress = function(){
+        console.log('On progress');
+    }
 
-## Now remember it always that when readyState is 4 and status is 200, the response is ready.
-```JavaScript
-<p id = "dis">< /p>
-req.onreadystatechange = function(){
-if(req.readyState == 4 && req.status == 200){
-	document.getElementById("dis").innerHTML = req.responseText;
+
+    // xhr.onreadystatechange = function () {
+    //     console.log('ready state is ', xhr.readyState);
+        
+    // }
+
+    // What to do when response is ready
+    xhr.onload = function () {
+        if(this.status === 200){
+
+            console.log(this.responseText)
+        }
+        else{
+            console.log("Some error occured")
+        }
+    }
+
+    // send the request
+    params = `{"name":"test34sad545","salary":"123","age":"23"}`;
+    xhr.send(params);
+
+    console.log("We are done!");
 }
+```
+**Ex-2** CodeWithHarry
+
+```javaScript
+let popBtn = document.getElementById('popBtn');
+popBtn.addEventListener('click', popHandler);
+
+function popHandler() {
+    console.log('You have clicked the pop handler');
+
+    // Instantiate an xhr object
+    const xhr = new XMLHttpRequest();
+
+    // Open the object
+    xhr.open('GET', 'http://dummy.restapiexample.com/api/v1/employees', true);
+
+
+    // What to do when response is ready
+    xhr.onload = function () {
+        if(this.status === 200){
+            let obj = JSON.parse(this.responseText);
+            console.log(obj);
+            let list = document.getElementById('list');
+            str = "";
+            for (key in obj)
+            {
+                str += `<li>${obj[key].employee_name} </li>`;
+            }
+            list.innerHTML = str;
+        }
+        else{
+            console.log("Some error occured")
+        }
+    }
+
+    // send the request
+    xhr.send();
+    console.log("We are done fetching employees!");
 }
 ```
