@@ -1,11 +1,260 @@
-# Asynchronous JavaScript And XML.(AJAX)
-Ajax stand for Asynchronous Javascript and XML. It is used to communicate with the server without refreshing the web page and thus increasing the user experience and better performance.
+# <p style="text-align: center;">Async in JavaScript</p>
+*****
 
+## Asynchronous JavaScript
+Functions running in parallel with other functions are called asynchronous. `A good example is JavaScript setTimeout()`
+
+**setTimeout()**
+
+The setTimeout () method in JavaScript is used to execute a function after waiting for the specified time interval.
+```javaScript
+setTimeout(myFunction, 5000);
+
+function myFunction() {
+  document.getElementById("demo").innerHTML = "I love You !!";
+}
+```
+
+**clearTimeout()**
+
+The clearTimeout () method clears a timer set with the setTimeout () method.
+
+```javaScript
+<html>
+<body>
+
+<p>Click "Stop" to prevent myGreeting() to execute. (You have 5 seconds)</p>
+
+<button onclick="myStopFunction()">Stop!</button>
+
+<h2 id="demo"></h2>
+
+<script>
+const myTimeout = setTimeout(myFunction, 5000);
+function myFunction() {
+  document.getElementById("demo").innerHTML = "I love You !!";
+}
+
+// if click on stop button before 5 sec it will crear the setTimeout
+function myStopFunction() {
+  clearTimeout(myTimeout);
+}
+</script>
+</body>
+</html>
+```
+
+**setInterval()**
+
+setInterval() is a JavaScript method that repeatedly calls a function or executes a code snippet at specified intervals (in milliseconds)
+```javaScript
+setInterval(myFunction, 1000);
+
+function myFunction() {
+  let d = new Date();
+  document.getElementById("demo").innerHTML=
+  d.getHours() + ":" +
+  d.getMinutes() + ":" +
+  d.getSeconds();
+}
+
+// Output:- It will show time in hh:mm:ss with each second update
+```
+**clearInterval()**
+
+The clearInterval () method clears a timer set with the setInterval () method
+```javaScript
+const myInterval = setInterval(myTimer, 1000);
+
+function myTimer() {
+const date = new Date();
+document.getElementById("demo").innerHTML = date.toLocaleTimeString();
+}
+
+function myStopFunction() {
+clearInterval(myInterval);
+}
+```
+
+
+## Callback function
+- A callback is a function that passed as an argument to yhe another function
+
+- This technique allows a function to call another function
+
+- A callback function can run after another function has finished
+
+**Ex-1**
+```javaScript
+function myDisplayer(something) {
+  document.getElementById("demo").innerHTML = something;
+}
+
+function myCalculator(num1, num2, myCallback) {
+  let sum = num1 + num2;
+
+  // pass myDisplayer() in myCalculator function
+  myCallback(sum);
+}
+
+myCalculator(5, 5, myDisplayer);
+</script>
+```
+**Ex-2** Remove Negative from Array using callback
+```javaScript
+const myNumbers = [4, 1, -20, -7, 5, 9, -6];
+
+// Call removeNeg with a Callback
+const posNumbers = removeNeg(myNumbers, (x) => x >= 0);
+
+// Display Result
+document.getElementById("demo").innerHTML = posNumbers;
+
+// Remove negative numbers
+function removeNeg(numbers, callback) {
+  const myArray = [];
+  for (const x of numbers) {
+    if (callback(x)) {
+      myArray.push(x);
+    }
+  }
+  return myArray;
+}
+
+// Output: 4,1,5,9
+```
+
+## JavaScript Promises
+A Promise is a JavaScript object that links producing code and consuming code
+- "Producing code" is code that can take some time
+
+- "Consuming code" is code that must wait for the result
+
+**Why use Promise**
+
+Multiple callback functions would create callback hell that leads to unmanageable code. Promises are used to handle asynchronous operations in JavaScript.
+**Ex-1**
+```javaScript
+let myPromise = new Promise(function(myResolve, myReject) {
+// "Producing Code" (May take some time)
+
+  myResolve(); // when successful
+  myReject();  // when error
+});
+
+// "Consuming Code" (Must wait for a fulfilled Promise)
+myPromise.then(
+  function(value) { /* code if successful */ },
+  function(error) { /* code if some error */ }
+);
+```
+**When the producing code obtains the result, it should call one of the two callbacks:**
+
+| Result |	Call |
+| ------ | ----- |
+| Success| myResolve(result value) |
+| Error	 | myReject(error object) |
+
+**Promise Object Properties**
+
+The Promise object supports two properties: state and result.
+
+A JavaScript Promise object can be:
+
+**1. Pending** 
+While a Promise object is "pending" (working), the result is undefined.
+**2. Fulfilled**
+When a Promise object is "fulfilled", the result is a value.
+**3. Rejected**
+When a Promise object is "rejected", the result is an error object.
+
+| myPromise.state |	myPromise.result |
+| --------------- | ---------------- |
+| "pending"	 | undefined |
+| "fulfilled"	| a result value |
+| "rejected"	| an error object |
+
+**Ex-2**
+```javaScript
+function myDisplayer(some) {
+  document.getElementById("demo").innerHTML = some;
+}
+
+let myPromise = new Promise(function(myResolve, myReject) {
+  let x = 0;
+
+// The producing code (this may take some time)
+
+  if (x == 0) {
+    myResolve("OK");
+  } else {
+    myReject("Error");
+  }
+});
+
+myPromise.then(
+  function(value) {myDisplayer(value);},
+  function(error) {myDisplayer(error);}
+);
+```
+**Promises Reference**
+[Click here](https://www.w3schools.com/js/js_promise.asp)
+
+## Async/Await
+"async and await make promises easier to write"
+- async makes a function return a Promise
+- await makes a function wait for a Promise
+
+**Async Syntax**
+The keyword async before a function makes the function return a promise:
+```javaScript
+async function myFunction() {
+  return "Hello";
+}
+```
+it's same as
+```javaScript
+function myFunction() {
+  return Promise.resolve("Hello");
+}
+```
+**Ex-**
+```javaScript
+// use on place of create a promise
+async function myFunction() {
+  return "Hello";
+}
+myFunction().then(
+  function(value) {myDisplayer(value);},
+  function(error) {myDisplayer(error);}
+);
+```
+**Await Syntax**
+The await keyword can only be used inside an async function.
+- The await keyword makes the function pause the execution and wait for a resolved promise before it continues:
+```javaScript
+let value = await promise;
+```
+```javaScript
+async function myDisplay() {
+  let myPromise = new Promise(function(resolve, reject) {
+    resolve("I love You !!");
+  });
+  // use in place of then
+  document.getElementById("demo").innerHTML = await myPromise;
+}
+myDisplay();
+```
+
+
+
+# <p style="text-align: center;">AJAX</p>
+*****
+Ajax stand for Asynchronous Javascript and XML. It is used to communicate with the server without refreshing the web page and thus increasing the user experience and better performance.
 
 ## Properties/Features of AJAX
 - Update a web page without reloading the page
 - Send data to a web server - in the background
-
 
 ## How does it work?
    1. An event occurs in a web page (the page is loaded, a button is clicked)
@@ -267,5 +516,49 @@ function popHandler() {
     // send the request
     xhr.send();
     console.log("We are done fetching employees!");
+}
+```
+
+
+# <p style="text-align: center;">Fetch API</p>
+*****
+The Fetch API provides a JavaScript interface for accessing and manipulating parts of the protocol, such as requests and responses. It also provides a global fetch() method that provides an easy, logical way to fetch resources asynchronously across the network.
+`Unlike XMLHttpRequest that is a callback-based API, Fetch is promise-based and provides a better alternative that can be easily used in service workers.`
+
+- The Fetch API interface allows web browser to make HTTP requests to web servers.
+
+- 😀 No need for XMLHttpRequest anymore.
+
+**Ex-1**
+```javaScript
+fetch(file/URL)
+.then(x => x.text/json())
+.then(y => myDisplay(y));
+// its used to then file.
+
+                                  or
+// Since Fetch is based on async and await, the example above might be easier to understand like this:
+async function getText(file) {
+  let x = await fetch(file);
+  let y = await x.text();
+  myDisplay(y);
+}
+```
+
+**Ex-2**
+```javaScript
+async function logMovies() {
+  const response = await fetch("http://example.com/movies.json");
+  const movies = await response.json();
+  console.log(movies);
+}
+```
+
+**Ex-3**
+```javaScript
+async function getText(file) {
+  let myObject = await fetch(file);
+  let myText = await myObject.text();
+  myDisplay(myText);
 }
 ```
