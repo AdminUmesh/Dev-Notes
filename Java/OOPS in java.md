@@ -14,8 +14,6 @@ Oops is a way of programming that help us to make code simple, reusable, and Sec
 ## Classes
 Class is a template for objects, and an object is an instance of a class.
 
-- A class is defined by using the class keyword, followed by curly braces.
-- Objects of a class are created using the new keyword.
 
 Everything in Java is associated with classes and objects, along with its attributes and methods.
 
@@ -31,6 +29,8 @@ A class is used to bind data as well as methods together as a single unit.
 
 ## Object
 Object is an instance of class that executes the class. Ones the object is created it takes up space like other varieble in memory.
+
+- Objects of a class are created using the new keyword.
 
 ```Java
 public class Main {
@@ -79,14 +79,14 @@ Properties and methods can have access modifiers which control where they can be
 **There are three access modifiers:**
 1. **public -** The access level of a public modifier is everywhere. It can be accessed from within the class, outside the class, within the package and outside the package.
 2. **protected -** The access level of a protected modifier is within the package and outside the package through child class. If you do not make the child class, it cannot be accessed from outside the package.
-3. **private -** the property or method can ONLY be accessed within the class
-4. **Default -** The access level of a default modifier is only within the package. It cannot be accessed from outside the package. If you do not specify any access level, it will be the default.
+3. **private -** the property or method can only be accessed within the class
+4. **Default -** The access level of a default modifier is only within the package. It cannot be accessed from outside the package. `If you do not specify any access level, it will be the default.`
 
 
 ## COSTRUCTOR
 
 **Define constructor?**
-In java Constructor is a special type of class whose name is same as class name. `java create constructor by default (When we not create construcor manually) when we create object of class `
+Constructor is a special type of method whose name is same as class name. `java create constructor by default (When we not create construcor manually) then we have to create object of class `
 
 - The main purpose of constructor is initialize the object.
 
@@ -97,20 +97,21 @@ In java Constructor is a special type of class whose name is same as class name.
 - Constructor never contain any return type including void.
 
 ```Java
-<?Java
 class A {
   int abc;
   String name;
 
- A(){
-  abc=0; name=null;
- }
-  void show(){
+  A() {
+    abc = 0;
+    name = null;
+  }
+  void show() {
     System.out.println(abc + " " + name);
   }
 }
-class B{
-  public static void main(){
+
+class B {
+  public static void main() {
     A ref = new A();
     ref.show();
   }
@@ -489,7 +490,7 @@ A polymorphism which is exists at run time is called **`run time`** or **`late b
 Whenever we writting method in super and sub classes in such a way thats method name and parameter must be same called method overiding.
  
 ```java
-public class Supper {
+class Supper {
 	public int sum()
   {
     System.out.println("Supper class");
@@ -497,9 +498,10 @@ public class Supper {
 }
 class Sub extends Super{
   @override
-  // Super.draw();   // its call supper class's sum() method
+  // super.sum();   // its call supper class's sum() method
   public int sum()
   {
+    // super.sum();
     System.out.println("Sub class");
   }
 }
