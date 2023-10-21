@@ -1,13 +1,10 @@
 # <p style="text-align: center;">Database Language</p>
-
 Database language can be used to read, store and update the data in database.
 
 # 1. DDL (Data Difinition language)
-
 The DDL Commands in Structured Query Language are used to create and modify the schema of the database and its objects.
 
-##1.1 CREATE Command
-
+## 1.1 CREATE Command
 CREATE is a DDL command used to create databases, tables, triggers and other database objects.
 
 **Create Database**
@@ -33,7 +30,6 @@ CREATE TABLE new_table_name AS
 ```
 
 **Create View**
-
 In SQL, a view is a virtual table based on the result-set of an SQL statement.
 
 A view contains rows and columns, just like a real table. The fields in a view are fields from one or more real tables in the database.
@@ -57,7 +53,6 @@ FROM table_name
 WHERE condition;
 ```
 **Create Index**
-
 Indexes are used to retrieve data from the database more quickly than otherwise. The users cannot see the indexes, they are just used to speed up searches/queries.
 
 - Automatically created indexes for PRIMARY KEY ans UNIQUE columns.
@@ -79,7 +74,6 @@ SHOW INDEX FROM table_name;
 ```
 
 ## 1.2 DROP Command
-
 DROP is a DDL command used to delete whole structure of a table or database. We can easily remove the entire table, view, or index from the database using this DDL command.
 
 **Drop Database**
@@ -103,7 +97,6 @@ DROP VIEW view_name;
 ```
 
 ## 1.3 ALTER Command
-
 ALTER is a DDL command which changes or modifies the existing structure of the table or database.
 
 We can also add and drop constraints of the table using the ALTER command.
@@ -129,7 +122,6 @@ MODIFY COLUMN column_name datatype;
 ```
 
 ## 1.4 TRUNCATE Command
-
 TRUNCATE is a DDL command which deletes all row like delete, but it has no option to delete specific rows and not rollback function available.
 `This is fast because it does'nt create log file`
 
@@ -142,11 +134,9 @@ TRUNCATE TABLE table_name;
 RENAME is a DDL command which is used to change the name of the database table.
 
 **Rename a Database**
-
 You can't Rename Directly a database in MySql. `But you can copy it in a new Database.`
 
 **How to Copy data from one DB to Another?**
-
 `Step-1`
 Create a new Database.
 `Step-2`
@@ -182,11 +172,9 @@ CHANGE COLUMN t1 t2 datatype;
 - Using DCL command, it allows or restricts the user from accessing data in database schema.
 
 **What is Privilleges?**
-
 Privilage is a permition given by Database Administration. By using privilage we can create/delete own users and give/revoke some permition to him.
 
 **Use MySQL in CMD**
-
 1. Open MySQL->Bin file in CMD.
 2. login user.
 ```
@@ -205,7 +193,6 @@ or
 CREATE USER 'your_username'@'localhost' IDENTIFIED by 'your_password';
 ```
 **Check total user list**
-
 Userlist is store in Mysql.user table
 
 **Drop a User**
@@ -217,8 +204,7 @@ or
 DROP USER 'your_username'@'localhost';
 ```
 
-##2.1 GRANT
-
+## 2.1 GRANT
 GRANT command gives user's access privileges to the database.
 This command allows specified users to perform specific tasks.
 
@@ -251,8 +237,7 @@ GRANT SELECT ON database_name.* TO 'user_name'@'localhost';
 
 **ALL PRIVILEGES:** Grants all privileges for a specific database or table, including the ability to grant or revoke privileges for other users. It's a superuser privilege.
 
-##2.2 REVOKE
-
+## 2.2 REVOKE
 REVOKE command is used to cancel previously granted or denied permissions.
 This command withdraw access privileges given with the GRANT command.
 It takes back permissions from user.
@@ -269,11 +254,9 @@ REVOKE SELECT ON database_name.* TO 'user_name'@'localhost';
 ```
 
 # 3. DML(Data Manipulation Language)
-
 The DML commands in Structured Query Language change the data present in the SQL database. We can easily access, store, modify, update and delete the existing records from the database using DML commands.
 
 ## 3.1 SELECT Command
-
 The SELECT statement is used to select data from a database.
 
 **Select All fields of a table**
@@ -300,8 +283,7 @@ FROM table_name;
 SELECT COUNT(DISTINCT Column_name) FROM table_name;
 ```
 
-##3.2 INSERT Command
-
+## 3.2 INSERT Command
 INSERT is data manipulation command in Structured Query Language, which allows users to insert data in database tables.
 
 **Insert new records in Specific column**
@@ -316,12 +298,10 @@ INSERT INTO table_name
 VALUES (value1, value2, value3, ...);
 ```
 
-##3.3 UPDATE Command
-
+## 3.3 UPDATE Command
 UPDATE is a DML command in Structured Query Language, which allows users to update or modify the existing data in database tables.
 
 **Update Specific row && Multiple Row**
-
 if in where clouse put id=1(unique) it update only one record, if you put not unique(like countary='india') it update many matched row.
 
 ```sql
@@ -338,8 +318,7 @@ SET PostalCode = 00000;
 // it update all PostalCode in costomers table
 ```
 
-##3.4 DELETE Command
-
+## 3.4 DELETE Command
 DELETE is a DML command which allows SQL users to remove single or multiple existing records from the database tables.
 
 **Delete all Record**
@@ -356,23 +335,20 @@ DELETE FROM table_name WHERE condition;
 
 TCL commands is help the user manage the transactions that take place in a database. COMMIT and ROLLBACK Command only apply on UPDATE, DELETE and INSERT commands.
 
-##4.1 COMMIT
-
+## 4.1 COMMIT
 COMMIT is Used to save data. If you run COMMIT command after some changes it can't be ROLLBACK.
 
 ```sql
 COMMIT;
 ```
 
-##4.2 SAVEPOINT
-
+## 4.2 SAVEPOINT
 SAVEPOINT is a special mark inside a transaction that is usefull to rollback by marks.
 
 ```sql
 SAVEPOINT umesh;
 ```
-##4.3 ROLLBACK
-
+## 4.3 ROLLBACK
 ROLLBACK is used to undo all data whose not commited. (Only UPDATE, DELETE and INSERT)
 
 ```sql
