@@ -128,6 +128,7 @@ TRUNCATE is a DDL command which deletes all row like delete, but it has no optio
 ```sql
 TRUNCATE TABLE table_name;
 ```
+If a Column is Auto Increment it start counting from 0 after TRUNCATE. `But in delete it start from last count`
 
 ## 1.5 RENAME Command
 
@@ -325,6 +326,7 @@ DELETE is a DML command which allows SQL users to remove single or multiple exis
 ```sql
 DELETE FROM table_name;
 ```
+If a Column is Auto Increment, it start counting from last count after Delete/Delete all. `But in truncate it start from 0`
 
 **Delete Specific Record**
 ```sql
