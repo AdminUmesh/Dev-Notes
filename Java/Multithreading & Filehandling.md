@@ -68,7 +68,8 @@ class B{
 **What is thread scheduler im multithreading**
 ---------
 
-## Methods in Multithreading
+## Methods in Multithreading 
+**Reference- Learn Codding**
 Sleep()
 join()
 suspend()
@@ -106,3 +107,6 @@ Multitasking is a process of executing multiple tasks simultaneously. We use mul
 1. Threads share the same address space.
 2. A thread is lightweight.
 3. Cost of communication between the thread is low.
+
+# Java File Handling
+[Click](https://www.w3schools.com/java/java_files.asp)
