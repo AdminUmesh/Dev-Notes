@@ -77,3 +77,12 @@ As shown in the above figure, HashMap class extends AbstractMap class and implem
 **11. putAll(Map map)-**	It is used to insert the specified map in the map.
 
 **12. clear()-** It is used to remove all of the mappings from this map.
+
+
+# HashMap Vs HashTable
+- HashMap is non-synchronized. It is not thread-safe and can’t be shared between many threads without proper synchronization code whereas Hashtable is synchronized. 
+
+- It is thread-safe and can be shared with many threads.
+HashMap allows one null key and multiple null values whereas Hashtable doesn’t allow any null key or value.
+
+- HashMap is generally preferred over HashTable if thread synchronization is not needed.
