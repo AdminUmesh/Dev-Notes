@@ -1,6 +1,7 @@
 # <p style="text-align: center;">Async in JavaScript</p>
 *****
 
+JavaScript is a Synchronous, Single thread language. It execute code line by line
 ## Asynchronous JavaScript
 Functions running in parallel with other functions are called asynchronous. `A good example is JavaScript setTimeout()`
 
@@ -78,7 +79,7 @@ clearInterval(myInterval);
 
 
 ## Callback function
-- A callback is a function that passed as an argument to yhe another function
+- A callback is a function that passed as an argument to the another function
 
 - This technique allows a function to call another function
 
@@ -133,7 +134,8 @@ A Promise is a JavaScript object that links producing code and consuming code
 **Why use Promise**
 
 Multiple callback functions would create callback hell that leads to unmanageable code. Promises are used to handle asynchronous operations in JavaScript.
-**Ex-1**
+
+**Syntex**
 ```javaScript
 let myPromise = new Promise(function(myResolve, myReject) {
 // "Producing Code" (May take some time)
@@ -148,6 +150,72 @@ myPromise.then(
   function(error) { /* code if some error */ }
 );
 ```
+
+**Exaple-** 1
+```javaScript
+//Create Promise
+let PromiseOne = new Promise(function(resolve, reject){
+  setTimeout(function(){
+    console.log("Async task is complete");
+    resolve() // it connect .then, if not use resolve() function .then not working
+  },1000)
+})
+
+// "Consuming Code" (Must wait for a fulfilled Promise)
+PromiseOne.then(function(){
+  console.log("Promise Consumed");
+})
+/*Output:
+Async task is complete
+Promise Consumed
+```
+
+**Exaple-** Pass data in resolve parameter
+```javaScript
+let PromiseTwo = new Promise(function(resolve, reject){
+  setTimeout(function(){
+    console.log("Async task is complete");
+    resolve({username:"Umesh", email:"u@gmail.com"}) // you can pass any type of data like object/json/array etc.
+  },1000)
+})
+
+PromiseTwo.then(function(Mydata){
+  console.log(Mydata);
+})
+/*Output:
+{username:"Umesh", email:"u@gmail.com"}
+```
+
+**Exaple-** Use of Myresolve and Myreject & finally
+```javaScript
+let PromiseThree = new Promise(function(Myresolve, Myreject){
+  setTimeout(function(){
+    let val="Umesh";
+    
+    if(val=="Umesh"){
+      Myresolve({username:"Umesh", email:"u@gmail.com"})
+    }else{
+      Myreject("No data");
+    }
+  },1000)
+})
+
+PromiseThree.then((user) =>{
+  return user.username
+}).then((username) =>{
+  consol.log(username);
+})
+// for error handle
+.catch(function(error){
+  console.log(error);
+})
+// .finally is print either promise is resolved or rejected
+.finally(() => console.log("the promise is either resolved or rejected"))
+/*Output:
+Umesh
+the promise is either resolved or rejected
+```
+
 **When the producing code obtains the result, it should call one of the two callbacks:**
 
 | Result |	Call |
@@ -174,33 +242,8 @@ When a Promise object is "rejected", the result is an error object.
 | "fulfilled"	| a result value |
 | "rejected"	| an error object |
 
-**Ex-2**
-```javaScript
-function myDisplayer(some) {
-  document.getElementById("demo").innerHTML = some;
-}
 
-let myPromise = new Promise(function(myResolve, myReject) {
-  let x = 0;
-
-// The producing code (this may take some time)
-
-  if (x == 0) {
-    myResolve("OK");
-  } else {
-    myReject("Error");
-  }
-});
-
-myPromise.then(
-  function(value) {myDisplayer(value);},
-  function(error) {myDisplayer(error);}
-);
-```
-**Promises Reference**
-[Click here](https://www.w3schools.com/js/js_promise.asp)
-
-## Async/Await
+# Async/Await
 "async and await make promises easier to write"
 - async makes a function return a Promise
 - await makes a function wait for a Promise
@@ -215,26 +258,17 @@ async function myFunction() {
 it's same as
 ```javaScript
 function myFunction() {
-  return Promise.resolve("Hello");
+  return MyPromise.resolve("Hello");
 }
 ```
-**Ex-**
-```javaScript
-// use on place of create a promise
-async function myFunction() {
-  return "Hello";
-}
-myFunction().then(
-  function(value) {myDisplayer(value);},
-  function(error) {myDisplayer(error);}
-);
-```
+
 **Await Syntax**
 The await keyword can only be used inside an async function.
 - The await keyword makes the function pause the execution and wait for a resolved promise before it continues:
 ```javaScript
 let value = await promise;
 ```
+
 ```javaScript
 async function myDisplay() {
   let myPromise = new Promise(function(resolve, reject) {
@@ -246,7 +280,62 @@ async function myDisplay() {
 myDisplay();
 ```
 
+**Example-1** (Async and Await)
+```javaScript
+let PromiseThree = new Promise(function(Myresolve, Myreject){
+  setTimeout(function(){
+    let val="Umesh";
+    
+    if(val=="Umesh"){
+      Myresolve({username:"Umesh", email:"u@gmail.com"})
+    }else{
+      Myreject("No data");
+    }
+  },1000)
+})
 
+async function Consume_Function_Name(){
+  // always put in try and catch if resolve and reject both define
+  try{
+    // await must be stored in a variable
+    const response = await PromiseThree
+    console.log(response);
+  }catch(error){
+    console.log(error);
+  }
+}
+// call consume function
+Consume_Function_Name();
+```
+
+**Example-2** (Async and Await using fetch)
+```javaScript
+async function getAllUsers(){
+  try{
+    // await because fetch take some time in fetching
+    const response = await fetch('https://example.com')
+    // await because .json take some time to convert into json formate
+    const data = await response.json()
+    console.log(data);
+  }catch(error){"
+    console.log("E: ", error);
+  }
+}
+getAllUsers();
+```
+
+**Example-3** (Example-2 witn .then and .catch)
+```javaScript
+//in .then() no use of await because .then() complete aur task first then call other function (or .then())
+fetch('https://example.com')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+})
+.catch((error) => console.log(error))
+```
 
 # <p style="text-align: center;">AJAX</p>
 *****
@@ -277,9 +366,7 @@ The XMLHttpRequest object can be used to exchange data with a web server behind 
 **Create XMLHttpRequest Object**
 ```javaScript
 function Ajax() {
-
   const xhttp = new XMLHttpRequest();
-
 }
 ```
 
