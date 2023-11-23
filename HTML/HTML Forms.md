@@ -24,15 +24,17 @@ The **label element** is useful for screen-reader users, because the screen-read
 </form>
 ```
 
-## FORM ATTRIBUTE
-**Action Attribute**
+# FORM ATTRIBUTE
+**1. Action Attribute**
+
 The `action attribute` defines the action to be performed when the form is submitted.
 
 ```html
 <form action="/action_page.php">
 ```
 
-**Target Attribute**
+**2. Target Attribute**
+
 The `target attribute` specifies where to display the response that is received after submitting the form. default value is _self which means that the response will open in the current window.
 
 - **_blank** The response is displayed in a new window or tab
@@ -45,7 +47,8 @@ The `target attribute` specifies where to display the response that is received 
 <form action="/action_page.php" target="_blank">
 ```
 
-**Method Attribute**
+**3. Method Attribute**
+
 The method attribute specifies the HTTP method to be used when submitting the form data. The form-data can be sent as URL variables (with method="get") or as HTTP post transaction (with method="post").
 
 The default HTTP method when submitting form data is GET. 
@@ -54,28 +57,29 @@ The default HTTP method when submitting form data is GET.
 <form action="/action_page.php" method="get/post">
 ```
 
-**Autocomplete Attribute**
+**4. Autocomplete Attribute**
+
 When autocomplete is on, the browser automatically complete values based on values that the user has entered before.
 
 ```html
 <form action="/action_page.php" autocomplete="on">
 ```
 
-**Novalidate Attribute**
+**5. Novalidate Attribute**
+
 When present, it specifies that the form-data (input) should not be validated when submitted. The novalidate attribute is a boolean attribute.
 
-## HTML FORM ELEMENT
+# FORM ELEMENT
 
-**input**
+**input-**
 Used to take input from user. Depending on the type attribute.
 
-**label**
+**label-**
 The `label` tag is used to specify a label for an input element of a form.
 
-**select**  
-The `select` element defines a drop-down list:
+**select-**  The `select` element defines a drop-down list:
 
-**option** 
+**Option-** 
 The `option` elements defines an option that can be selected. By default, the first item in the drop-down list is selected.
 
 ```html
@@ -88,19 +92,19 @@ The `option` elements defines an option that can be selected. By default, the fi
 </select>
 ```
 
-**multiple**
+**Multiple-**
 multiple attribute to allow the user to select more than one value in dropdown list:
 
-**textarea**
+**textarea-**
 The `textarea` element defines a multi-line input field (a text area)
 
-**button**
+**button-**
 The `button` element defines a clickable button:
 
-**fieldset** 
+**fieldset-** 
 The `fieldset` element is used to group related data in a form
 
-**legend**
+**legend-**
 The `legend` element defines a caption for the `fieldset` element.
 
 **datalist**
@@ -160,5 +164,3 @@ Here are the different input types you can use in HTML:
 - width
 - list
 - autocomlete
-
-## HTML INPUT FORM ATTRIBUTES
