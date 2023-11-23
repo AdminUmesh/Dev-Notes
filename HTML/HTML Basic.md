@@ -174,7 +174,6 @@ Following is the list of some non-semantic elements:
    ```
 
 # Most Used
-Sure, I'll address each of your points:
 
 ### Make a Field Required:
 
@@ -238,7 +237,7 @@ You can create an ordered list (`<ol>`) or an unordered list (`<ul>`) with list 
 
 `<span>` is an inline HTML element that is often used to apply styles to a specific portion of text or to group inline elements for styling purposes. It doesn't have any inherent semantic meaning and is typically used in conjunction with CSS.
 
-<p>This is <span style="color: red;">red</span> text.</p>
+This is `red` text
 
 ```html
 <p>This is <span style="color: red;">red</span> text.</p>
