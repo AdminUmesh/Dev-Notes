@@ -272,7 +272,130 @@ public class MyModal
 Name: Umesh
 Roll No: 101
 
-## Recomendation
+# Using JavaScript (Post Method)
+
+ViewToController.cshtml
+```html
+<html>
+    <head>
+
+    </head>
+
+    <body>
+    <form id="formData">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" />
+        </div>
+        <div>
+            <label for="rollNo">Roll No:</label>
+            <input type="text" id="rollNo" name="rollNo" />
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    </body>
+
+    <script>
+    document.getElementById('formData').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var formData = new FormData(this); // Create FormData object with form data
+
+        // AJAX POST request
+        fetch('/Home/SubmitFormData', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                // Handle the response from the server
+                console.log(data); // Log the response for demonstration
+            })
+            .catch(error => console.error('Error:', error));
+    });
+    </script>
+</html>
+```
+
+.cs Page
+```cs
+[HttpPost]
+public IActionResult SubmitFormData(string name, string rollNo)
+{
+    // Process the submitted data (name and rollNo) here
+    // For demonstration purposes, just returning a string response
+    return Content("Data received successfully: Name - " + name + ", Roll No - " + rollNo);
+}
+```
+**Output**
+Name: Umesh
+Roll No: 101
+
+# Using JavaScript (Get Method)
+
+ViewToController.cshtml
+```html
+<html>
+    <head>
+
+    </head>
+
+    <body>
+    <form id="formData">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" />
+    </div>
+    <div>
+        <label for="rollNo">Roll No:</label>
+        <input type="text" id="rollNo" name="rollNo" />
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+    </form>
+    </body>
+
+    <script>
+    document.getElementById('formData').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var name = document.getElementById('name').value;
+    var rollNo = document.getElementById('rollNo').value;
+
+    // Construct the query string
+    var queryString = 'name=' + encodeURIComponent(name) + '&rollNo=' + encodeURIComponent(rollNo);
+
+    // AJAX GET request
+    fetch('/Home/SubmitFormData?' + queryString)
+    .then(response => response.text())
+    .then(data => {
+        // Handle the response from the server
+        console.log(data); // Log the response for demonstration
+    })
+    .catch(error => console.error('Error:', error));
+});
+    </script>
+</html>
+```
+
+.cs Page
+```cs
+[HttpGet]
+public IActionResult SubmitFormData(string name, string rollNo)
+{
+     // Process the submitted data (name and rollNo) here
+     // For demonstration purposes, just returning a string response
+     return Content("Data received successfully: Name - " + name + ", Roll No - " + rollNo);
+}
+```
+**Output**
+Name: Umesh
+Roll No: 101
+
+# Recomendation
 for edit detail and delete visit github CRUD-dotnet repo
 ```html
  @Html.ActionLink("Edit", "Edit", new { item.ID, item.Name, item.Email}, new{@class="btn btn-success"}) 
