@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+    .underlined {
+        /*   background: red; */
+        position: relative;
+    }
+    
+    .underline-clip:after {
+        content: '';
+        position: absolute;
+        top: 95%;
+        width: 150%;
+        aspect-ratio: 3 / 1;
+        left: 50%;
+        transform: translate(-50%, 0);
+        border-radius: 50%;
+        border: 6px solid hsl(226.47deg 100% 17.79%);
+        /* Use a clip-path to hide and show the bits you want */
+        clip-path: polygon(0 0, 50% 50%, 100% 0);
+    }
+</style>
+</head>
+<body>
+
+<h2 class="" style="display: inline-block; vertical-align: middle;"><span class="underlined underline-clip">GST Master</span></h2>
+
+</body>
+</html>
