@@ -180,3 +180,87 @@ if(rowEffect>0){
     Console.WritelLine("Data has been inserted successfully");
 }
 ```
+
+# SqlDataReader Class
+The DataReader object in C# ADO.Net allows you to retrieve data from database in read-only and forward-only mode.
+`it meands you can only read and display data but can't update or delete data. and only you can retrieve data like 1st row then 2nd row. its not possible to retrieve 2nd row to 1st.`
+
+- if you want to make modification in retrieve data you need to use DataAdapter instead of DataREader
+
+```cs
+// SqlCommand(string CmdTextQuery, SqlConnectuon Connection);
+CommandText = "select * from Rms_Dynamic_Rate";
+
+SqlCommand cmd = new SqlCommand(CommandText, con);
+SqlDataReader dr = cmd.ExecuteReader();
+
+     while(dr.read()){
+        Console.WriteLine("MyId= " + dr["Id"] + "Name=" + dr["name"]);
+        //or
+        Console.WriteLine("MyId= {0} Name={1}, dr["Id"],dr["name"]");
+     }
+```
+
+- Object of SqlDataReader cannot be created using new keyword. like `SqlDataReader dr = new SqlDataReader()`
+
+Ex:- You can make it like
+```cs
+SqlDataReader dr = cmd.ExecuteReader(); // this will return SqlDataReader Instance.
+```
+
+- ExecuteReader() method of SqlCommand returns an object of SqlDataReader.
+- SqlDataReader is read-only. it means it not possible to change the data using SqlDataReader
+- you can also need to open and close the connection explicitly. or either use it under using keyword 
+```cs  
+using (SqlDataReader reader = command.ExecuteReader())
+{
+    // it will closed the SqlDataReader connection automatically
+}
+```
+
+
+## Different Data Provider with their respective DataReader Class
+- For SQLClint-->SqlDataReader
+- For OracleClient-->OracleDataReader
+- For OleDb-->OleDbDataReader
+- For Odbc-->OdbcDataReader
+
+## Property of SqlDataReader Class
+
+1. **FieldCount (int)-** return number of columns in the current row.
+
+2. **HasRows (boolean)-** return true if System.Data.SqlClient.SqlDataReader contains one or more rows. else return false.
+
+4. **IsClosed-** it rtrieve the boolean value that indicates whether the specified System.Data.SqlClient.SqlDataReader instance has been closed or not
+
+5. **Item[String]-** it get the value of the specified column in its native formate given the column name.
+
+6. **Item[int32]-** it gets the value of the specified column in its native formate given the column ordinal
+
+## Methods of SqlDataReader Class
+**Read():** it returns true if the System.Data.SqlClient.SqlDataReader has next record. if returns false;
+
+**GetName(int i)** it gets the name of the specified column. Here, Parameter i is the zero-based column ordinal;
+
+**NextResult():** it advances the data reader to the next result when reading the results of batch Transact-SQL statement.
+```cs
+CommandText = "select * from Rms_Dynamic_Rate; select * from Ryms;"; // two queries from diffrent taables
+
+SqlCommand cmd = new SqlCommand(CommandText, con);
+SqlDataReader dr = cmd.ExecuteReader();
+
+    while(dr.read())
+    {
+    Console.WriteLine("{0} {1} {2}", dr[0], dr[1], dr[2]); // retrieve only 1st, 2nd and 3rd columns from 1st query
+    }
+    Console.WriteLine("-------------");
+
+    if(dr.NextResult())
+    {    
+    //check if have any other result in SqlDataReader
+    while(dr.read())
+    {
+       Console.WriteLine("{0} {1} {2}", dr[0], dr[1], dr[2]); // retrieve only 1st, 2nd and 3rd columns from 2ndst query
+    }
+    }
+```
