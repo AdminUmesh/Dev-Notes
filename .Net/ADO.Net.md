@@ -264,3 +264,53 @@ SqlDataReader dr = cmd.ExecuteReader();
     }
     }
 ```
+
+# SqlDataAdapter Class in ADO.Net
+SqlDataAdapter class is found in the System.Data.SqlClient namespace. it works as a bridge between DataSet/DataTable and DataBase. `In SqlDataAdapter there's no need to open and close connection like SqlCommand.`
+
+## 1. Connected Data Access
+1. **SqlDataReader**
+
+## 2. Dis-Connected Data Access
+1. **DataSet**
+
+DataSet Present in System.Data namespace. it store table and relationship and its common for all data provider
+`Database stored table in Hardisk but dataset store table in web-server`
+
+```cs
+// SqlCommand(string CmdTextQuery, SqlConnectuon Connection);
+CommandText = "select * from Rms_Dynamic_Rate";
+SqlConnection con = new SqlConnection(ConnectionStrong);
+SqlDataAdapter sda = new SqlDataAdapter(CommandText, con)
+
+DataSet ds = new DataSet();
+sda.Fill(ds); //fill all sda data into ds and close the connection automatically
+
+foreach(DataRow row in ds.Tables["employee_tb1"]){
+    //if we have two or more table then use ds.Tables["Table_name"]
+}
+
+foreach(DataRow row in ds.Tables[0].Rows){  //Tables[0] it means we want to get the value of 0th index table (if we have only one table)
+    Console.Writeline("{0} {1}", row[0], row[1]);
+}
+```
+
+2. **DataTable**
+
+if we work with single table then we have to work with DataTable for better approach
+```cs
+// SqlCommand(string CmdTextQuery, SqlConnectuon Connection);
+CommandText = "select * from Rms_Dynamic_Rate";
+SqlConnection con = new SqlConnection(ConnectionStrong);
+SqlDataAdapter sda = new SqlDataAdapter(CommandText, con)
+
+DataTable dt = new DataTable();
+sda.Fill(dt); //fill all sda data into ds and close the connection automatically
+
+foreach(DataRow row in dt.Rows){  //Tables[0] it means we want to get the value of 0th index table (if we have only one table)
+    Console.Writeline("{0} {1}", row[0], row[1]);
+}
+```
+**Fill Method of SqlDataAdapter**
+- it opens the connection to the database, executes the SQL command, fills the dataset and data tables with the data, and close the connection.
+-  this method handles the opening and closing connections automatecally for us.
