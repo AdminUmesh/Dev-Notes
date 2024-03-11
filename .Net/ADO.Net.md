@@ -314,3 +314,72 @@ foreach(DataRow row in dt.Rows){  //Tables[0] it means we want to get the value 
 **Fill Method of SqlDataAdapter**
 - it opens the connection to the database, executes the SQL command, fills the dataset and data tables with the data, and close the connection.
 -  this method handles the opening and closing connections automatecally for us.
+
+# DataTable in ADO.Net
+Datatable represents relational data into tabular form.
+DataTable in C# is similar to tables in SQL
+You can also be used with DataSet also
+
+we can create table schema by adding columns and constraints to the table.
+After defining table schema, we can add  rows to the table 
+Datatable is a combination of DataColumn and DataRow
+
+## Properties of DataColumn in ADO.Net
+- Caption
+- DataType
+- AllowDBNull
+- MaxLength
+- PrimaryKey-> Properties of DataTable
+- AutoIncrement
+  1. AutoIncrementSeed-> Starting Value
+  2. AutoIncrementStep-> Increment Value
+
+  ```C#
+  DataTable employees = new DataTable("employees"); // Create a new DataTable
+  DataColumn id = new DataColumn("Id"); // Create a DataColumn named "Id"
+
+  id.Caption = "Emp_id"; // Create a DataColumn named "Id"
+  id.DataType= typeof(int); //or id.DataType =System.Type.GetType("System.Int32");
+  id.AllowDBNull = false; // is Null allowed or not
+  id.AutoIncrement = true; // Enable auto-increment for the column
+  id.AutoIncrementSeed = 10; // Start auto increment from
+  id.AutoIncrementStep = 1;  //increment by 1 means 10,11,12
+   
+  employees.Column.Add(id);// Add the column to the DataTable
+
+  //Step-2 for creaing column
+  DataColumn id = new DataColumn("Id")
+  {
+    Caption = "Emp_id";
+    DataType= typeof(int);
+    AllowDBNull = false;
+  }
+  employees.Column.Add(id);
+  
+  // Adding a Column of String Type
+  DataColumn name = new DataColumn("name");
+  name.Caption = "Emp_Name";
+  name.DataType= typeof(int);
+  name.MaxLength =50; // Max-length of name
+  name.AllowDBNull = false;
+  name.DefaultValue="Umesh"; //Default value of name if input is empty
+  name.Unique=true; // make a column qnique
+
+  employees.Column.Add(name);
+
+  // Create a new DataRow and assign values to it
+  DataRow row1 = employees.NewRow();
+  row["id"]=1; //Assign values to the columns using the column names
+  row["name"]="Male";
+  employees.Rows.Add(row1); // Add the DataRow to the DataTable
+  //or
+  employees.Rows.Add(2, "Anum", "Female"); // Add the DataRow and assign value
+  // Set the primary key for the DataTable
+  employees.PrimaryKey= new DataColumn[] {id}; // Use "id" as the primary key
+
+  foreach (DataRow row in employees.Row)
+  {
+    Console.Writeline(row["id"] + " " + row["name"]);
+  }
+  
+  ```
