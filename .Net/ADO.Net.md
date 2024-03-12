@@ -423,6 +423,6 @@ Datatable is a combination of DataColumn and DataRow
   # DataSet
    `go google or Youtube`
    - **Resouce:-** https://youtu.be/kkoct1QkGRo?si=Dn_uL5AF6FNiVt5x
-  # DataSet vs DataTable
+  # DataSet vs DataReader
   `go google or Youtube`
   - **Resouce:-** https://youtu.be/Sq_cQNz-33Y?si=Lq2nXKQqCA4GVMZa
