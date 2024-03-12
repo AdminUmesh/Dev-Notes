@@ -383,3 +383,46 @@ Datatable is a combination of DataColumn and DataRow
   }
   
   ```
+
+  # Copy() & Clone() Methods of DataTable in ADO.Net
+
+  - **DataTable.Copy()** return a DataTable with the structure and data of the DataTable
+
+  - **DataTable.Clone()** only returns the structure of the DataTable, not the rows or data of the DataTable.
+
+  ```c#
+  DataTable employees = new DataTable("employees");
+  foreach (DataRow row in employees.Row)
+  {
+    Console.Writeline(row["id"] + " " + row["name"]);
+  }
+
+
+  DataTable CopyDataTable = employees.Copy();  // Copy all structure and data of employee table
+  foreach (DataRow row in CopyDataTable.Row)
+  {
+    Console.Writeline(row["id"] + " " + row["name"]); // return same result as employees data table
+  }
+
+
+  DataTable CloneDataTable = employees.Clone();  // Copy only structure not data of employee table
+  if(CloneDataTable.Rows.Count > 0){
+    // this will nevet true because Clone() never store data
+  }else{
+    // Console.WriteLine("Rows Not Found");
+    CloneDataTable.Rows.Add(1, "Umesh");
+    CloneDataTable.Rows.Add(1, "Subham"); // you can add data because your structure is available
+  }
+
+  foreach (DataRow row in CloneDataTable.Row)
+  {
+    Console.Writeline(row["id"] + " " + row["name"]); // return above added result of CloneDataTable
+  }
+  ```
+
+  # DataSet
+   `go google or Youtube`
+   - **Resouce:-** https://youtu.be/kkoct1QkGRo?si=Dn_uL5AF6FNiVt5x
+  # DataSet vs DataTable
+  `go google or Youtube`
+  - **Resouce:-** https://youtu.be/Sq_cQNz-33Y?si=Lq2nXKQqCA4GVMZa
