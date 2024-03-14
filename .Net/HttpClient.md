@@ -99,8 +99,10 @@ public void GellAllItems(){
 
 **Return data in specific format**
 - `header are in the form of key-value pair`
+
+## Get data in JSON / XML
 ```c#
-public void GellAllItems(){
+public void Get_data_in_JSON_XML(){
     HttpClient client = new HttpClient();
     HttpRequestHeaders requestHeaders=  client.DefaultRequestHeaders;
     requestHeaders.add("accept", "application/json"); //for json result
@@ -119,7 +121,127 @@ public void GellAllItems(){
     client.Dispose();
 }        
 ```
-## rewatch #10 video
+
+## Another Way to Change Response data in JSON/XML
+```c#
+public void Another_Way_to_Change_in_json_response(){
+    MediaTypeWithQualityHeaderValue jsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
+    HttpRequestHeaders requestHeaders=  client.DefaultRequestHeaders;
+    HttpClient client = new HttpClient();
+    requestHeaders.accept.add(jsonHeader);
+
+    Task<HttpResponseMessage> Response= client.GetAsync(getUrl);
+    HttpResponseMessage HttpResponseMessage =Response.Result;
+    Console.WriteLine(HttpResponseMessage.ToString());
+
+    //response data
+    HttpContent ResponseContent= HttpResponseMessage.Content;
+    Task<string> responseData =ResponseContent.ReadAsStringAsync(); //to read the content from resourse
+    string data = responseData.result;
+
+    Console.Writeline(data);
+    client.Dispose();
+}        
+```
+
+## Request Using SendAsync()
+```c#
+public void Using_SendAsync(){
+    // SendAsync take parameter as HttpRequestMessage
+    HttpRequestMessage HttpRequestMessage= new HttpRequestMessage();
+    HttpRequestMessage.RequestUri = new Uri(getUrl);
+    HttpRequestMessage.Method = HttpMethod.Get;
+    HttpRequestMessage.Method.Header.Add("accept", "application/json");
+    HttpClient client = new HttpClient();
+    Task<HttpResponseMessage> httpResponse =client.SendAsync(HttpRequestMessage);
+
+    HttpResponseMessage HttpResponseMessage =httpResponse.Result;
+    Console.WriteLine(HttpResponseMessage.ToString());
+
+    //response data
+    HttpContent ResponseContent= HttpResponseMessage.Content;
+    Task<string> responseData =ResponseContent.ReadAsStringAsync(); //to read the content from resourse
+    string data = responseData.result;
+
+    Console.Writeline(data);
+    client.Dispose();
+}        
+```
+
+## use of Using 
+```c#
+public void Using_Statemennt(){
+    // Using syntax close connection automatically
+    using (HttpClint client = new HttpClient())
+    {
+        using(HttpRequestMessage httpRequestMessage = new HttpRequestMessage())
+        {
+          // You don't need httpClient.Dispose();
+        }
+    }
+} 
+```
+
+## Make Request view Model 
+```c#
+public void With_Model(){
+    HttpRequestMessage HttpRequestMessage= new HttpRequestMessage();
+    HttpRequestMessage.RequestUri = new Uri(getUrl);
+    HttpRequestMessage.Method = HttpMethod.Get;
+    HttpRequestMessage.Method.Header.Add("accept", "application/json");
+    HttpClient client = new HttpClient();
+    Task<HttpResponseMessage> httpResponse =client.SendAsync(HttpRequestMessage);
+
+    HttpResponseMessage HttpResponseMessage =httpResponse.Result;
+    
+    HttpContent ResponseContent= HttpResponseMessage.Content;
+    Task<string> responseData =ResponseContent.ReadAsStringAsync();
+    string data = responseData.result;
+     
+    // get response here using Model
+    RestResponse restResponse = new RestResponse((int)StatusCode, ResponseData.Rusult);
+}     
+
+public class RestResponse
+{
+    private int StatusCode;
+    private string responseData;
+
+    public restResponse(int StatusCode, string responseData)
+    {
+        this.StatusCode = StatusCode;
+        this.responseData = responseData;
+    }
+
+    public int StatusCode
+    {
+        get
+        {
+            return StatusCode;
+        }
+    }
+
+    public int responseData
+    {
+        get
+        {
+            return responseData;
+        }
+    }
+
+    public override string ToString(){
+        return String.Format("StatsCode : {0} ResponseData: {1}", StatusCode, responseData);
+    }
+}
+```
+
+# Serialization / Deserialization
+
+- Serialization, it's a process of converting the state of object to byte stream
+
+- Deserialization, it's a process of retriving the object from the byte stream
+
+# Future Work
 PutAsync
 
 PostAsync
