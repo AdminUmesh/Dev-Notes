@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Add border to the table */
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    /* Add border to table header */
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    /* Alternate row background color */
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Roll No</th>
+      <th>Section</th>
+    </tr>
+  </thead>
+  <tbody id="categories">
+  </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    var list = [
+      {"name": "umesh", "Roll No": "005", "Section": "03"},
+      {"name": "Raja", "Roll No": "006", "Section": "03"},
+      {"name": "Ramesh", "Roll No": "007", "Section": "02"}
+    ];
+
+    // Iterate over each object in the list and append a new row for each object
+    $.each(list, function(index, item) {
+    debugger;
+      var newRow = '<tr><td>' + item.name + '</td><td>' + item["Roll No"] + '</td>';
+      if (index === 0) {
+        newRow += '<td rowspan="' + list.length + '">' + item.Section + '</td>';
+      }
+      newRow += '</tr>';
+      $('#categories').append(newRow);
+    });
+});
+</script>
+</body>
+</html>
