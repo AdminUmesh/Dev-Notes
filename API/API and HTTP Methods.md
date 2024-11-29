@@ -28,10 +28,14 @@ A specification for defining APIs, which includes a suite of tools for generatin
 
 The following HTTP methods are most commonly used in a REST based architecture.
 
-- **GET −** Provides a read only access to a resource.
-- **PUT −** Used to create a new resource.
+- **GET −** Retrieve data from a server.
+- **POST −** Send data to a server to create a new resource. 
+- **PUT −** Update an existing resource or create it if it doesn’t exist.
+- **PATCH −** The PATCH method is used to make partial updates to a resource. Unlike PUT, which replaces the entire resource 
 - **DELETE −** Used to remove a resource.
-- **POST −** Used to update an existing resource or create a new resource. 
+- **HEAD −** The HEAD method is used to retrieve the headers of a resource without fetching the body content. It is identical to a GET request, but it doesn't return the response body (i.e., no content). This can be useful when you only need metadata (such as content type, length, or last modified date) without downloading the entire resource.
+- **OPTIONS −** Often used in scenarios where a client needs to know what actions (HTTP methods such as GET, POST, PUT, DELETE) are allowed on a particular resource or server. 
+- **TRACE −** The TRACE method is used to echo back the received request, allowing the client to see what is being received by the server.
 
 ## GET:
 
