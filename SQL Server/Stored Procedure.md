@@ -19,8 +19,6 @@ A Stored Procedure (SP) in is a precompiled collection of one or more SQL statem
 # Create a Stored Procedure
 **Syntax:**
 ```SQL
-sql
-Copy code
 CREATE PROCEDURE ProcedureName
 AS
 BEGIN
