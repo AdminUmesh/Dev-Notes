@@ -175,3 +175,38 @@ namespace CSATSU_RMS.Controllers
     }
 }
 ``` 
+
+# Stored Procedure vs SQL function
+Both stored procedures and functions are used in database management systems (DBMS) to encapsulate SQL queries and logic, but they have some key differences:
+
+## Purpose and Usage
+**Stored Procedure:**
+- A stored procedure is typically used to perform operations that do not return values. It can perform actions like inserting, updating, or deleting data in the database.
+
+**Function:**
+- A function is primarily used to perform a calculation or return a single value.
+`Functions are often used when a return value is needed and can be used in SQL queries directly, like in SELECT statements.`
+
+## Side Effects
+**Stored Procedure:**
+- A stored procedure can have effects on the database, such as modifying data (INSERT, UPDATE, DELETE) or performing administrative tasks (e.g., creating tables, managing permissions).
+
+**Function:**
+- Functions are not supposed to modify the database state (i.e., no INSERT, UPDATE, or DELETE operations should occur in a function).
+It only returns a value and does not directly affect the database.
+
+## Return Value
+**Stored Procedure:**
+- A stored procedure does not always return a value. It can return multiple results (e.g., a result set), but it typically does not return a single value.
+If needed, a stored procedure can return a status or an output parameter, but this is not mandatory.
+
+**Function:**
+A function always returns a value, and it can only return a single value of a specific data type (e.g., INTEGER, VARCHAR, etc.).
+Functions can be used directly in SQL queries to return results, like in a SELECT statement.
+
+## Error Handling && Transaction Control
+**Stored Procedure:**
+- Stored procedures often include more complex error handling and transaction control (e.g., using BEGIN, COMMIT, ROLLBACK).
+
+**Function:**
+- Functions are generally simpler in terms of error handling and do not usually involve complex transaction management.
