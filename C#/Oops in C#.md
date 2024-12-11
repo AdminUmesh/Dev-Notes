@@ -127,6 +127,7 @@ public class A {
         a = 10;
         b = "Learn Coding";
         Console.WriteLine($"{a} {b}");
+        //Output: 10 Learn Coding
     }
 
     // Copy constructor
@@ -134,6 +135,7 @@ public class A {
         a = refObj.a;
         b = refObj.b;
         Console.WriteLine($"{a} {b}");
+        //Output: 10 Learn Coding
     }
 }
 
@@ -145,8 +147,39 @@ class B {
 }
 ```
 
-**Constructor Overloading:**
-When we have more than one constructor in our class, it's called constructor overloading.
+**4. Private Constructor**
+ It is possible to make a constructor private in C# using private keyword before constructor name. `it helps us avoid to acceess constructor contains in other class.`
+
+- We can't make object of a private constructor in other class. (which means objects of the class cannot be created directly from outside the class.)
+```C#
+public class MyClass
+{
+    // Private constructor
+    private MyClass()
+    {
+        // Constructor logic
+        Console.WriteLine("Private constructor called");
+    }
+
+    // Static method to create an instance
+    public static MyClass CreateInstance()
+    {
+        return new MyClass();
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // MyClass obj = new MyClass(); // This will cause a compilation error
+        MyClass obj = MyClass.CreateInstance(); // Correct way to create an instance
+    }
+}
+```
+
+### Constructor Overloading:
+When we have more than one constructor in our class, it's called constructor overloading. (With different parameters)
 
 ```csharp
 public class ConstructorOverloading {
@@ -181,7 +214,7 @@ Inheritance allows one class to acquire the properties and methods of another cl
 - Method overriding is only possible through inheritance.
 
 1. **Single Inheritance**
-
+Single inheritance support only one supper and one sub class
 ```csharp
 public class Super {
     public void Print() {
@@ -197,6 +230,7 @@ public class Sub : Super {
 ```
 
 2. **Multilevel Inheritance**
+In this type of inheritance, we will have more than 2 classes and a parent class will be inherited by a child class then that child class will be inherited by the another child class.
 ```csharp
 public class Super {
     public void Print() {
@@ -218,6 +252,7 @@ public class Sub2 : Sub1 {
 ```
 
 3. **Hierarchical Inheritance**
+ In this type of inheritance, a parent class is direct inherited by more than one child class.
 ```csharp
 public class Super {
     public void Print() {
@@ -238,10 +273,29 @@ public class Sub2 : Super {
 }
 ```
 
-4. **Multiple Inheritance:** C# does not support multiple inheritance directly. However, it supports multiple inheritance through interfaces.
+4. **Multiple Inheritance:**
+C# does not support multiple inheritance directly. However, it supports multiple inheritance through interfaces.
+```c#
+class A
+{
+    public void Display() { Console.WriteLine("A Display"); }
+}
+
+class B
+{
+    public void Display() { Console.WriteLine("B Display"); }
+}
+
+class C : A, B  // Error: Cannot have multiple base classes
+{
+}
+// this is not possible in C#
+```
+## Why C# does not support multiple inheritance?
+When a class inherits from multiple classes, there may be methods with the same name in both base classes. This leads to ambiguity—it's unclear which method should be called. For example:
 
 ## Abstract Classes
-An abstract class is a restricted class that can't be instantiated directly. It must be inherited by another class.
+Abstract class is a restricted (Secure) class that can't be used to create object/instance. to access it, it must be inherited from another class
 
 - An abstract class is declared using the abstract keyword.
 - It may or may not contain abstract methods.
@@ -268,10 +322,28 @@ class Base {
     }
 }
 ```
+**Real life use:** Let's in a university application we make a class in which we declare fee report of all student, and we want only authorised person can see the fee detail Then we must have to make this class abstract. So that developer can't call directlly via make a object of this class.
+
+## Abstract Method in C#:
+- An abstract method is a method that is declared using the abstract keyword. It does not have a body (implementation). The body of the abstract method must be provided in the derived class.
+
+- Abstract methods can only be declared within abstract classes.
+
+- The derived class that inherits from the abstract class must provide an implementation for the abstract method unless the derived class is also abstract. If the derived class does not override the abstract method, it will also become an abstract class.
+
+```c#
+public abstract class Animal
+{
+    // Abstract method: No implementation in the base class
+    public abstract void MakeSound();
+}
+```
 
 ## Interface
 An interface in C# is similar to a class but only contains abstract methods. `interfaces are used.To achieve abstraction in C#`
 
+- An interface class is declared using the interface keyword.
+- To achieve interface implementation in C#, use the : syntex.
 - Interface methods are implicitly public and abstract.
 - Interface variables are public, static, and readonly by default.
 
@@ -299,10 +371,17 @@ class MainClass {
     }
 }
 ```
+**Why and when we use Interface?**
+1. **To Achieve Security -** An interface allows you to hide certain implementation details and expose only the essential methods and properties. This helps in encapsulating the logic, making the system more secure and easier to maintain.
+
+2. **To Achieve Multiple Inheritance -** C# does not support multiple inheritance (i.e., a class cannot inherit from multiple classes). However, you can implement multiple interfaces in a class. This allows you to inherit functionality from multiple sources without the complexities of multiple inheritance. Note: To implement multiple interfaces in C#, separate them with a comma (see example below).
 
 ## Static Methods and Properties
-Static methods and properties are declared with the static keyword.
-`Static methods can be called directly without creating an instance of the class.`
+- Declared with the **static** keyword:
+
+- Static methods can be called directly - without creating an instance of the class first.
+
+- We can apply static keyword with variables, methods, properties, constructors (static constructors), and nested classes.
 
 ```csharp
 class Adder {
@@ -315,7 +394,7 @@ class Adder {
     }
 }
 
-class Test {
+class TestOverloading {
     public static void Main(string[] args) {
         Console.WriteLine(Adder.Add(11, 11));
         Console.WriteLine(Adder.Add(11, 11, 11));
@@ -323,8 +402,24 @@ class Test {
 }
 ```
 
+## ITERABLE or ITERATOR in C#:
+An iterable is any object that can be looped through using a foreach loop.
+
+- Iterators are used in the .NET collection framework to retrieve elements one by one.
+```csharp
+foreach (var item in customDataStructure) {
+    // do stuff
+}
+```
+`In C#, the foreach loop is used to iterate over collections that implement the IEnumerable interface, which makes them` iterable.
+
 ## Encapsulation
-Encapsulation is the mechanism that binds the data and methods together in a single unit. `It also restricts direct access to the object's data.`
+Encapsulation is the mechanism that binds the data and methods together in a single unit. `It also restricts direct access to the object's data by other class.`
+
+Encapsulation allows access to private variables indirectly by providing controlled access through public methods (also called getters and setters) or properties. This means that the private variables themselves cannot be accessed directly from outside the class, but their values can be accessed or modified using public methods or properties.
+
+- Declare the class varieble as privet.
+- Declare the class method as public
 
 ```csharp
 class Welcome {
@@ -348,10 +443,23 @@ class MainClass {
     }
 }
 ```
+
+### Advantages of Encapsulation:
+**Data Hiding:** The balance field is private, and cannot be accessed directly outside the BankAccount class.
+
+**Control:** The Deposit and Withdraw methods control how money can be added or subtracted from the account, preventing invalid operations (like withdrawing more than the balance).
+
+**Security:** The balance cannot be tampered with directly, and only the controlled public methods can alter it.
+
+### Conclusion:
+Encapsulation improves data security, code maintainability, and reduces complexity. It allows you to safeguard data integrity, enforce business rules, and provide a clear interface for interacting with the class.
+
 ## Polymorphism
-Polymorphism allows methods to have different behaviors based on their arguments.
+Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. 
 
 **Compile-time Polymorphism (Method Overloading)**
+A polymorphism which is exists at the time of compilation is called **`compile time`** or **`early binding`** or **`static polymorphism`**.
+
 ```csharp
 public class Sum {
     public int Sum(int x, int y) {
@@ -376,6 +484,8 @@ public class Sum {
 ```
 
 **Run-time Polymorphism (Method Overriding)**
+A polymorphism which is exists at run time is called **`run time`** or **`late binding`** or **`dynamic polymorphism`**.
+
 ```csharp
 public class Super {
     public virtual void Print() {
@@ -398,27 +508,203 @@ class MainClass {
 ```
 
 ## Abstraction
-Abstraction is the process of hiding certain details and showing only the essential information.
+Data abstraction is the process of hiding certain details and showing only essential information to the user.
+`Abstraction can be achieved with either abstract classes or interfaces`
 
 ```csharp
-abstract class Animal {
+using System;
+
+// Abstract class Animal
+public abstract class Animal
+{
+    // Abstract method (does not have a body)
     public abstract void AnimalSound();
-    public void Sleep() {
+
+    // Regular method (with implementation)
+    public void Sleep()
+    {
         Console.WriteLine("Zzz");
     }
 }
 
-class Pig : Animal {
-    public override void AnimalSound() {
+// Subclass (inherit from Animal)
+public class Pig : Animal
+{
+    // Implementing the abstract method
+    public override void AnimalSound()
+    {
+        // The body of AnimalSound() is provided here
         Console.WriteLine("The pig says: wee wee");
     }
 }
 
-class MainClass {
-    public static void Main(string[] args) {
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create a Pig object
         Pig myPig = new Pig();
+        
+        // Call the overridden method
         myPig.AnimalSound();
+        
+        // Call the inherited method
         myPig.Sleep();
     }
 }
 ```
+
+# Binding in C#
+Binding in C# refers to the process of connecting a method call to the method body. 
+
+**In C#, there are two types of binding:**
+
+### 1. Static Binding (Early Binding)
+Static binding occurs when the method call is resolved at compile time by the compiler. This is also known as early binding.
+
+**Characteristics:**
+- Occurs at compile time.
+- Used for method overloading and static methods.
+- Commonly used with private, static, and final (in C# it's sealed) methods.
+
+```csharp
+// Example of Static Binding:
+class Example
+{
+    private static void Display()
+    {
+        Console.WriteLine("Static Binding Example");
+    }
+
+    public static void Main(string[] args)
+    {
+        Display(); // Static method call resolved at compile time
+    }
+}
+```
+**Key Points:**
+
+- The compiler resolves the method call during the compilation process.
+- C# resolves method overloading statically, i.e., the compiler decides which method to call based on the method signature.
+
+### 2. Dynamic Binding (Late Binding)
+Dynamic binding occurs when the method call is resolved at runtime by the JIT compiler. This is known as late binding.
+
+**Characteristics:**
+- Occurs at runtime.
+- Used with method overriding.
+- Allows runtime polymorphism.
+
+```csharp
+// Example of Dynamic Binding:
+using System;
+
+class Animal
+{
+    public virtual void Sound()
+    {
+        Console.WriteLine("Animal Sound");
+    }
+}
+
+class Dog : Animal
+{
+    public override void Sound() // Method overriding
+    {
+        Console.WriteLine("Dog Bark");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Animal myAnimal = new Dog();
+        myAnimal.Sound(); // Dynamic Binding at runtime
+    }
+}
+```
+**Key Points:**
+
+- The method call is resolved during runtime based on the actual object type.
+- C# uses the virtual and override keywords to enable dynamic binding.
+
+# Call by Value vs. Call by Reference in C#
+
+## 1. Call by Value
+In Call by Value, a copy of the actual parameter's value is passed to the method. Modifications made to the parameter inside the method do not affect the original argument.
+
+**Characteristics:**
+- A copy of the value is passed.
+- Changes made to the parameter inside the method do not reflect in the caller's variable.
+- Used for value types (e.g., int, float, double, etc.).
+
+```csharp
+//Example of Call by Value in C#:
+using System;
+
+class Program
+{
+    static void ChangeValue(int num)
+    {
+        num = num + 100; // Modifies local copy
+    }
+
+    static void Main(string[] args)
+    {
+        int value = 50;
+        Console.WriteLine("Before change: " + value);
+        ChangeValue(value);
+        Console.WriteLine("After change: " + value); // No change
+    }
+}
+```
+**Output:**
+```mathematica
+Before change: 50
+After change: 50
+```
+
+
+## 2. Call by Reference
+In Call by Reference, the method receives a reference (or memory address) to the argument, which means any changes made to the parameter inside the method will affect the original argument.
+
+**Characteristics:**
+- The reference (memory address) is passed.
+- Changes made to the parameter will affect the original argument.
+- Used for reference types (e.g., objects, arrays).
+- In C#, Call by Reference is implemented using the ref or out keyword.
+
+```csharp
+// Example of Call by Reference in C#:
+using System;
+
+class Program
+{
+    static void ChangeReference(ref int num)
+    {
+        num = num + 100; // Modifies the original variable
+    }
+
+    static void Main(string[] args)
+    {
+        int value = 50;
+        Console.WriteLine("Before change: " + value);
+        ChangeReference(ref value);
+        Console.WriteLine("After change: " + value); // Changes reflected
+    }
+}
+```
+**Output:**
+```mathematica
+Before change: 50
+After change: 150
+```
+
+### Important Notes in C#:
+
+- C# does not support Call by Reference directly for primitive data types like int, float, etc., but references to objects are inherently passed by reference.
+
+- To use Call by Reference, C# requires explicit use of the ref or out keywords.
+
+- Call by Value is the default for all value types (primitive types) in C#.
