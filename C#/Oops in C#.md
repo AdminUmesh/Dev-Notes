@@ -460,6 +460,8 @@ Polymorphism is a concept in which a class containg more than one method with th
 **Compile-time Polymorphism (Method Overloading)**
 A polymorphism which is exists at the time of compilation is called **`compile time`** or **`early binding`** or **`static polymorphism`**.
 
+- **Method Overloading:-** Whenever a class contain more than one method with same name and different types of parameters called method overloading.
+
 ```csharp
 public class Sum {
     public int Sum(int x, int y) {
@@ -486,6 +488,7 @@ public class Sum {
 **Run-time Polymorphism (Method Overriding)**
 A polymorphism which is exists at run time is called **`run time`** or **`late binding`** or **`dynamic polymorphism`**.
 
+- **Method Overriding-** Whenever we writting method in super and sub classes in such a way thats method name and parameter must be same called method overiding.
 ```csharp
 public class Super {
     public virtual void Print() {
