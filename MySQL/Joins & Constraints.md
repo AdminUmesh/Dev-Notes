@@ -258,6 +258,7 @@ CREATE TABLE Orders (
     FOREIGN KEY (PersonID) REFERENCES table_name(column_name)
 );
 ```
+
 **2. Using ALTER TABLE Statement**
 ```sql
 ALTER TABLE Orders
@@ -270,6 +271,51 @@ ALTER TABLE table_name
 DROP FOREIGN KEY constraint_name;
 ```
 **constraint_name:** It specifies the name of the foreign key constraint. If we have not provided the constraint name, MySQL generates its name automatically.
+
+### Example:
+Consider two tables: `orders` and `customers`. Each order is placed by a customer, so the orders table needs to reference the customers table.
+
+`customers` **Table (Parent Table):**
+```sql
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    email VARCHAR(100)
+);
+```
+
+`orders` **Table (Child Table):**
+```sql
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    order_date DATE,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+```
+
+- `customer_id` is the foreign key in the `orders` table.
+- `customer_id` in the `orders` table references the `customer_id` in the `customers` table (which is the **primary key** of the `customers` table).
+- This means every record in the `orders` table must correspond to an existing `customer` in the customers table.
+
+### Behavior of Foreign Keys:
+**Insertion:** You cannot insert an order into the table unless the you are inserting already exists in the table.`orders` `customer_id` `customers`
+
+For example:
+```sql
+INSERT INTO customers (customer_id, customer_name) VALUES (1, 'John Doe');
+INSERT INTO orders (order_id, order_date, customer_id) VALUES (101, '2024-12-01', 1);
+-- This is valid because customer_id = 1 exists in the customers table.
+```
+**Deletion:** If you try to delete a row from the `customers` table that is being referenced in the `orders` table, you will get an error unless you handle this case using **cascade options** like **ON DELETE CASCADE**.
+
+For example:
+```sql
+DELETE FROM customers WHERE customer_id = 1;
+-- This will fail if there are orders linked to this customer, unless you define cascading behavior.
+```
+
+**Update:** You cannot update a foreign key value in the child table (`orders`) to a value that doesn’t exist in the parent table (`customers`).
 
 ## 4. Composite Key
 A composite key in MySQL is a combination of two or more than two columns in a table that allows us to identify each row of the table uniquely. `Whenever a primary key consist of more than one attribute is known as composite key.`
