@@ -457,7 +457,7 @@ Encapsulation improves data security, code maintainability, and reduces complexi
 ## Polymorphism
 Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. 
 
-**Compile-time Polymorphism (Method Overloading)**
+**Compile-time Polymorphism (Method Overloading)(Static Polymorphism)**
 A polymorphism which is exists at the time of compilation is called **`compile time`** or **`early binding`** or **`static polymorphism`**.
 
 - **Method Overloading:-** Whenever a class contain more than one method with same name and different types of parameters called method overloading.
@@ -485,7 +485,7 @@ public class Sum {
 }
 ```
 
-**Run-time Polymorphism (Method Overriding)**
+**Run-time Polymorphism (Method Overriding)(Dynamic Dispatch)(Dynamic Polymorphism)**
 A polymorphism which is exists at run time is called **`run time`** or **`late binding`** or **`dynamic polymorphism`**.
 
 - **Method Overriding-** Whenever we writting method in super and sub classes in such a way thats method name and parameter must be same called method overiding.
@@ -508,6 +508,97 @@ class MainClass {
         obj.Print();
     }
 }
+```
+**Declaring an Object Superclass Type and Creating an Instance of Subclass**
+```c#
+Super obj = new Sub();
+obj.Print(); // Output: "Sub class"
+
+//if you make Object type as super class you can call super or sub class both
+```
+
+**Declaring an Object Superclass Type and Creating an Instance of Superclass**
+```c#
+Super obj = new Super();
+obj.Print(); // Output: "Super class"
+
+//if you make Object type as super class you can call super or sub class both
+```
+
+**Declaring an Object Subclass Type and Creating an Instance of Subclass**
+```c#
+Sub obj = new Sub();
+obj.Print(); // Output: "Sub class"
+
+//if you make Object type as Sub class you can only call sub class method
+```
+
+**Declaring an Object Subclass Type and Creating an Instance of Superclass**
+```C#
+Sub obj = new Super();
+obj.Print(); 
+//error CS0266: Cannot implicitly convert type 'Super' to 'Sub'. An explicit conversion exists (are you missing a cast?)
+
+//if you make Object type as Sub class you can only call sub class method
+```
+**Call Super Class using sub class**
+You can explicitly call the method of the superclass from the subclass using the `base` keyword.
+```csharp
+public class Super {
+    public virtual void Print() {
+        Console.WriteLine("Super class");
+    }
+}
+
+public class Sub : Super
+{
+    public override void Print()
+    {
+        Console.WriteLine("Sub class");
+        base.Print(); // Call the Super class method
+    }
+}
+
+class MainClass {
+    public static void Main(string[] args) {
+        Super obj = new Sub();
+        obj.Print();
+    }
+}
+
+//output
+//Sub class
+//Super class
+```
+
+**Call super class with object and instance of Sub Class**
+```c#
+public class Super {
+    public virtual void Print() {
+        Console.WriteLine("Super class");
+    }
+}
+
+public class Sub : Super {
+    public override void Print() {
+        Console.WriteLine("Sub class");
+        // base.Print(); // This calls the Super class method inside Sub.
+    }
+}
+
+class MainClass {
+    public static void Main(string[] args) {
+        Sub obj = new Sub();  // Instantiate Sub class
+
+        // Call the Super class Print method directly
+        ((Super)obj).Print();  // Cast to Super and call Print
+
+        // Alternatively, the following would call the Sub's overridden method:
+        // obj.Print(); 
+    }
+}
+//Output
+//Super class
 ```
 
 ## Abstraction
