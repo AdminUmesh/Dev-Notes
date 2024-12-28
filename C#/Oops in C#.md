@@ -340,12 +340,13 @@ public abstract class Animal
 ```
 
 ## Interface
-An interface in C# is similar to a class but only contains abstract methods. `interfaces are used.To achieve abstraction in C#`
+An interface in C# is similar to a class but  implicitly  contains abstract methods(This means that the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
 
 - An interface class is declared using the interface keyword.
 - To achieve interface implementation in C#, use the : syntex.
 - Interface methods are implicitly public and abstract.
 - Interface variables are public, static, and readonly by default.
+- If a class implements an interface, it must provide implementations for all the methods defined in that interface.
 
 ```csharp
 interface IAnimal {
@@ -375,6 +376,126 @@ class MainClass {
 1. **To Achieve Security -** An interface allows you to hide certain implementation details and expose only the essential methods and properties. This helps in encapsulating the logic, making the system more secure and easier to maintain.
 
 2. **To Achieve Multiple Inheritance -** C# does not support multiple inheritance (i.e., a class cannot inherit from multiple classes). However, you can implement multiple interfaces in a class. This allows you to inherit functionality from multiple sources without the complexities of multiple inheritance. Note: To implement multiple interfaces in C#, separate them with a comma (see example below).
+
+**Example and Clearification**
+```C#
+// Example of Class
+public class Truck 
+{
+    public void Start()
+    {
+        Console.WriteLine("Truck engine is starting...");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Truck engine is stopping...");
+    }
+}
+
+public class Car
+{
+    public void Start()
+    {
+        Console.WriteLine("Car engine is starting...");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Car engine is stopping...");
+    }
+}
+
+public class MainClass
+{
+    public static void Main(string[] args)
+    {
+        Truck truck = new Truck();
+        truck.Start();
+        truck.Stop();
+
+        Car car = new Car();
+        car.Start();
+        car.Stop();
+    }
+}
+```
+```C#
+// Example of Interface
+public interface IEngine
+{
+    void Start();
+    void Stop();
+}
+
+public class Truck : IEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Truck engine is starting...");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Truck engine is stopping...");
+    }
+}
+
+public class Car : IEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Car engine is starting...");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Car engine is stopping...");
+    }
+}
+
+public class Bus : IEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Bus engine is starting...");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Bus engine is stopping...");
+    }
+}
+
+public class MainClass
+{
+    public static void Main(string[] args)
+    {
+        IEngine vehicle;
+
+        vehicle = new Truck();
+        vehicle.Start();
+        vehicle.Stop();
+
+        vehicle = new Car();
+        vehicle.Start();
+        vehicle.Stop();
+
+        vehicle = new Bus();
+        vehicle.Start();
+        vehicle.Stop();
+    }
+}
+```
+### Interface Key Point
+**Decoupling Code**
+Interfaces allow you to define functionality without tying your code to a specific implementation, which supports loose coupling and flexibility (e.g., using dependency injection).
+
+**Multiple Inheritance**
+A class can implement multiple interfaces, which is useful because C# does not support multiple inheritance of classes.
+
+**access modifiers**
+Where  a Class have access modifiers (public, private, etc.). But interface are public by default, cannot have access modifiers.
 
 ## Static Methods and Properties
 - Declared with the **static** keyword:
