@@ -7,6 +7,9 @@ OOP (Object-Oriented Programming) is a way of programming that helps us to make 
 3. Easier to debug
 4. Securely protects sensitive information through encapsulation
 
+**What makes C# Object-Oriented**
+C# is a programming language that follows the principles of object-oriented programming (OOP), including concepts like inheritance, polymorphism, encapsulation, and abstraction.
+
 ## Classes
 A class is a template for objects, and an object is an instance of a class.
 
@@ -74,9 +77,124 @@ Properties and methods can have access modifiers that control where they can be 
 **There are four access modifiers:**
 
 1. **public:** The access level of a public modifier is everywhere. It can be accessed from within the class, outside the class, within the package, and outside the package.
-2. **protected:** The access level of a protected modifier is within the package and outside the package through a derived class.
+2. **protected:** The access level of a protected modifier is within the package/Class and outside the package/Class through a derived class.
 3. **private:** The property or method can only be accessed within the class.
 4. **internal:** The access level of an internal modifier is only within the assembly. It cannot be accessed from outside the assembly.
+
+**Protected Example:-1**
+```C#
+using System;
+
+namespace MyNamespace
+{
+    // Base class with a protected member
+    public class Animal
+    {
+        // Protected member
+        protected string name;
+
+        public Animal(string name)
+        {
+            this.name = name;
+        }
+    }
+
+    // Another class in the same namespace but not inherited
+    public class AnotherClass
+    {
+        public void DisplayInfo()
+        {
+            Animal animal = new Animal("Lion");
+
+            // Error: Cannot access 'name' because it is protected
+            // Console.WriteLine(animal.name); // This line will cause a compilation error
+        }
+    }
+
+    // Derived class in the same namespace
+    public class Dog : Animal
+    {
+        public Dog(string name) : base(name) { }
+
+        public void DisplayDogInfo()
+        {
+            // Accessing the protected member 'name' from the base class
+            Console.WriteLine("Dog's Name: " + name);  // This is valid
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            // Creating an instance of the derived class Dog
+            Dog dog = new Dog("Buddy");
+            dog.DisplayDogInfo();  // Output: Dog's Name: Buddy
+
+            // The following line would result in an error in AnotherClass
+            // AnotherClass anotherClass = new AnotherClass();
+            // anotherClass.DisplayInfo();  // Error: 'name' is inaccessible due to its protection level
+        }
+    }
+}
+```
+**Protected Example:-2**
+```C#
+using System;
+
+namespace BaseNamespace
+{
+    // Base class with a protected member
+    public class Animal
+    {
+        // Protected member
+        protected string name;
+
+        public Animal(string name)
+        {
+            this.name = name;
+        }
+
+        // A method to show the name of the animal
+        public void ShowInfo()
+        {
+            Console.WriteLine("Animal Name: " + name);
+        }
+    }
+}
+
+namespace DerivedNamespace
+{
+    // Derived class in a different namespace
+    public class Dog : BaseNamespace.Animal
+    {
+        public Dog(string name) : base(name)
+        {
+        }
+
+        public void DisplayDogInfo()
+        {
+            // Accessing the protected member 'name' from the base class
+            Console.WriteLine("Dog's Name: " + name);
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Creating an instance of the Dog class
+        DerivedNamespace.Dog dog = new DerivedNamespace.Dog("Buddy");
+
+        // Accessing the 'name' property through the derived class method
+        dog.DisplayDogInfo();  // Output: Dog's Name: Buddy
+
+        // The following line would result in an error because 'name' is protected
+        // Console.WriteLine(dog.name);  // Error: 'name' is inaccessible due to its protection level
+    }
+}
+```
 
 ## Constructor
 **Define Constructor:**
@@ -216,17 +334,37 @@ Inheritance allows one class to acquire the properties and methods of another cl
 1. **Single Inheritance**
 Single inheritance support only one supper and one sub class
 ```csharp
-public class Super {
-    public void Print() {
+using System;
+
+public class Super
+{
+    public void Print()
+    {
         Console.WriteLine("This is the superclass");
     }
 }
 
-public class Sub : Super {
-    public void Display() {
+public class Sub : Super
+{
+    public void Display()
+    {
         Console.WriteLine("This is the subclass");
     }
 }
+
+class Program
+{
+    static void Main()
+    {
+        // Create an instance of the Sub class
+        Sub sub = new Sub();
+
+        // Call both the Print method from the superclass and the Display method from the subclass
+        sub.Print();    // Calling the Print() method from the Super class
+        sub.Display();  // Calling the Display() method from the Sub class
+    }
+}
+
 ```
 
 2. **Multilevel Inheritance**
@@ -299,14 +437,23 @@ Abstract class is a restricted (Secure) class that can't be used to create objec
 
 - An abstract class is declared using the abstract keyword.
 - It may or may not contain abstract methods.
-- If a class contains at least one abstract method, it must be declared as abstract.
+- If a class contains at least one abstract method, it must be declared as abstract class.
 
 ```csharp
+using System;
+
 abstract class Sunstar {
+    // Abstract method
     public abstract void PrintInfo();
+
+    // Non-abstract method (with default implementation)
+    public void PrintMessage() {
+        Console.WriteLine("This is a non-abstract method in the Sunstar class.");
+    }
 }
 
 class Employee : Sunstar {
+    // Implementing the abstract method
     public override void PrintInfo() {
         string name = "John";
         int age = 30;
@@ -317,10 +464,20 @@ class Employee : Sunstar {
 
 class Base {
     public static void Main(string[] args) {
+        // Create an instance of Employee (which is a derived class of Sunstar)
         Sunstar s = new Employee();
+
+        // Call the abstract method PrintInfo
         s.PrintInfo();
+
+        // Call the non-abstract method PrintMessage
+        s.PrintMessage();
     }
 }
+//Output
+//John, 30, 2500.5
+//This is a non-abstract method in the Sunstar class.
+
 ```
 **Real life use:** Let's in a university application we make a class in which we declare fee report of all student, and we want only authorised person can see the fee detail Then we must have to make this class abstract. So that developer can't call directlly via make a object of this class.
 
@@ -329,13 +486,41 @@ class Base {
 
 - Abstract methods can only be declared within abstract classes.
 
-- The derived class that inherits from the abstract class must provide an implementation for the abstract method unless the derived class is also abstract. If the derived class does not override the abstract method, it will also become an abstract class.
+- A derived class must provide an implementation for all abstract methods of its base class, unless the derived class is itself abstract.
 
 ```c#
-public abstract class Animal
+using System;
+
+abstract class Animal
 {
-    // Abstract method: No implementation in the base class
-    public abstract void MakeSound();
+    // Abstract method
+    public abstract void Speak();
+}
+
+abstract class Mammal : Animal
+{
+    // Mammal does not implement Speak(), so it is abstract
+}
+
+class Dog : Mammal
+{
+    // Dog implements Speak()
+    public override void Speak()
+    {
+        Console.WriteLine("Woof!");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // This will cause an error: cannot instantiate Mammal because it is abstract
+        // Mammal mammal = new Mammal(); // Error
+
+        Dog dog = new Dog();
+        dog.Speak();  // Output: Woof!
+    }
 }
 ```
 
@@ -377,7 +562,7 @@ class MainClass {
 
 2. **To Achieve Multiple Inheritance -** C# does not support multiple inheritance (i.e., a class cannot inherit from multiple classes). However, you can implement multiple interfaces in a class. This allows you to inherit functionality from multiple sources without the complexities of multiple inheritance. Note: To implement multiple interfaces in C#, separate them with a comma (see example below).
 
-**Example and Clearification**
+**Example and Clearification (class vs Interface)**
 ```C#
 // Example of Class
 public class Truck 
