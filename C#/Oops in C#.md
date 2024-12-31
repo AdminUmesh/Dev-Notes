@@ -720,7 +720,7 @@ foreach (var item in customDataStructure) {
 `In C#, the foreach loop is used to iterate over collections that implement the IEnumerable interface, which makes them` iterable.
 
 ## Encapsulation
-Encapsulation is the mechanism that binds the data and methods together in a single unit. `It also restricts direct access to the object's data by other class.`
+Encapsulation in C# is a concept used to hide the internal workings of a class and expose only the necessary parts through public methods or properties. It enhances data security, provides flexibility for future changes, and makes the system easier to maintain and scale.
 
 Encapsulation allows access to private variables indirectly by providing controlled access through public methods (also called getters and setters) or properties. This means that the private variables themselves cannot be accessed directly from outside the class, but their values can be accessed or modified using public methods or properties.
 
@@ -750,15 +750,15 @@ class MainClass {
 }
 ```
 
-### Advantages of Encapsulation:
-**Data Hiding:** The balance field is private, and cannot be accessed directly outside the BankAccount class.
+### Why Do We Use Encapsulation?
+**Data Protection (Security):** By restricting direct access to the internal state of an object, we ensure that the object’s state remains consistent. The object is protected from invalid or inconsistent values. For example, you could enforce validation in the setter method to ensure the data is valid before allowing changes.
+
+**Example**
+ A bank account should not accept negative values as the balance. we can validate if someone send negative value.
+
+**Abstraction:** Encapsulation allows us to hide the internal workings of a class from the outside world. The user or other classes only need to know how to interact with the object (via its public methods), not how it is implemented internally.
 
 **Control:** The Deposit and Withdraw methods control how money can be added or subtracted from the account, preventing invalid operations (like withdrawing more than the balance).
-
-**Security:** The balance cannot be tampered with directly, and only the controlled public methods can alter it.
-
-### Conclusion:
-Encapsulation improves data security, code maintainability, and reduces complexity. It allows you to safeguard data integrity, enforce business rules, and provide a clear interface for interacting with the class.
 
 ## Polymorphism
 Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. 
@@ -911,48 +911,84 @@ class MainClass {
 Data abstraction is the process of hiding certain details and showing only essential information to the user.
 `Abstraction can be achieved with either abstract classes or interfaces`
 
-```csharp
-using System;
+### In C#, abstraction is typically achieved using:
 
-// Abstract class Animal
+**1.Using Abstract Classes**
+```csharp
+// Abstract class
 public abstract class Animal
 {
-    // Abstract method (does not have a body)
-    public abstract void AnimalSound();
+    // Abstract method (no implementation)
+    public abstract void MakeSound();
 
     // Regular method (with implementation)
     public void Sleep()
     {
-        Console.WriteLine("Zzz");
+        Console.WriteLine("This animal is sleeping.");
     }
 }
 
-// Subclass (inherit from Animal)
-public class Pig : Animal
+// Derived class
+public class Dog : Animal
 {
     // Implementing the abstract method
-    public override void AnimalSound()
+    public override void MakeSound()
     {
-        // The body of AnimalSound() is provided here
-        Console.WriteLine("The pig says: wee wee");
+        Console.WriteLine("Woof!");
     }
 }
 
-class Program
+// Usage
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main()
     {
-        // Create a Pig object
-        Pig myPig = new Pig();
-        
-        // Call the overridden method
-        myPig.AnimalSound();
-        
-        // Call the inherited method
-        myPig.Sleep();
+        Dog dog = new Dog();
+        dog.MakeSound();  // Output: Woof!
+        dog.Sleep();      // Output: This animal is sleeping.
     }
 }
 ```
+**2.Using Interfaces**
+```c#
+// Interface
+public interface IDriveable
+{
+    void Drive();
+}
+
+// Class implementing the interface
+public class Car : IDriveable
+{
+    public void Drive()
+    {
+        Console.WriteLine("The car is driving.");
+    }
+}
+
+// Usage
+public class Program
+{
+    public static void Main()
+    {
+        Car car = new Car();
+        car.Drive();  // Output: The car is driving.
+    }
+}
+```
+### Why Do We Use Abstraction?
+Abstraction provides several important benefits in software development:
+
+**Simplification of Complex Systems:**
+By focusing on essential features and hiding the internal complexities, abstraction makes it easier to understand and use complex systems.
+Example: When using a mobile app, you don’t need to know how the phone’s hardware works or how the app processes data. You just interact with the user interface.
+
+**Code Reusability:**
+With abstraction, you can reuse abstract classes or interfaces across multiple classes. The abstract class or interface can provide a common structure for all derived classes.
+
+**Increased Security and Safety:**
+By exposing only the necessary operations and hiding the rest, abstraction prevents the misuse of parts of a class or system that shouldn’t be accessed.
+**Example:** If you have a class that handles bank transactions, abstracting certain methods can ensure that sensitive information or operations are not accessible to unauthorized users.
 
 # Binding in C#
 Binding in C# refers to the process of connecting a method call to the method body. 
@@ -1107,4 +1143,4 @@ After change: 150
 
 - To use Call by Reference, C# requires explicit use of the ref or out keywords.
 
-- Call by Value is the default for all value types (primitive types) in C#.
+- **Call by Value** is the default for all value types (primitive types) in C#.
