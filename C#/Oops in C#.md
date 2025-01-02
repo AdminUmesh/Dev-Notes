@@ -991,7 +991,7 @@ By exposing only the necessary operations and hiding the rest, abstraction preve
 **Example:** If you have a class that handles bank transactions, abstracting certain methods can ensure that sensitive information or operations are not accessible to unauthorized users.
 
 # Binding in C#
-Binding in C# refers to the process of connecting a method call to the method body. 
+Binding in C# refers to the process of connecting a method call to the method body. `The binding determines which method or code gets executed when a function or method is called.`
 
 **In C#, there are two types of binding:**
 
@@ -1067,13 +1067,16 @@ class Program
 
 # Call by Value vs. Call by Reference in C#
 
-## 1. Call by Value
+## 1. Call by Value (Pass by Value)
 In Call by Value, a copy of the actual parameter's value is passed to the method. Modifications made to the parameter inside the method do not affect the original argument.
 
-**Characteristics:**
-- A copy of the value is passed.
-- Changes made to the parameter inside the method do not reflect in the caller's variable.
-- Used for value types (e.g., int, float, double, etc.).
+**How it works:**
+- A duplicate copy of the argument is passed to the method.
+- Modifications made inside the method affect only the copy, not the original value.
+
+**When is it used?**
+- This is the default method of passing arguments in C# for value types (like int, double, char, structs, etc.).
+
 
 ```csharp
 //Example of Call by Value in C#:
@@ -1081,7 +1084,7 @@ using System;
 
 class Program
 {
-    static void ChangeValue(int num)
+    static void ChangeValue(int num) //here num is a copy or value
     {
         num = num + 100; // Modifies local copy
     }
@@ -1111,6 +1114,9 @@ In Call by Reference, the method receives a reference (or memory address) to the
 - Used for reference types (e.g., objects, arrays).
 - In C#, Call by Reference is implemented using the ref or out keyword.
 
+**Example of Call by Reference:**
+Using `ref` Keyword:
+The `ref` keyword allows passing parameters by reference, and it must be explicitly declared in both the method signature and the call.
 ```csharp
 // Example of Call by Reference in C#:
 using System;
