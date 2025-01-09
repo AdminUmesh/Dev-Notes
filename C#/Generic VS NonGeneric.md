@@ -366,3 +366,212 @@ class Program
 - **Keys:** Gets a collection containing all the keys in the hashtable.
 - **Values:** Gets a collection containing all the values in the hashtable.
 - **Synchronized(Hashtable table):** Provides a thread-safe wrapper around a Hashtable.
+
+# `Queue<T>` (Generic Queue)
+A Queue is a collection that stores elements in a First-In, First-Out (FIFO) order, meaning the first element added is the first one to be removed.The `Queue<T>` class is part of the `System.Collections.Generic` namespace in .NET.
+
+### Key Features of Queue<T>:
+- **Generic Type:** Queue<T> is a generic collection, meaning it can store elements of a specified type (e.g., int, string, MyClass).
+- **Type Safety:** Since it is generic, there is no need for casting when retrieving elements from the queue. It ensures type safety at compile time.
+- **Performance:** No casting is needed when accessing elements, which makes it more efficient in terms of performance compared to the non-generic Queue.
+
+```c#
+Queue<int> queue = new Queue<int>();
+queue.Enqueue(1);
+queue.Enqueue(2);
+queue.Enqueue(3);
+
+Console.WriteLine(queue.Dequeue());  // Output: 1
+```
+
+### Key Methods and Properties:
+- **Enqueue(T item):** Adds an element of type T to the queue.
+- **Dequeue():** Removes and returns an element of type T from the front of the queue.
+- **Peek():** Returns the element at the front of the queue without removing it.
+- **Contains(T item):** Checks if the queue contains an element of type T.
+- **Count:** Gets the number of elements of type T in the queue.
+- **Clear():** Removes all elements of type T from the queue.
+
+# Queue (Non-Generic Queue)
+Queue are collections used to store elements in a First-In, First-Out (FIFO). The class is part of the `System.Collections` namespace in .NET.
+
+### Key Features:
+- **Non-Generic:** The non-generic Queue can store elements of any type, but they are stored as objects. This means you must cast the elements to their appropriate type when retrieving them.
+- **No Type Safety:** Since it is non-generic, there is no compile-time type checking. You might encounter runtime errors if the cast is not performed correctly.
+- **Performance:** Requires casting when accessing elements, which may result in additional overhead and potential runtime exceptions.
+
+```c#
+Queue queue = new Queue();
+queue.Enqueue(1);
+queue.Enqueue("Hello");
+queue.Enqueue(3.14);
+
+Console.WriteLine(queue.Dequeue());  // Output: 1 (casts required when retrieving)
+```
+
+### Key Methods and Properties:
+- **Enqueue(object item):** Adds an element of type object to the queue.
+- **Dequeue():** Removes and returns an object from the front of the queue (you must cast it to the appropriate type).
+- **Peek():** Returns the object at the front of the queue without removing it (casting needed).
+- **Contains(object item):** Checks if the queue contains an object.
+- **Count:** Gets the number of elements in the queue.
+- **Clear():** Removes all elements from the queue.
+
+### When to Use `Queue<T>` vs Queue (Non-Generic)
+- **Use Queue<T>** when you want type safety, avoid unnecessary casting, and work with a specific data type for better performance and compile-time checks.
+- **Use Queue (non-generic)** when you need flexibility in storing elements of various types, but be prepared to deal with runtime casting and the associated risks. This might be useful for older codebases or scenarios requiring more dynamic data handling.
+
+# `Stack<T>` (Generic Stack)
+`Stack<T>` is a generic collection, meaning it can store elements of a specific type (e.g., int, string, MyClass).
+
+### Key Features:
+- **Type Safety:** Since it is generic, it provides compile-time type safety, so no casting is required when retrieving elements from the stack.
+- **Performance:** More efficient in terms of performance because it does not require casting when accessing or manipulating elements.
+
+```csharp
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Stack<int> stack = new Stack<int>();
+
+        // Push elements onto the stack
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+
+        // Pop elements from the stack
+        Console.WriteLine(stack.Pop());  // Output: 3
+    }
+}
+```
+### Key Methods and Properties:
+- **Push(T item):** Adds an element of type T to the top of the stack.
+- **Pop():** Removes and returns the element of type T from the top of the stack.
+- **Peek():** Returns the element at the top of the stack without removing it.
+- **Contains(T item):** Checks if the stack contains a specific item of type T.
+- **Count:** Gets the number of elements of type T in the stack.
+- **Clear():** Removes all elements of type T from the stack.
+
+# Stack (Non-Generic Stack)
+The non-generic Stack can store elements of any type, but elements are stored as object. This means you must cast the elements to their appropriate type when retrieving them.
+
+### Key Features:
+- **No Type Safety:** Since it is non-generic, there is no compile-time type checking. You might encounter runtime errors if the cast is not performed correctly.
+- **Performance:** Requires casting when accessing elements, which can result in overhead and potential runtime exceptions.
+
+```csharp
+using System.Collections;
+
+class Program
+{
+    static void Main()
+    {
+        Stack stack = new Stack();
+
+        // Push elements onto the stack
+        stack.Push(1);
+        stack.Push("Hello");
+        stack.Push(3.14);
+
+        // Pop elements from the stack
+        Console.WriteLine(stack.Pop());  // Output: 3.14 (must cast when retrieving)
+    }
+}
+```
+
+### Key Methods and Properties:
+- **Push(object item):** Adds an element of type object to the top of the stack.
+- **Pop():** Removes and returns an object from the top of the stack (requires casting).
+- **Peek():** Returns the object at the top of the stack without removing it (requires casting).
+- **Contains(object item):** Checks if the stack contains an object.
+- **Count:** Gets the number of elements in the stack.
+- **Clear():** Removes all elements from the stack.
+
+# `SortedList<T>` (Generic Sorted List)
+SortedList<T> is a generic collection that stores key-value pairs where both the key and value are of a specified type (e.g., int, string, MyClass).
+### Key Features:
+
+- **Type Safety:** Since it is generic, SortedList<T> provides compile-time type safety, meaning that the types of keys and values are known at compile time and no casting is required when retrieving them.
+- **Sorted Order:** Elements in SortedList<T> are automatically sorted by their keys. You can define a custom sorting order using a comparer.
+- **Performance:** Accessing elements by key is fast (O(log n) time complexity for lookups), and adding/removing elements is also efficient.
+
+```csharp
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Declare and initialize a SortedList
+        SortedList<int, string> sortedList = new SortedList<int, string>();
+
+        // Add key-value pairs to the SortedList
+        sortedList.Add(2, "Two");
+        sortedList.Add(1, "One");
+        sortedList.Add(3, "Three");
+
+        // Display elements in sorted order by key
+        foreach (var kvp in sortedList)
+        {
+            Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+        }
+    }
+}
+```
+
+## Key Methods and Properties:
+- **Add(TKey key, TValue value):** Adds a key-value pair to the SortedList.
+- **ContainsKey(TKey key):** Checks if a key exists in the SortedList.
+- **ContainsValue(TValue value):** Checks if a value exists in the SortedList.
+- **Remove(TKey key):** Removes the key-value pair with the specified key.
+- **Item[TKey key]:** Indexer to get or set the value for a given key.
+- **Count:** Gets the number of key-value pairs in the SortedList.
+- **Keys:** Gets a collection containing all the keys in the SortedList.
+- **Values:** Gets a collection containing all the values in the SortedList.
+- **Clear():** Removes all key-value pairs from the SortedList.
+
+# SortedList (Non-Generic Sorted List)
+The non-generic SortedList can store key-value pairs where both the key and value are of type object. You need to cast the key and value to their appropriate types when retrieving them.
+
+### Key Features:
+- **No Type Safety:** Since it is non-generic, there is no compile-time type checking, and you may encounter runtime errors if casting is not done correctly.
+- **Sorted Order:** Like SortedList<T>, elements are stored in a sorted order based on the keys.
+- **Performance:** Similar to SortedList<T>, it provides O(log n) time complexity for lookups, but requires casting when accessing elements.
+
+```csharp
+using System.Collections;
+
+class Program
+{
+    static void Main()
+    {
+        // Declare and initialize a SortedList
+        SortedList sortedList = new SortedList();
+
+        // Add key-value pairs to the SortedList
+        sortedList.Add(2, "Two");
+        sortedList.Add(1, "One");
+        sortedList.Add(3, "Three");
+
+        // Display elements in sorted order by key
+        foreach (DictionaryEntry entry in sortedList)
+        {
+            Console.WriteLine($"Key: {entry.Key}, Value: {entry.Value}");
+        }
+    }
+}
+```
+
+## Key Methods and Properties:
+- **Add(object key, object value):** Adds a key-value pair to the SortedList.
+- **ContainsKey(object key):** Checks if a key exists in the SortedList.
+- **ContainsValue(object value):** Checks if a value exists in the SortedList.
+- **Remove(object key):** Removes the key-value pair with the specified key.
+- **Item[object key]:** Indexer to get or set the value for a given key (requires casting).
+- **Count:** Gets the number of key-value pairs in the SortedList.
+- **Keys:** Gets a collection containing all the keys in the SortedList.
+- **Values:** Gets a collection containing all the values in the SortedList.
+- **Clear():** Removes all key-value pairs from the SortedList.
