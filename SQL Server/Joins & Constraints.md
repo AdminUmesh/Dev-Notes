@@ -261,6 +261,22 @@ ADD CONSTRAINT FK_constraint_name FOREIGN KEY (PersonID) REFERENCES Persons(Pers
 ALTER TABLE table_name
 DROP CONSTRAINT FK_constraint_name;
 ```
+**Note**
+
+A foreign key must reference :
+- `A primary key` Or `A unique key` in the Parent (referenced) table.
+```sql
+--Parent Table 
+CREATE TABLE Parent(
+ID int UNIQUE
+);
+
+--Child Table 
+CREATE TABLE Child(
+ParentID int,
+FOREIGN KEY (ParentID) REFERENCES Parent(ID)
+);
+```
 
 ## Composite Key
 A composite key consists of two or more columns in a table that uniquely identify each row in the table. It is typically used when no single column can serve as a unique identifier.
