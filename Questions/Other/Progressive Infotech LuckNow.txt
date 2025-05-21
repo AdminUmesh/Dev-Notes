@@ -1,0 +1,17 @@
+Date:- 21/05/2025
+
+--> Routing & its Type && Routing in mvc, Routing in .net core
+--> Type of constructore
+--> Private Class VS Static Class & what is the use of static Class.
+--> MVCand Core LifeCycle
+--> What id MiddleWare & Its use
+--> Types of function in SQL , Types of function
+--> Solid principal
+--> How to Handle 1 Lakh record in db
+--> Offset, Limit, Top 10, Pagination
+--> function vs StoreProcedure (5 diffrence)
+--> Types of Authentication (How to mannage Role) like Admin & User who can use this.
+--> in DTO (Model class) How to use validation like (field of length should be 100)
+--> Tokens, Type of tockens
+--> What is Dependency Injection
+--> Explain the follow of your Project 
