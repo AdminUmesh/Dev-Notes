@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="main">
+    <h1>Employee Details</h1>
+    <label for="name">Name</label>
+    <input type="text" id="name"/>
+
+    <label for="fromDate">From Date</label>
+    <input type="date" id="fromDate" />
+
+    <label for="ToDate">To Date</label>
+    <input type="date" id="ToDate" />
+
+    <button type="button" onclick="BindData();">Submit</button>
+</div>
+
+<div id="Table" style="display:none;">
+    <table class="table">
+        <thead>
+            <tr id="THead">
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr id="TBody">
+               
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<script>
+    function BindData(){
+        var Sl = 1;
+
+        $('#Table').css('display', 'block');
+        $('#THead').html('');
+
+        var name = $('#name').val();
+        var FromDate = $('#fromDate').val();
+        var ToDate = $('#ToDate').val();
+
+        let StaticHeader = ` <th>SL.</th> <th>Name</th> `
+        let StaticTbody = ` <th>${Sl}</th> <th>${name}</th> `
+
+        let DynamicHeader = "";
+        let DynamicThead = "";
+
+        for (var d = new Date(FromDate); d <= new Date(ToDate); d.setDate(d.getDate() + 1)) {
+            var formatedDate = d.toISOString().split('T')[0];
+            DynamicHeader += ` <th>${formatedDate}</th>`
+            DynamicThead += `<th><select> <option> Sl </otion><option> Cl </otion><option> Pl </otion></select></th>`;
+        }
+        
+        let bindDynamicHeader = StaticHeader + DynamicHeader;
+        let bindDTBody = StaticTbody + DynamicThead;
+
+        $('#THead').append(bindDynamicHeader);
+        $('#TBody').append(bindDTBody);
+    }
+
+</script>
