@@ -254,7 +254,7 @@ Replace EmailService with SMSService or PushNotificationService.
 ## Feature	Tight Coupling	Loose Coupling
 Depends On	Concrete classes	Interfaces (abstractions)
 
-c```csharp
+```csharp
 public abstract class NotificationBase
 {
     public abstract void Send(string message);
@@ -281,7 +281,7 @@ public class NotificationManager
 }
 ```
 
-## This is still loosely coupled because**
+## This is still loosely coupled because
 NotificationManager doesn’t care which service is used — it just uses the base class.
 
 🧠 Summary:
@@ -290,3 +290,251 @@ Approach	Loose Coupling?	Preferred?
 Interface        	✅ Yes	⭐ Best
 Abstract Class	    ✅ Yes	👍 Good
 Concrete Class Only	❌ No	🚫 Avoid
+
+# More about DI
+=> Dependency Injection is a design pattern used to achieve loose coupling between classes. Instead of creating dependencies inside a class, you pass them from outside.
+
+- Without DI: A class creates the object it needs.
+
+- With DI: The object is passed to the class, usually through constructor, method, or property.
+
+## Tightly Coupled Example
+```csharp
+using System;
+
+public class Engine
+{
+    public void Start()
+    {
+        Console.WriteLine("Engine started");
+    }
+}
+
+public class Car
+{
+    private Engine _engine = new Engine(); // tightly coupled
+
+    public void StartCar()
+    {
+        _engine.Start();
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Car car = new Car();
+        car.StartCar();
+    }
+}
+```
+
+## Loosely Coupled Example using Dependency Injection
+```csharp
+using System;
+
+// Step 1: Define an interface
+public interface IEngine
+{
+    void Start();
+}
+
+// Step 2: Implement the interface
+public class Engine : IEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Engine started");
+    }
+}
+
+// Step 3: Inject the dependency using the interface
+public class Car
+{
+    private IEngine _engine;
+
+    public Car(IEngine engine) // dependency injected via constructor
+    {
+        _engine = engine;
+    }
+
+    public void StartCar()
+    {
+        _engine.Start();
+    }
+}
+
+// Step 4: Use it in the Main method
+public class Program
+{
+    public static void Main()
+    {
+        IEngine engine = new Engine(); // create the dependency
+        Car car = new Car(engine);     // inject the dependency
+        car.StartCar();
+    }
+}
+```
+
+## Without DI (Tight Coupling):
+- Classes depend on specific implementations.
+
+- Hard to test (you can't easily replace real classes with test versions).
+
+- Hard to change (if Engine changes, Car also needs to change).
+
+- Code is less flexible and reusable.
+
+## With DI (Loose Coupling):
+- Classes depend on abstractions (like interfaces), not implementations.
+
+- Easy to test (you can inject fake/mock classes).
+
+- Easy to change or upgrade parts (replace PetrolEngine with ElectricEngine).
+
+- Promotes clean architecture (especially in large projects).
+
+# Why Use Dependency Injection (DI)?
+**1. Loose Coupling**
+
+Without DI: Class depends directly on other classes (tight coupling).
+
+With DI: Class depends on interfaces or abstractions, making it flexible.
+
+💡 You can change or swap components (e.g., switch from MSSQL to MySQL) without changing the main class.
+
+**2. Easier Testing**
+
+Without DI: You cannot easily replace real services.
+
+With DI: You can inject fake or mock objects for testing.
+
+🧪 Makes unit testing much simpler.
+
+**3. Reusability**
+
+With DI, your classes are generic and work with any implementation.
+
+Example: DataAccess can work with MSSQL, MySQL, SQLite—no change needed.
+
+**4. Follows SOLID Principles**
+
+DI helps achieve D - Dependency Inversion Principle.
+
+"High-level modules should not depend on low-level modules. Both should depend on abstractions."
+
+# If You do same thing with creating Instance then Why use DIs
+
+## Non-DI Example (Tightly Coupled) — Adding ElectricEngine
+```csharp
+using System;
+
+public class PetrolEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Petrol engine started");
+    }
+}
+
+public class ElectricEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Electric engine started");
+    }
+}
+
+public class Car
+{
+    private PetrolEngine _engine = new PetrolEngine(); // tightly coupled to PetrolEngine
+
+    public void StartCar()
+    {
+        _engine.Start();
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Car car = new Car();
+        car.StartCar();  // always starts PetrolEngine
+    }
+}
+```
+**Issues if you want to use ElectricEngine instead:** You have to modify the Car class to use ElectricEngine.
+
+**For example,** change private PetrolEngine _engine = new PetrolEngine(); to private ElectricEngine _engine = new ElectricEngine();.
+
+- This means changing the Car class every time you want to switch engine types — not flexible.
+
+- You cannot easily switch engine at runtime without rewriting Car.
+
+## DI Example (Loosely Coupled) — Adding ElectricEngine
+```csharp
+using System;
+
+// Step 1: Interface (abstraction)
+public interface IEngine
+{
+    void Start();
+}
+
+// Step 2: PetrolEngine implements IEngine
+public class PetrolEngine : IEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Petrol engine started");
+    }
+}
+
+// Step 3: ElectricEngine also implements IEngine
+public class ElectricEngine : IEngine
+{
+    public void Start()
+    {
+        Console.WriteLine("Electric engine started");
+    }
+}
+
+// Step 4: Car depends on IEngine, injected from outside
+public class Car
+{
+    private IEngine _engine;
+
+    public Car(IEngine engine)
+    {
+        _engine = engine;
+    }
+
+    public void StartCar()
+    {
+        _engine.Start();
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        // Now you can easily switch engine by changing only this line:
+        IEngine engine = new ElectricEngine();  // Or new PetrolEngine();
+        Car car = new Car(engine);
+        car.StartCar();
+    }
+}
+```
+
+**Benefits here:**
+
+- No need to change the Car class at all when switching engines.
+
+- You can inject any engine implementing IEngine.
+
+- Easy to extend later (add DieselEngine or HybridEngine without touching Car).
+
+- Much better for testing and maintainability.
