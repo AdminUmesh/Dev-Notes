@@ -324,7 +324,7 @@ public class ConstructorOverloading {
 }
 ```
 
-## Inheritance
+# Inheritance
 Inheritance allows one class to acquire the properties and methods of another class.
 
 - Defined using the : base keyword in C#.
@@ -432,7 +432,27 @@ class C : A, B  // Error: Cannot have multiple base classes
 ## Why C# does not support multiple inheritance?
 When a class inherits from multiple classes, there may be methods with the same name in both base classes. This leads to ambiguity—it's unclear which method should be called. For example:
 
-## Abstract Classes
+## C# Solves It: Use Interfaces Instead
+Example with Interfaces:
+```csharp
+interface ILeft {
+    void Show();
+}
+
+interface IRight {
+    void Show();
+}
+
+class Child : ILeft, IRight {
+    // One method satisfies both interfaces
+    public void Show() {
+        Console.WriteLine("Child.Show");
+    }
+}
+```
+✅ No ambiguity because interfaces don't provide implementation, so the class Child defines the method explicitly.
+
+# Abstract Classes
 Abstract class is a restricted (Secure) class that can't be used to create object/instance. to access it, it must be inherited from another class
 
 - An abstract class is declared using the abstract keyword.
