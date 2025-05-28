@@ -538,3 +538,128 @@ public class Program
 - Easy to extend later (add DieselEngine or HybridEngine without touching Car).
 
 - Much better for testing and maintainability.
+
+# Dependency Injection (Step by Step)
+
+## 1. Define an Interface
+```csharp
+public interface IMessageService
+{
+    string GetMessage();
+}
+```
+
+# 2. Implement the Interface
+```csharp
+public class HelloMessageService : IMessageService
+{
+    public string GetMessage()
+    {
+        return "Hello from DI!";
+    }
+}
+```
+
+# 3.Register the Service in Program.cs
+For .NET Core 6/7/8 (Minimal hosting model):
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
+// Register DI
+builder.Services.AddScoped<IMessageService, HelloMessageService>();
+
+var app = builder.Build();
+
+app.MapDefaultControllerRoute();
+app.Run();
+```
+If you're using ASP.NET Core 3.1 or .NET 5, DI is configured in Startup.cs
+
+```csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+}
+```
+- **AddScoped** – one instance per HTTP request (commonly used in web apps).
+- Use **AddSingleton** or **AddTransient** based on your needs.
+
+# 4. Inject via Constructor in Controller
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+public class HomeController : Controller
+{
+    private readonly IMessageService _messageService;
+
+    // ✅ Constructor Injection
+    public HomeController(IMessageService messageService)
+    {
+        _messageService = messageService;
+    }
+
+    public IActionResult Index()
+    {
+        var message = _messageService.GetMessage();
+        ViewBag.Message = message;
+        return View();
+    }
+}
+```
+
+# Summary:
+
+| Step | What You Do                                  |
+|------|-----------------------------------------------|
+| 1    | Define an interface (e.g., `IMessageService`) |
+| 2    | Implement it (`HelloMessageService`)          |
+| 3    | Register it in `Program.cs`                   |
+| 4    | Inject it into a controller or service        |
+
+
+# Minimal API (No Controller) — .NET 6+
+If you're using .NET 6 or later without controllers, here's how you inject services into Minimal APIs.
+
+🔸 Define Services
+```csharp
+public interface IMessageService
+{
+    string GetMessage();
+}
+
+public class MessageService : IMessageService
+{
+    public string GetMessage() => "Hello from Minimal API!";
+}
+```
+Program.cs with Minimal API
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IMessageService, MessageService>();
+
+var app = builder.Build();
+
+// Inject service directly into endpoint
+app.MapGet("/", (IMessageService service) =>
+{
+    return service.GetMessage();
+});
+
+app.Run();
+```
+🟢 No need for controllers or classes — services can be injected right into route handlers!
