@@ -20,7 +20,8 @@ A-26, Sector-63, Noida
 11. What is the difference between Clustered and Non-Clustered indexes?
 12. How do you validate an API?
 13. Do you have knowledge of database permissions?
-14.
+14. Do You Work On Pagination. How many types of Pagination 
+15. 
 ```js
 function Print(a, b) {
     a = 10;
