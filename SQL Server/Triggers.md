@@ -2,7 +2,7 @@
 A trigger is a special stored procedure that runs automatically when you insert, update, or delete data in a table or view.
 
 # Types of Triggers in SQL Server:
-**1. DML Triggers (Data Manipulation Language Triggers):**
+### 1. DML Triggers (Data Manipulation Language Triggers):
 - AFTER Triggers (Default):
 Run after an INSERT, UPDATE, or DELETE.
 
@@ -46,7 +46,7 @@ END;
 --Otherwise, it allows the delete.
 ```
 
-**2. DDL Triggers (Data Definition Language Triggers):**
+### 2. DDL Triggers (Data Definition Language Triggers):**
 - Run when database objects change, like: CREATE, ALTER, DROP a table, view, or schema.
 
 **Example:** Prevent users from dropping important tables.
@@ -73,7 +73,7 @@ BEGIN
 END;
 ```
 
-**3. LOGON and LOGOFF Triggers**
+### 3. LOGON and LOGOFF Triggers**
 - Run when a user logs in or logs out of SQL Server.
 
 ```sql
