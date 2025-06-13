@@ -9,7 +9,6 @@ Jaipur
 
 ## 1. SQL Server Weekly Transaction Summary Query
 
-**Question:**
 I have a SQL Server table with the following columns:  
 - `trn_id`  
 - `trn_date`  
@@ -33,8 +32,6 @@ Write a SQL Server query to generate this weekly summary based on the user-defin
 
 ## 2. jQuery Change Event Binding Order
 
-**Question:**
-
 I have the following two jQuery `change` event handlers for a dropdown with ID `#csk`:
 
 ```javascript
@@ -50,8 +47,6 @@ $(document).on('change', '#csk', function(){
 ```
 
 ## 3. C# Program to Move All Zeroes to the End of an Array
-
-**Question:**
 
 Given the following integer array in C#:
 
@@ -76,3 +71,15 @@ for (int i = invCountArr.Length - 1, j = invArr.Length - 1; i >= 0; i--, j--)
 
 Console.WriteLine(string.Join("", invArr)); // Output: 00025
 ```
+
+## 5. Answer the below questions
+
+1. What is a Singleton (sigltn) in programming?
+
+2. What is the difference between TempData, ViewData, and ViewBag in ASP.NET MVC?
+
+3. How can I validate all input fields at once using jQuery?
+
+4. How can I validate all fields at once in a .NET DTO (Data Transfer Object)?
+
+5. What is Dependency Injection
