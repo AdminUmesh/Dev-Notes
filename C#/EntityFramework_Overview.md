@@ -1,16 +1,28 @@
 # Entity Framework (EF)
 
-## 🔸 What is Entity Framework?
+## What is Entity Framework?
 
 Entity Framework (EF) is a popular .NET ORM (Object Relational Mapper) that lets you work with databases using C# code instead of SQL queries.
 
-It helps you:
+**It helps you:**
 
 - Connect to a database  
 - Create tables from your C# classes  
 - Query and update data using LINQ  
 - Avoid writing raw SQL in most cases  
 
+```pgsql
+               LINQ
+              /    \
+     Lambda-based   SQL-like
+          |
+          v
+      Entity Framework
+          |
+      Generates SQL
+          |
+      Talks to DB
+```
 ---
 
 ## 🔧 Example: Without SQL, Using EF
@@ -96,18 +108,6 @@ using (var context = new AppDbContext())
 A step-by-step tutorial to create a .NET Console App using Entity Framework Core, LINQ, and SQL Server — ideal for beginners.
 
 ---
-
-## ✅ Goal
-
-A basic Employee Management Console App using:
-
-- Entity Framework Core  
-- SQL Server  
-- LINQ to query employees  
-
----
-
-## 🔧 Step-by-Step Setup
 
 ### 🧱 Step 1: Create Console App
 
