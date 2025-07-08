@@ -93,7 +93,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 
 This tells .NET: “Whenever I ask for IEmailService, give me EmailService.”
 
-**Step 4:** Use It in a Controller
+**Step 4:** Use in a Controller
 ```csharp
 using YourProject.Services;
 
@@ -663,3 +663,62 @@ app.MapGet("/", (IMessageService service) =>
 app.Run();
 ```
 🟢 No need for controllers or classes — services can be injected right into route handlers!
+
+# .NET Core DI Lifetimes: Singleton vs Scoped vs Transient
+
+## Lifetime Summary
+
+| Lifetime   | Instance Created     | Scope                    | Shared Across Requests |
+|------------|----------------------|--------------------------|-------------------------|
+| Transient  | Every time requested | Short-lived (per usage) | ❌ No                  |
+| Scoped     | Once per request     | Per HTTP request         | ✅ Yes (within request) |
+| Singleton  | Once per app         | App-wide                 | ✅ Yes (globally)       |
+
+---
+
+## 🎯 When to Use
+
+### Transient (`AddTransient`)
+- Use for **lightweight, stateless** services.
+- Good for: Validators, Formatters, Utilities.
+
+### Scoped (`AddScoped`)
+- Use for services that need to live **per HTTP request**.
+- Good for: EF Core `DbContext`, Services using request-specific data.
+
+### Singleton (`AddSingleton`)
+- Use for **stateless, thread-safe** services shared across the app.
+- Good for: Logging, Caching, Config readers.
+
+---
+
+## 🚨 Common Mistakes & Issues
+
+### ❌ Singleton with Scoped Service
+- **Error**: `Cannot consume scoped service from singleton`
+- Cause: Scoped service (e.g., `DbContext`) used inside Singleton.
+
+### ❌ Scoped or Transient with Stateful Data
+- May cause **unexpected behavior** or **data leaks** if state is not isolated.
+
+### ❌ Transient `DbContext`
+- Creates a new instance on each use.
+- Breaks **change tracking**, can cause data inconsistency.
+
+---
+
+## 🧠 Quick Tips
+
+- 🪥 **Transient** – New every time (Stateless utility).
+- 🍽️ **Scoped** – One per request (Web-specific state).
+- 🏛️ **Singleton** – One for whole app (Thread-safe shared services).
+
+---
+
+## ✅ Example Registration
+
+```csharp
+services.AddTransient<IEmailService, EmailService>();
+services.AddScoped<IOrderService, OrderService>();  //This tells .NET:"Whenever a class asks for IOrderService, give it an instance of OrderService."
+services.AddSingleton<ILogService, LogService>();
+services.AddScoped<AppDbContext>();  //This tells .NET: "Whenever a class asks for an instance of AppDbContext, provide a new scoped instance of AppDbContext."
