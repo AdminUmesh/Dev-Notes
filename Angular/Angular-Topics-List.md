@@ -68,3 +68,18 @@ This file lists important Angular topics categorized into Beginner, Intermediate
 - Practice using RxJS for real-time data and reactive forms.
 - Write unit tests to build robust Angular applications.
 
+# Others
+### Types of decoratore
+- Method 
+- class
+- Parameter
+- Property
+
+### Anotation in Angular
+
+### Pipes
+- pure pipes
+- inpure pipe
+- Pipe transform Interface in Angular
+
+### Write a code where you have to share data from the Parent to Child Component?
