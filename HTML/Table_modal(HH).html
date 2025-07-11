@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Table Modal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    .open-btn {
+      margin: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 95%;
+      max-width: 700px;
+      max-height: 90%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .table-container {
+      overflow-y: auto;
+      padding: 0 10px; /* Side gap for mobile & tablet */
+      box-sizing: border-box;
+      max-height: 60vh;
+    }
+
+    .table-grid {
+      display: grid;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    @media (max-width: 600px) {
+      .table-grid {
+        grid-template-columns: repeat(3, 90px);
+      }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .table-grid {
+        grid-template-columns: repeat(4, 90px);
+      }
+    }
+
+    @media (min-width: 901px) {
+      .table-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      }
+    }
+
+    .table-box {
+      width: 90px;
+      height: 90px;
+      background: #f9f9f9;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .table-box:hover {
+      background-color: #e6e6e6;
+    }
+
+    .table-box i {
+      font-size: 26px;
+      color: #007bff;
+    }
+
+    .table-name {
+      font-size: 13px;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .table-amount {
+      font-size: 12px;
+      color: #555;
+    }
+
+    /* Top-right dot marker */
+    .status-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: green; /* Customize color as needed */
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+    }
+  </style>
+
+  <!-- Font Awesome for Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <button class="open-btn" onclick="openModal()">Open Tables</button>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Select a Table</h2>
+      </div>
+
+      <div class="table-container">
+        <div class="table-grid">
+          <!-- Sample Tables -->
+          <div class="table-box" onclick="alertTable('Table-1')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-1</div>
+            <div class="table-amount">₹1200</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-2')">
+            <span class="status-dot" style="background-color: red;"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-2</div>
+            <div class="table-amount">₹900</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-3')">
+            <span class="status-dot" style="background-color: orange;"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-3</div>
+            <div class="table-amount">₹1050</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-4')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-4</div>
+            <div class="table-amount">₹980</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-5')">
+            <span class="status-dot" style="background-color: red;"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-5</div>
+            <div class="table-amount">₹850</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-6')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-6</div>
+            <div class="table-amount">₹1020</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-7')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-7</div>
+            <div class="table-amount">₹1120</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-8')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-8</div>
+            <div class="table-amount">₹790</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-9')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-9</div>
+            <div class="table-amount">₹1250</div>
+          </div>
+<div class="table-box" onclick="alertTable('Table-7')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-7</div>
+            <div class="table-amount">₹1120</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-8')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-8</div>
+            <div class="table-amount">₹790</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-9')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-9</div>
+            <div class="table-amount">₹1250</div>
+          </div>
+
+<div class="table-box" onclick="alertTable('Table-7')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-7</div>
+            <div class="table-amount">₹1120</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-8')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-8</div>
+            <div class="table-amount">₹790</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-9')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-9</div>
+            <div class="table-amount">₹1250</div>
+          </div>
+<div class="table-box" onclick="alertTable('Table-7')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-7</div>
+            <div class="table-amount">₹1120</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-8')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-8</div>
+            <div class="table-amount">₹790</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-9')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-9</div>
+            <div class="table-amount">₹1250</div>
+          </div>
+<div class="table-box" onclick="alertTable('Table-7')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-7</div>
+            <div class="table-amount">₹1120</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-8')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-8</div>
+            <div class="table-amount">₹790</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-9')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-9</div>
+            <div class="table-amount">₹1250</div>
+          </div>
+<div class="table-box" onclick="alertTable('Table-7')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-7</div>
+            <div class="table-amount">₹1120</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-8')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-8</div>
+            <div class="table-amount">₹790</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-9')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-9</div>
+            <div class="table-amount">₹1250</div>
+          </div>
+<div class="table-box" onclick="alertTable('Table-7')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-7</div>
+            <div class="table-amount">₹1120</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-8')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-8</div>
+            <div class="table-amount">₹790</div>
+          </div>
+          <div class="table-box" onclick="alertTable('Table-9')">
+            <span class="status-dot"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-9</div>
+            <div class="table-amount">₹1250</div>
+          </div>
+
+          <div class="table-box" onclick="alertTable('Table-10')">
+            <span class="status-dot" style="background-color: red;"></span>
+            <i class="fas fa-chair"></i>
+            <div class="table-name">Table-10</div>
+            <div class="table-amount">₹1340</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    function alertTable(name) {
+      alert("You clicked on " + name);
+    }
+  </script>
+</body>
+</html>
