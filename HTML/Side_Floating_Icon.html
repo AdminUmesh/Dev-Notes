@@ -1,0 +1,97 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Sticky Cart Button with Wave</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-pV3IFt3zNabU7LnbX8etEiyvwKrUbMsk3UwF2+ZgR1qgRxZKJYmnpoFlzBiV5WWcMxIqe9WjzA4I8BLzOK9tGA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <style>
+        body {
+        margin: 0;
+        padding: 0;
+        height: 2000px;
+        font-family: Arial, sans-serif;
+         background: black; /*  Remove this if not needed */
+        }
+
+        .sticky-button {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        padding: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1000;
+        }
+
+        .cart-container {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        }
+
+        .wave {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ff0080, #8000ff);
+        animation: wave 1.5s infinite ease-in-out;
+        opacity: 0.5;
+        }
+
+        @keyframes wave {
+        0% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        70% {
+            transform: scale(1.8);
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+        }
+
+        .cart-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 26px;
+        background: #007bff;
+        border-radius: 50%;
+        padding: 14px;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    </head>
+    <body>
+
+    <button class="sticky-button" onclick="handleClick()">
+        <div class="cart-container">
+        <div class="wave">🛒</div>
+        <i class="fas fa-shopping-cart cart-icon">🛒</i>
+        </div>
+    </button>
+
+    <script>
+        function handleClick() {
+        alert("🛒 Item added to cart!");
+        }
+    </script>
+
+    </body>
+    </html>
