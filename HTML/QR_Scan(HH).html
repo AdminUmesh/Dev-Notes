@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Bites - Restaurant Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #2a9d8f;
+            --dark-color: #1d3557;
+            --light-color: #f1faee;
+            --accent-color: #a8dadc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Welcome Modal */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: white;
+        }
+        
+        .welcome-content {
+            background-color: var(--dark-color);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .restaurant-logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .welcome-btn {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .welcome-btn:hover {
+            background-color: #c1121f;
+            transform: scale(1.05);
+        }
+        
+        /* Header */
+        .main-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .restaurant-name {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
+            height: calc(100vh - 60px);
+            position: sticky;
+            top: 60px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            overflow-y: auto;
+        }
+        
+        .sidebar-item {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-item:hover, .sidebar-item.active {
+            background-color: rgba(233, 236, 239, 0.5);
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .sidebar-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            flex: 1;
+        }
+        
+        /* Menu Items */
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .veg-icon {
+            color: green;
+            font-size: 14px;
+        }
+        
+        .non-veg-icon {
+            color: red;
+            font-size: 14px;
+        }
+        
+        .item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .add-btn {
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 15px;
+            transition: all 0.2s;
+        }
+        
+        .add-btn:hover {
+            background-color: #21867a;
+        }
+        
+        .quantity-badge {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        
+        /* Quantity Popup */
+        .quantity-popup {
+            position: absolute;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            padding: 5px;
+            z-index: 10;
+            display: none;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-control button {
+            background-color: var(--secondary-color);
+            border: none;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-control span {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+        }
+        
+        .cart-footer-btn {
+            position: absolute;
+            right: 1rem;
+            top: -20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .cart-footer-value {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        /* Cart Modal */
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        
+        .cart-modal {
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .tax-row {
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-top: 2px solid var(--dark-color);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                height: auto;
+                position: static;
+                margin-bottom: 1rem;
+            }
+            
+            .filter-section {
+                position: sticky;
+                top: 60px;
+                z-index: 90;
+                background-color: white;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-content {
+                padding: 1.5rem;
+            }
+            
+            .restaurant-logo {
+                font-size: 3rem;
+            }
+            
+            .sidebar {
+                padding: 0.5rem 0;
+            }
+            
+            .sidebar-item {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Modal -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="welcome-content">
+            <div class="restaurant-logo">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h1>Welcome to <span style="color: var(--primary-color);">Delicious Bites</span></h1>
+            <p class="lead">Experience the finest cuisine in town</p>
+            <button class="btn welcome-btn" id="continueBtn">Continue to Menu</button>
+        </div>
+    </div>
+
+    <!-- Main Layout (hidden initially) -->
+    <div class="d-flex flex-column" style="display: none;" id="mainLayout">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="restaurant-name">Delicious Bites</h1>
+                    <div class="d-none d-md-block">
+                        <span class="text-muted">Open Now: 11:00 AM - 10:00 PM</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="container-fluid flex-grow-1">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2 sidebar">
+                    <div class="sidebar-item active">
+                        <i class="fas fa-list"></i> Menu
+                    </div>
+                    <div class="sidebar-item">
+                        <i class="fas fa-info-circle"></i> About Us
+                    </div>
+                    <div class="sidebar-item">
+                        <i class="fas fa-images"></i> Gallery
+                    </div>
+                    <div class="sidebar-item">
+                        <i class="fas fa-phone-alt"></i> Contact
+                    </div>
+                    <div class="sidebar-item">
+                        <i class="fas fa-map-marker-alt"></i> Location
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10 main-content">
+                    <!-- Filter Section -->
+                    <div class="filter-section mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="group-filter" class="form-label">Group</label>
+                                <select class="form-select" id="group-filter">
+                                    <option value="">All Groups</option>
+                                    <option>Starters</option>
+                                    <option>Main Course</option>
+                                    <option>Desserts</option>
+                                    <option>Beverages</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category-filter" class="form-label">Category</label>
+                                <select class="form-select" id="category-filter">
+                                    <option value="">All Categories</option>
+                                    <option>Indian</option>
+                                    <option>Chinese</option>
+                                    <option>Italian</option>
+                                    <option>Continental</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Food Type</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="food-type" id="all-type" autocomplete="off" checked>
+                                    <label class="btn btn-outline-secondary" for="all-type">All</label>
+                                    
+                                    <input type="radio" class="btn-check" name="food-type" id="veg-type" autocomplete="off">
+                                    <label class="btn btn-outline-secondary" for="veg-type"><i class="fas fa-leaf veg-icon"></i> Veg</label>
+                                    
+                                    <input type="radio" class="btn-check" name="food-type" id="nonveg-type" autocomplete="off">
+                                    <label class="btn btn-outline-secondary" for="nonveg-type"><i class="fas fa-drumstick-bite non-veg-icon"></i> Non-Veg</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="search" class="form-label">Search</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="search" placeholder="Search items...">
+                                    <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu Items -->
+                    <div id="menu-items">
+                        <div class="row">
+                            <!-- Items will be loaded here -->
+                            <div class="col-md-6 col-lg-4">
+                                <div class="menu-item" data-group="Starters" data-category="Indian" data-type="veg">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5>Paneer Tikka 
+                                                <small class="veg-icon">
+                                                    <i class="fas fa-leaf"></i>
+                                                </small>
+                                            </h5>
+                                            <p class="text-muted small mb-2">Cottage cheese marinated in spices and grilled to perfection</p>
+                                            <span class="item-price">₹250</span>
+                                        </div>
+                                        <button class="add-btn add-to-cart" data-id="1" data-name="Paneer Tikka" data-price="250">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4">
+                                <div class="menu-item" data-group="Main Course" data-category="Indian" data-type="non-veg">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5>Butter Chicken 
+                                                <small class="non-veg-icon">
+                                                    <i class="fas fa-drumstick-bite"></i>
+                                                </small>
+                                            </h5>
+                                            <p class="text-muted small mb-2">Tender chicken cooked in a rich buttery tomato gravy</p>
+                                            <span class="item-price">₹350</span>
+                                        </div>
+                                        <button class="add-btn add-to-cart" data-id="2" data-name="Butter Chicken" data-price="350">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4">
+                                <div class="menu-item" data-group="Main Course" data-category="Italian" data-type="veg">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5>Margherita Pizza 
+                                                <small class="veg-icon">
+                                                    <i class="fas fa-leaf"></i>
+                                                </small>
+                                            </h5>
+                                            <p class="text-muted small mb-2">Classic pizza with tomato sauce, mozzarella and basil</p>
+                                            <span class="item-price">₹400</span>
+                                        </div>
+                                        <button class="add-btn add-to-cart" data-id="3" data-name="Margherita Pizza" data-price="400">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4">
+                                <div class="menu-item" data-group="Desserts" data-category="Continental" data-type="veg">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5>Chocolate Lava Cake 
+                                                <small class="veg-icon">
+                                                    <i class="fas fa-leaf"></i>
+                                                </small>
+                                            </h5>
+                                            <p class="text-muted small mb-2">Warm chocolate cake with a molten center, served with vanilla ice cream</p>
+                                            <span class="item-price">₹200</span>
+                                        </div>
+                                        <button class="add-btn add-to-cart" data-id="4" data-name="Chocolate Lava Cake" data-price="200">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4">
+                                <div class="menu-item" data-group="Beverages" data-category="Continental" data-type="veg">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5>Mojito 
+                                                <small class="veg-icon">
+                                                    <i class="fas fa-leaf"></i>
+                                                </small>
+                                            </h5>
+                                            <p class="text-muted small mb-2">Refreshing mint lime drink with soda</p>
+                                            <span class="item-price">₹150</span>
+                                        </div>
+                                        <button class="add-btn add-to-cart" data-id="5" data-name="Mojito" data-price="150">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4">
+                                <div class="menu-item" data-group="Main Course" data-category="Chinese" data-type="non-veg">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5>Chicken Hakka Noodles 
+                                                <small class="non-veg-icon">
+                                                    <i class="fas fa-drumstick-bite"></i>
+                                                </small>
+                                            </h5>
+                                            <p class="text-muted small mb-2">Stir-fried noodles with chicken and vegetables in Chinese style</p>
+                                            <span class="item-price">₹280</span>
+                                        </div>
+                                        <button class="add-btn add-to-cart" data-id="6" data-name="Chicken Hakka Noodles" data-price="280">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center position-relative">
+                    <div>
+                        <span class="me-3">Total: <span class="cart-footer-value">₹0</span></span>
+                        <span id="item-count">0 items</span>
+                    </div>
+                    <button class="cart-footer-btn" data-bs-toggle="modal" data-bs-target="#cartModal">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Your Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body cart-modal">
+                    <div id="cart-items">
+                        <p class="text-muted text-center py-3">Your cart is empty</p>
+                    </div>
+                    
+                    <div class="tax-row">
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal">₹0</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Tax (5%):</span>
+                            <span id="cart-tax">₹0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="total-row">
+                        <div class="d-flex justify-content-between">
+                            <span>Total:</span>
+                            <span id="cart-total">₹0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-primary">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quantity Popup Template -->
+    <div class="quantity-popup" id="quantityPopupTemplate" style="display: none;">
+        <div class="quantity-control">
+            <button class="quantity-decrease"><i class="fas fa-minus"></i></button>
+            <span class="quantity-value">1</span>
+            <button class="quantity-increase"><i class="fas fa-plus"></i></button>
+        </div>
+        <button class="btn btn-sm btn-danger mt-2 w-100 remove-item">Remove</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show welcome modal initially
+            const welcomeModal = document.getElementById('welcomeModal');
+            const mainLayout = document.getElementById('mainLayout');
+            
+            // Continue button click handler
+            document.getElementById('continueBtn').addEventListener('click', function() {
+                welcomeModal.style.display = 'none';
+                mainLayout.style.display = 'flex';
+                
+                // Initialize menu functionality
+                initializeMenu();
+            });
+            
+            // Sample data for menu items
+            const menuItems = [
+                {
+                    id: 1,
+                    name: "Paneer Tikka",
+                    description: "Cottage cheese marinated in spices and grilled to perfection",
+                    price: 250,
+                    group: "Starters",
+                    category: "Indian",
+                    type: "veg"
+                },
+                {
+                    id: 2,
+                    name: "Butter Chicken",
+                    description: "Tender chicken cooked in a rich buttery tomato gravy",
+                    price: 350,
+                    group: "Main Course",
+                    category: "Indian",
+                    type: "non-veg"
+                },
+                {
+                    id: 3,
+                    name: "Margherita Pizza",
+                    description: "Classic pizza with tomato sauce, mozzarella and basil",
+                    price: 400,
+                    group: "Main Course",
+                    category: "Italian",
+                    type: "veg"
+                },
+                {
+                    id: 4,
+                    name: "Chocolate Lava Cake",
+                    description: "Warm chocolate cake with a molten center, served with vanilla ice cream",
+                    price: 200,
+                    group: "Desserts",
+                    category: "Continental",
+                    type: "veg"
+                },
+                {
+                    id: 5,
+                    name: "Mojito",
+                    description: "Refreshing mint lime drink with soda",
+                    price: 150,
+                    group: "Beverages",
+                    category: "Continental",
+                    type: "veg"
+                },
+                {
+                    id: 6,
+                    name: "Chicken Hakka Noodles",
+                    description: "Stir-fried noodles with chicken and vegetables in Chinese style",
+                    price: 280,
+                    group: "Main Course",
+                    category: "Chinese",
+                    type: "non-veg"
+                }
+            ];
+            
+            let cart = [];
+            
+            function initializeMenu() {
+                // Setup filter event listeners
+                document.getElementById('group-filter').addEventListener('change', filterItems);
+                document.getElementById('category-filter').addEventListener('change', filterItems);
+                document.querySelectorAll('input[name="food-type"]').forEach(radio => {
+                    radio.addEventListener('change', filterItems);
+                });
+                document.getElementById('search').addEventListener('input', filterItems);
+                
+                // Add to cart buttons
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        const name = this.getAttribute('data-name');
+                        const price = parseFloat(this.getAttribute('data-price'));
+                        
+                        addToCart(id, name, price);
+                    });
+                });
+                
+                // Initialize sidebar navigation
+                document.querySelectorAll('.sidebar-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+                        // Here you would typically load different content based on selection
+                    });
+                });
+            }
+            
+            function filterItems() {
+                const groupFilter = document.getElementById('group-filter').value.toLowerCase();
+                const categoryFilter = document.getElementById('category-filter').value.toLowerCase();
+                const foodType = document.querySelector('input[name="food-type"]:checked').id;
+                const searchTerm = document.getElementById('search').value.toLowerCase();
+                
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    const group = item.getAttribute('data-group').toLowerCase();
+                    const category = item.getAttribute('data-category').toLowerCase();
+                    const type = item.getAttribute('data-type');
+                    const name = item.querySelector('h5').textContent.toLowerCase();
+                    const description = item.querySelector('p').textContent.toLowerCase();
+                    
+                    const groupMatch = groupFilter === '' || group.includes(groupFilter);
+                    const categoryMatch = categoryFilter === '' || category.includes(categoryFilter);
+                    let typeMatch = true;
+                    
+                    if (foodType === 'veg-type') typeMatch = type === 'veg';
+                    else if (foodType === 'nonveg-type') typeMatch = type === 'non-veg';
+                    
+                    const searchMatch = searchTerm === '' || 
+                        name.includes(searchTerm) || 
+                        description.includes(searchTerm);
+                    
+                    if (groupMatch && categoryMatch && typeMatch && searchMatch) {
+                        item.parentElement.style.display = 'block';
+                    } else {
+                        item.parentElement.style.display = 'none';
+                    }
+                });
+            }
+            
+            function addToCart(id, name, price) {
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id,
+                        name,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCartUI();
+                
+                // Show feedback on the button
+                const button = document.querySelector(`.add-to-cart[data-id="${id}"]`);
+                button.innerHTML = '<i class="fas fa-check"></i> Added';
+                button.style.backgroundColor = '#4caf50';
+                
+                setTimeout(() => {
+                    // Check if item still exists in cart (might have been removed)
+                    const currentItem = cart.find(item => item.id === id);
+                    if (currentItem) {
+                        if (currentItem.quantity > 1) {
+                            button.innerHTML = `<i class="fas fa-check"></i> ${currentItem.quantity}`;
+                        } else {
+                            button.innerHTML = '<i class="fas fa-plus"></i> Add';
+                        }
+                    } else {
+                        button.innerHTML = '<i class="fas fa-plus"></i> Add';
+                    }
+                    button.style.backgroundColor = '#2a9d8f';
+                }, 1000);
+            }
+            
+            function updateCartUI() {
+                // Calculate totals
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const tax = subtotal * 0.05; // 5% tax
+                const total = subtotal + tax;
+                
+                // Update footer
+                document.querySelector('.cart-footer-value').textContent = `₹${total.toFixed(2)}`;
+                document.getElementById('item-count').textContent = `${cart.reduce((sum, item) => sum + item.quantity, 0)} items`;
+                
+                // Update cart modal
+                let html = '';
+                
+                if (cart.length === 0) {
+                    html = '<p class="text-muted text-center py-3">Your cart is empty</p>';
+                } else {
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        
+                        html += `
+                            <div class="cart-item" data-id="${item.id}">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6>${item.name}</h6>
+                                        <small class="text-muted">₹${item.price} per item</small>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="position-relative">
+                                            <span class="quantity-badge" data-id="${item.id}">${item.quantity}</span>
+                                        </div>
+                                        <span class="ms-3">₹${itemTotal.toFixed(2)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                document.getElementById('cart-items').innerHTML = html;
+                document.getElementById('cart-subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+                document.getElementById('cart-tax').textContent = `₹${tax.toFixed(2)}`;
+                document.getElementById('cart-total').textContent = `₹${total.toFixed(2)}`;
+                
+                // Add event listeners to quantity badges
+                document.querySelectorAll('.quantity-badge').forEach(badge => {
+                    badge.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.getAttribute('data-id'));
+                        const item = cart.find(item => item.id === id);
+                        
+                        if (item) {
+                            showQuantityPopup(this, item);
+                        }
+                    });
+                });
+            }
+            
+            function showQuantityPopup(element, item) {
+                // Remove any existing popups
+                document.querySelectorAll('.quantity-popup').forEach(popup => {
+                    if (popup.id !== 'quantityPopupTemplate') {
+                        popup.remove();
+                    }
+                });
+                
+                // Create new popup
+                const popup = document.getElementById('quantityPopupTemplate').cloneNode(true);
+                popup.id = '';
+                popup.style.display = 'block';
+                
+                // Position the popup
+                const rect = element.getBoundingClientRect();
+                popup.style.position = 'fixed';
+                popup.style.top = `${rect.top + window.scrollY - 50}px`;
+                popup.style.left = `${rect.left + window.scrollX - 30}px`;
+                
+                // Set current quantity
+                popup.querySelector('.quantity-value').textContent = item.quantity;
+                
+                // Add event listeners
+                popup.querySelector('.quantity-increase').addEventListener('click', function() {
+                    item.quantity += 1;
+                    popup.querySelector('.quantity-value').textContent = item.quantity;
+                    updateCartUI();
+                });
+                
+                popup.querySelector('.quantity-decrease').addEventListener('click', function() {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                        popup.querySelector('.quantity-value').textContent = item.quantity;
+                        updateCartUI();
+                    }
+                });
+                
+                popup.querySelector('.remove-item').addEventListener('click', function() {
+                    cart = cart.filter(cartItem => cartItem.id !== item.id);
+                    updateCartUI();
+                    popup.remove();
+                    
+                    // Reset the add button for this item
+                    const button = document.querySelector(`.add-to-cart[data-id="${item.id}"]`);
+                    if (button) {
+                        button.innerHTML = '<i class="fas fa-plus"></i> Add';
+                    }
+                });
+                
+                // Add to document
+                document.body.appendChild(popup);
+                
+                // Close when clicking outside
+                const clickHandler = function(e) {
+                    if (!popup.contains(e.target) && e.target !== element) {
+                        popup.remove();
+                        document.removeEventListener('click', clickHandler);
+                    }
+                };
+                
+                setTimeout(() => {
+                    document.addEventListener('click', clickHandler);
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

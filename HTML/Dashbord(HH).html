@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Overview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 15px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0;
+        }
+        
+        .custom-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin: 0 auto 20px;
+            width: 100%;
+        }
+        
+        .cont-sub-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .cont-sub-title h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .dash-ov-view-box {
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            height: 100%;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+        
+        .box-color-1 {
+            border-top: 4px solid #4e73df;
+        }
+        
+        .box-color-2 {
+            border-top: 4px solid #1cc88a;
+        }
+        
+        .box-color-3 {
+            border-top: 4px solid #36b9cc;
+        }
+        
+        .box-color-4 {
+            border-top: 4px solid #f6c23e;
+        }
+        
+        .dash-content-card-grp {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .c-vw-grp-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .c-vw-img-bx {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(78, 115, 223, 0.1);
+            border-radius: 8px;
+            color: #4e73df;
+            font-size: 18px;
+        }
+        
+        .box-color-2 .c-vw-img-bx {
+            background-color: rgba(28, 200, 138, 0.1);
+            color: #1cc88a;
+        }
+        
+        .box-color-3 .c-vw-img-bx {
+            background-color: rgba(54, 185, 204, 0.1);
+            color: #36b9cc;
+        }
+        
+        .box-color-4 .c-vw-img-bx {
+            background-color: rgba(246, 194, 62, 0.1);
+            color: #f6c23e;
+        }
+        
+        .c-vw-tl-hs {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            color: #333;
+        }
+        
+        .c-vw-tl-bx h5 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 5px 0 0;
+        }
+        
+        .dash-content-card-text table {
+            width: 100%;
+        }
+        
+        .dash-content-card-text table td {
+            padding: 8px 5px;
+            font-size: 14px;
+        }
+        
+        .dash-content-card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .dash-content-card-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dash-content-card-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .dash-content-card-list li span {
+            color: #666;
+        }
+        
+        .dash-customer-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            border: 1px solid #eee;
+            height: 100%;
+        }
+        
+        .dash-cust-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .cust-prof-wrap {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            overflow: hidden;
+        }
+        
+        .cust-name h5 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .cust-name h6 {
+            font-size: 12px;
+            color: #666;
+            margin: 3px 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .call-icon--wrap {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .call-icon--wrap a {
+            color: #666;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        .call-icon--wrap a:hover {
+            color: #2694d3;
+        }
+        
+        .dash-cust-card-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px;
+        }
+        
+        .dash-cust-card-body ul li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .dash-cust-card-body ul li .icon {
+            width: 16px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .address {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .text-primary {
+            color: #2694d3 !important;
+            cursor: pointer;
+        }
+        
+        .popover {
+            max-width: 400px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1199.98px) {
+            .c-vw-tl-bx h5 {
+                font-size: 20px;
+            }
+            
+            .dash-content-card-text table td {
+                font-size: 13px;
+                padding: 6px 3px;
+            }
+        }
+        
+        @media (max-width: 991.98px) {
+            .custom-container {
+                padding: 15px;
+            }
+            
+            .dash-ov-view-box {
+                padding: 12px;
+            }
+            
+            .c-vw-tl-hs {
+                font-size: 15px;
+            }
+            
+            .c-vw-tl-bx h5 {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .content-body .row > div {
+                margin-bottom: 15px;
+            }
+            
+            .dash-customer-card {
+                max-width: 100%;
+            }
+            
+            .cust-name h5 {
+                font-size: 15px;
+            }
+            
+            .cust-name h6 {
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .breadcrumb {
+                padding: 0.5rem;
+                font-size: 14px;
+            }
+            
+            .custom-container {
+                padding: 12px;
+            }
+            
+            .cont-sub-title h2 {
+                font-size: 16px;
+            }
+            
+            .d-flex.gap-4 p {
+                font-size: 14px;
+            }
+            
+            .c-vw-grp-box {
+                gap: 10px;
+            }
+            
+            .c-vw-img-bx {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+            
+            .c-vw-tl-hs {
+                font-size: 14px;
+            }
+            
+            .c-vw-tl-bx h5 {
+                font-size: 16px;
+            }
+            
+            .dash-content-card-text table td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="breadcrumb__nav" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Components</li>
+        </ol>
+    </nav>
+
+    <div class="custom-container">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex gap-4 ms-1" style="margin: -10px">
+                        <p style="font-weight: 600; font-size: 16px; line-height: 1">
+                            Total Missing Contact in Opportunity : <span class="text-primary" id="missingContactPopover">5</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dash-ov-view-box box-color-1">
+                        <div class="dash-content-card-grp">
+                            <div class="c-vw-grp-box">
+                                <div class="c-vw-img-bx">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <div class="c-vw-tl-bx">
+                                    <h3 class="c-vw-tl-hs">Total Leads</h3>
+                                    <h5>124</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash-content-card-text">
+                            <table class="table" style="margin-top: 10px">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 60%"></td>
+                                        <td style="width: 20%">Self</td>
+                                        <td style="width: 20%" class="d-flex pr-3">Assigned <a href="javascript:void(0)" style="padding-left: 7px;" title="User Assigned lead to Others">?</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Current Month</td>
+                                        <td>12</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Month</td>
+                                        <td>15</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>This Year</td>
+                                        <td>85</td>
+                                        <td>60</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Year</td>
+                                        <td>70</td>
+                                        <td>45</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Without Activity</td>
+                                        <td>5</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Activity > 1 Year</td>
+                                        <td>7</td>
+                                        <td>4</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dash-ov-view-box box-color-2">
+                        <div class="dash-content-card-grp">
+                            <div class="c-vw-grp-box">
+                                <div class="c-vw-img-bx">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="c-vw-tl-bx">
+                                    <h3 class="c-vw-tl-hs">Total Opportunities</h3>
+                                    <h5>42</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash-content-card-text">
+                            <table class="table" style="margin-top: 10px">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 10%">Overdue</td>
+                                        <td style="width: 20%"></td>
+                                        <td style="width: 20%"></td>
+                                        <td style="width: 20%">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 10%">FY</td>
+                                        <td style="width: 30%">2023-24</td>
+                                        <td style="width: 30%">2022-23</td>
+                                        <td style="width: 30%">2021-22</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Created</td>
+                                        <td>15</td>
+                                        <td>12</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Won</td>
+                                        <td>8</td>
+                                        <td>6</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lost</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cancelled</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>On Hold</td>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dash-ov-view-box box-color-3">
+                        <div class="dash-content-card-grp">
+                            <div class="c-vw-grp-box">
+                                <div class="c-vw-img-bx">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="c-vw-tl-bx">
+                                    <h3 class="c-vw-tl-hs">Total Activities</h3>
+                                    <h5>36</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash-content-card-text">
+                            <table class="table" style="margin-top: 10px">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 60%"></td>
+                                        <td style="width: 20%">Held</td>
+                                        <td style="width: 20%">Planned</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Telephone</td>
+                                        <td>12</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Meeting</td>
+                                        <td>8</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Demo</td>
+                                        <td>4</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Due in next 7 days</td>
+                                        <td>2</td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Overdue</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dash-ov-view-box box-color-4">
+                        <div class="dash-content-card-grp">
+                            <div class="c-vw-grp-box">
+                                <div class="c-vw-img-bx">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="c-vw-tl-bx">
+                                    <h3 class="c-vw-tl-hs">Shared Leads</h3>
+                                    <h5>18</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash-content-card-text">
+                            <ul class="dash-content-card-list">
+                                <li>
+                                    <span>Today</span> 2
+                                </li>
+                                <li>
+                                    <span>Yesterday</span> 3
+                                </li>
+                                <li>
+                                    <span>Last 7 Days</span> 8
+                                </li>
+                                <li>
+                                    <span>Last Month</span> 12
+                                </li>
+                                <li>
+                                    <span>Past Year</span> 18
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="cont-sub-title">
+                        <h2>Follow up with customer</h2>
+                    </div>
+                    <div class="d-flex gap-4 ms-1" style="margin: -10px">
+                        <p style="font-weight: 600; font-size: 16px; line-height: 1">
+                            Meeting : <span class="text-primary">5</span>
+                        </p>
+                        <p style="font-weight: 600; font-size: 16px; line-height: 1">
+                            Telephone : <span class="text-primary">3</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-md-6 mb-3">
+                    <div class="dash-customer-card">
+                        <div class="dash-cust-card-header">
+                            <div class="cust-prof-wrap">
+                                <div style="width: 40px; height: 40px; border-radius: 100%; font-size: 30px; background-color: #f583202a; font-weight: bold; text-align: center; padding: 2px; color: rgb(86, 85, 85); flex-shrink: 0;">
+                                    S
+                                </div>
+                                <div class="cust-name">
+                                    <h5>John Smith</h5>
+                                    <h6>LD-2023-001</h6>
+                                </div>
+                            </div>
+                            <div class="call-icon--wrap">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#descriptionModal" title="Description"><i class="fas fa-info-circle"></i></a>
+                                <a href="https://wa.me/1234567890" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="tel:1234567890" title="Contact"><i class="fas fa-phone-alt"></i></a>
+                            </div>
+                        </div>
+                        <div class="dash-cust-card-body">
+                            <ul>
+                                <li>
+                                    <span><i class="fas fa-calendar-day icon"></i></span> 2023-06-15
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-clock icon"></i></span>
+                                    10:30 AM
+                                </li>
+                                <li>Product Demo</li>
+                            </ul>
+                            <p class="address">
+                                <span><i class="fas fa-map-marker-alt icon"></i></span>
+                                123 Main St, New York, NY 10001
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mb-3">
+                    <div class="dash-customer-card">
+                        <div class="dash-cust-card-header">
+                            <div class="cust-prof-wrap">
+                                <div style="width: 40px; height: 40px; border-radius: 100%; font-size: 30px; background-color: #f583202a; font-weight: bold; text-align: center; padding: 2px; color: rgb(86, 85, 85); flex-shrink: 0;">
+                                    D
+                                </div>
+                                <div class="cust-name">
+                                    <h5>Sarah Davis</h5>
+                                    <h6>LD-2023-002</h6>
+                                </div>
+                            </div>
+                            <div class="call-icon--wrap">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#descriptionModal" title="Description"><i class="fas fa-info-circle"></i></a>
+                                <a href="https://wa.me/1234567890" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="tel:1234567890" title="Contact"><i class="fas fa-phone-alt"></i></a>
+                            </div>
+                        </div>
+                        <div class="dash-cust-card-body">
+                            <ul>
+                                <li>
+                                    <span><i class="fas fa-calendar-day icon"></i></span> 2023-06-16
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-clock icon"></i></span>
+                                    2:00 PM
+                                </li>
+                                <li>Sales Meeting</li>
+                            </ul>
+                            <p class="address">
+                                <span><i class="fas fa-map-marker-alt icon"></i></span>
+                                456 Oak Ave, Boston, MA 02108
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mb-3">
+                    <div class="dash-customer-card">
+                        <div class="dash-cust-card-header">
+                            <div class="cust-prof-wrap">
+                                <div style="width: 40px; height: 40px; border-radius: 100%; font-size: 30px; background-color: #f583202a; font-weight: bold; text-align: center; padding: 2px; color: rgb(86, 85, 85); flex-shrink: 0;">
+                                    W
+                                </div>
+                                <div class="cust-name">
+                                    <h5>Michael Wilson</h5>
+                                    <h6>LD-2023-003</h6>
+                                </div>
+                            </div>
+                            <div class="call-icon--wrap">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#descriptionModal" title="Description"><i class="fas fa-info-circle"></i></a>
+                                <a href="https://wa.me/1234567890" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="tel:1234567890" title="Contact"><i class="fas fa-phone-alt"></i></a>
+                            </div>
+                        </div>
+                        <div class="dash-cust-card-body">
+                            <ul>
+                                <li>
+                                    <span><i class="fas fa-calendar-day icon"></i></span> 2023-06-17
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-clock icon"></i></span>
+                                    11:00 AM
+                                </li>
+                                <li>Follow-up Call</li>
+                            </ul>
+                            <p class="address">
+                                <span><i class="fas fa-map-marker-alt icon"></i></span>
+                                789 Pine St, Chicago, IL 60601
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Modal -->
+    <div class="modal fade lead_list_modal" id="descriptionModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Activity Details (LD-2023-001)</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
+                                <th>Lead Topic</th>
+                                <td>Enterprise Software Solution</td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>John Smith</td>
+                            </tr>
+                            <tr>
+                                <th>Activity Title</th>
+                                <td>Product Demo</td>
+                            </tr>
+                            <tr>
+                                <th>Activity Description</th>
+                                <td>Demo of our enterprise software solution to address their inventory management needs. Client showed particular interest in the reporting features.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Missing Contact Popover Content (hidden by default) -->
+    <div id="missingContactPopoverContent" style="display: none;">
+        <div class="p-2">
+            <h6 class="popover-title">Opportunity Code</h6>
+            <div class="popover-content">
+                <ul>
+                    <li>OP-2023-001</li>
+                    <li>OP-2023-005</li>
+                    <li>OP-2023-008</li>
+                    <li>OP-2023-012</li>
+                    <li>OP-2023-015</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize popover for missing contact
+        document.addEventListener('DOMContentLoaded', function() {
+            const popoverTrigger = document.getElementById('missingContactPopover');
+            const popoverContent = document.getElementById('missingContactPopoverContent').innerHTML;
+            
+            new bootstrap.Popover(popoverTrigger, {
+                content: popoverContent,
+                html: true,
+                trigger: 'click',
+                placement: 'bottom'
+            });
+        });
+    </script>
+</body>
+</html>
