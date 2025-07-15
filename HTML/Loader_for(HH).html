@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant POS - Loading</title>
+    <style>
+        /* Main overlay style */
+        .pos-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .pos-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Spinner container */
+        .pos-spinner {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            width: 80%;
+        }
+        
+        /* Animated plate graphic */
+        .plate-loader {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+        }
+        
+        .plate {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #f8f8f8;
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e0e0e0;
+        }
+        
+        .food-item {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation: foodOrbit 3s linear infinite;
+            transform-origin: 50px 50px;
+        }
+        
+        .food-item:nth-child(1) {
+            background: #FF6B6B;
+            animation-delay: 0s;
+            top: 15px;
+            left: 40px;
+        }
+        
+        .food-item:nth-child(2) {
+            background: #4ECDC4;
+            animation-delay: -1s;
+            top: 40px;
+            left: 65px;
+        }
+        
+        .food-item:nth-child(3) {
+            background: #FFE66D;
+            animation-delay: -2s;
+            top: 65px;
+            left: 40px;
+        }
+        
+        .food-item:nth-child(4) {
+            background: #7DCEA0;
+            animation-delay: -3s;
+            top: 40px;
+            left: 15px;
+        }
+        
+        @keyframes foodOrbit {
+            0% {
+                transform: rotate(0deg) translateX(30px) rotate(0deg);
+                z-index: 1;
+            }
+            50% {
+                transform: rotate(180deg) translateX(30px) rotate(-180deg);
+                z-index: 1;
+            }
+            50.1% {
+                z-index: -1;
+            }
+            100% {
+                transform: rotate(360deg) translateX(30px) rotate(-360deg);
+                z-index: -1;
+            }
+        }
+        
+        /* Loading text */
+        .loading-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .loading-subtext {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            border-radius: 4px;
+            animation: progressAnimation 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressAnimation {
+            0% {
+                width: 0;
+                margin-left: 0;
+            }
+            50% {
+                width: 100%;
+                margin-left: 0;
+            }
+            100% {
+                width: 0;
+                margin-left: 100%;
+            }
+        }
+        
+        /* Restaurant branding */
+        .branding {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your POS content here -->
+    <button onclick="showLoader('Processing order...')">Show Loader</button>
+    <button onclick="hideLoader()">Hide Loader</button>
+
+    <!-- POS Loader -->
+    <div class="pos-overlay" id="posLoader">
+        <div class="pos-spinner">
+            <div class="plate-loader">
+                <div class="plate"></div>
+                <div class="food-item"></div>
+                <div class="food-item"></div>
+                <div class="food-item"></div>
+                <div class="food-item"></div>
+            </div>
+            <div class="loading-text" id="loaderText">Loading...</div>
+            <div class="loading-subtext">Please wait while we process your request</div>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="branding">Restaurant POS System</div>
+        </div>
+    </div>
+
+    <script>
+        // Loader control functions
+        function showLoader(message = 'Loading...') {
+            const loader = document.getElementById('posLoader');
+            const loaderText = document.getElementById('loaderText');
+            
+            if (message) {
+                loaderText.textContent = message;
+            }
+            
+            loader.classList.add('show');
+        }
+        
+        function hideLoader() {
+            const loader = document.getElementById('posLoader');
+            loader.classList.remove('show');
+        }
+        
+        // Example usage with API calls:
+        /*
+        function makeApiCall() {
+            showLoader('Processing payment...');
+            
+            fetch('your-api-endpoint')
+                .then(response => response.json())
+                .then(data => {
+                    // Handle data
+                    hideLoader();
+                })
+                .catch(error => {
+                    hideLoader();
+                    // Handle error
+                });
+        }
+        */
+    </script>
+</body>
+</html>
