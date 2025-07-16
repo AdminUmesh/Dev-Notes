@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Cards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .counter {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .counter::before,
+        .counter::after {
+            position: absolute;
+            content: "";
+            border-radius: 100%;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            transition: all 0.3s ease;
+        }
+        .counter::before {
+            width: 100px;
+            height: 100px;
+            right: -45px;
+            top: -45px;
+            z-index: 1;
+            background-color: hsl(222.22deg 24.67% 42.95%);
+            opacity: 0.7;
+        }
+        .counter::after {
+            width: 150px;
+            height: 150px;
+            right: -74px;
+            top: -74px;
+            background-color: hsl(212.73deg 36.28% 75.41%);
+            opacity: 0.7;
+        }
+        
+        /* Hover effects */
+        .counter:hover::before {
+            transform: scale(1.1);
+            opacity: 1;
+            right: -40px;
+            top: -40px;
+        }
+        .counter:hover::after {
+            transform: scale(1.1);
+            opacity: 1;
+            right: -69px;
+            top: -69px;
+        }
+        .counter:hover .icn i {
+            transform: scale(1.1);
+        }
+        .counter:hover .card-title {
+            font-weight: 700;
+            font-size: 17px;
+        }
+        
+        /* Click effects */
+        .counter:active {
+            transform: translateY(2px);
+            box-shadow: 
+                inset 2px 2px 4px rgba(0,0,0,0.1),
+                inset -2px -2px 4px rgba(0,0,0,0.1),
+                inset 0px 4px 4px rgba(0,0,0,0.1);
+        }
+        .counter:active::before,
+        .counter:active::after {
+            transform: scale(0.98);
+        }
+        .counter:active .icn i {
+            transform: scale(0.95);
+        }
+        
+        /* Content styling */
+        .counter .icn i {
+            transition: transform 0.2s ease;
+        }
+        .card-title {
+            transition: all 0.2s ease;
+        }
+        .status-icon {
+            font-size: 22px;
+        }
+        .status-done {
+            color: #10B981; /* Green-500 */
+        }
+        .status-failed {
+            color: #EF4444; /* Red-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <section class="mt-3">
+        <div class="card bg-white rounded-lg shadow p-4">
+            <p class="mb-2 text-lg font-medium text-gray-700">Today</p>
+            <div class="grid grid-cols-12 gap-3" id="today-cards">
+                <!-- Cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <section class="mt-3">
+        <div class="card bg-white rounded-lg shadow p-4">
+            <p class="mb-2 text-lg font-medium text-gray-700">Last One Month</p>
+            <div class="grid grid-cols-12 gap-3" id="month-cards">
+                <!-- Cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Static data for the dashboard with status flags
+        const Dashboardcount = {
+            // Today's data with status (true = done, false = failed)
+            samples_received_today: { value: 42, status: true },
+            jobs_created_today: { value: 35, status: false },
+            samples_created_today: { value: 28, status: true },
+            locked_samples_today: { value: 22, status: false },
+            tested_samples_today: { value: 18, status: true },
+            approved_samples_today: { value: 15, status: false },
+            report_generated_today: { value: 12, status: true },
+            report_locked_today: { value: 10, status: false },
+            
+            // Last month's data with status
+            samples_received_last_month: { value: 1250, status: true },
+            jobs_created_last_month: { value: 1105, status: true },
+            samples_created_last_month: { value: 980, status: false },
+            locked_samples_last_month: { value: 845, status: true },
+            tested_samples_last_month: { value: 720, status: false },
+            approved_samples_last_month: { value: 680, status: true },
+            report_generated_last_month: { value: 650, status: false },
+            report_locked_last_month: { value: 620, status: true }
+        };
+
+        // Card configurations
+        const cardConfigs = [
+            {
+                icon: "fa-user",
+                title: "Sample Received",
+                todayKey: "samples_received_today",
+                monthKey: "samples_received_last_month"
+            },
+            {
+                icon: "fa-user-tie",
+                title: "Job Created",
+                todayKey: "jobs_created_today",
+                monthKey: "jobs_created_last_month"
+            },
+            {
+                icon: "fa-vial-virus",
+                title: "Sample Created",
+                todayKey: "samples_created_today",
+                monthKey: "samples_created_last_month"
+            },
+            {
+                icon: "fa-microchip",
+                title: "Locked Samples",
+                todayKey: "locked_samples_today",
+                monthKey: "locked_samples_last_month"
+            },
+            {
+                icon: "fa-handshake-angle",
+                title: "Tested Sample",
+                todayKey: "tested_samples_today",
+                monthKey: "tested_samples_last_month"
+            },
+            {
+                icon: "fa-desktop",
+                title: "Approved Sample",
+                todayKey: "approved_samples_today",
+                monthKey: "approved_samples_last_month"
+            },
+            {
+                icon: "fa-desktop",
+                title: "Report Generated",
+                todayKey: "report_generated_today",
+                monthKey: "report_generated_last_month"
+            },
+            {
+                icon: "fa-desktop",
+                title: "Report Locked",
+                todayKey: "report_locked_today",
+                monthKey: "report_locked_last_month"
+            }
+        ];
+
+        // Function to create status icon
+        function getStatusIcon(status) {
+            if (status) {
+                return '<i class="fas fa-check-circle status-icon status-done"></i>';
+            } else {
+                return '<i class="fas fa-times-circle status-icon status-failed"></i>';
+            }
+        }
+
+        // Function to create a card element
+        function createCard(config, data, section) {
+            const card = document.createElement('div');
+            card.className = 'counter cbox11 relative col-span-6 truncate rounded bg-slate-200 p-3 pt-[1rem] sm:col-span-4 md:col-span-3 lg:col-span-3 xl:col-span-3';
+            card.innerHTML = `
+                <div class="icn mb-2">
+                    <i class="fa-solid ${config.icon} text-3xl text-slate-500"></i>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="relative z-10">${getStatusIcon(data.status)}</div>
+                    <p class="card-title z-10 text-[16px] font-medium text-slate-900">${config.title}</p>
+                </div>
+            `;
+            
+            // Add click event to show alert
+            card.addEventListener('click', () => {
+                alert(`This is "${config.title}" card (${section})\nStatus: ${data.status ? 'Done' : 'Failed'}\nCount: ${data.value}`);
+            });
+            
+            return card;
+        }
+
+        // Function to render all cards
+        function renderCards() {
+            const todayContainer = document.getElementById('today-cards');
+            const monthContainer = document.getElementById('month-cards');
+            
+            // Clear existing content
+            todayContainer.innerHTML = '';
+            monthContainer.innerHTML = '';
+            
+            // Create and append cards
+            cardConfigs.forEach(config => {
+                todayContainer.appendChild(createCard(
+                    config, 
+                    Dashboardcount[config.todayKey], 
+                    'Today'
+                ));
+                monthContainer.appendChild(createCard(
+                    config, 
+                    Dashboardcount[config.monthKey], 
+                    'Last Month'
+                ));
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', renderCards);
+    </script>
+</body>
+</html>
