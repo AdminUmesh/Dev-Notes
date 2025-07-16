@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dashboard-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 150px;
+        }
+        @media (min-width: 768px) {
+            .dashboard-card {
+                aspect-ratio: 2/1;
+                min-height: auto;
+            }
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .dashboard-card:active {
+            transform: translateY(0);
+        }
+        .card-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.25rem;
+        }
+        @media (min-width: 640px) {
+            .card-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-6 max-w-screen-xl">
+        <!-- My Attendance Header -->
+        <header class="mb-6 md:mb-8">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">My Attendance</h1>
+            <p class="text-gray-600 mt-1 md:mt-2 text-sm md:text-base">Day-To-Day Activities</p>
+        </header>
+
+        <!-- My Attendance Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
+            <!-- My Attendance Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-blue-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-calendar-check text-blue-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">My Attendance</h3>
+                    </div>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Manage
+                    </button>
+                </div>
+            </div>
+
+            <!-- My Profile Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-green-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-user text-green-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">My Profile</h3>
+                    </div>
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Manage
+                    </button>
+                </div>
+            </div>
+
+            <!-- View Pay Slip Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-purple-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-file-invoice-dollar text-purple-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">View Pay Slip</h3>
+                    </div>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Manage
+                    </button>
+                </div>
+            </div>
+
+            <!-- Calculator Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-yellow-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-calculator text-yellow-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">Calculator</h3>
+                    </div>
+                    <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Calculate Salary
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Faculty Attendance Header -->
+        <header class="mb-6 md:mb-8">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Faculty Attendance</h1>
+            <p class="text-gray-600 mt-1 md:mt-2 text-sm md:text-base">Day-To-Day Activities</p>
+        </header>
+
+        <!-- Faculty Attendance Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <!-- Faculty Attendance Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-blue-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-calendar-check text-blue-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">Faculty Attendance</h3>
+                    </div>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Manage
+                    </button>
+                </div>
+            </div>
+
+            <!-- Faculty Profile Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-green-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-user text-green-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">Faculty Profile</h3>
+                    </div>
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Manage
+                    </button>
+                </div>
+            </div>
+
+            <!-- Faculty Pay Slip Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-purple-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-file-invoice-dollar text-purple-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">Faculty Pay Slip</h3>
+                    </div>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Manage
+                    </button>
+                </div>
+            </div>
+
+            <!-- Faculty Reports Card -->
+            <div class="dashboard-card bg-white rounded-lg shadow">
+                <div class="card-content">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="bg-red-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                            <i class="fas fa-chart-bar text-red-600 text-lg md:text-xl"></i>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-gray-800">Faculty Reports</h3>
+                    </div>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md transition w-full text-sm md:text-base">
+                        Generate Reports
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Functionality for the dashboard cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.dashboard-card');
+            
+            // My Attendance section
+            cards[0].addEventListener('click', () => alert('My Attendance management will open here'));
+            cards[1].addEventListener('click', () => alert('Profile management will open here'));
+            cards[2].addEventListener('click', () => alert('Pay slip viewer will open here'));
+            cards[3].addEventListener('click', () => alert('Salary calculator will open here'));
+
+            // Faculty Attendance section
+            cards[4].addEventListener('click', () => alert('Faculty Attendance management will open here'));
+            cards[5].addEventListener('click', () => alert('Faculty Profile management will open here'));
+            cards[6].addEventListener('click', () => alert('Faculty Pay slip viewer will open here'));
+            cards[7].addEventListener('click', () => alert('Faculty Reports generator will open here'));
+        });
+    </script>
+</body>
+</html>
