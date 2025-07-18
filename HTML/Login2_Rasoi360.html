@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>RestoPro | Restaurant Management</title>
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #1a252f;
+        --text-color: #333;
+        --light-color: #f9f9f9;
+        --error-color: #e74c3c;
+        --welcome-color: #ff8000;
+        --accent-color: #ff9e40;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      html, body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        background-color: #f5f5f5;
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, rgba(255,128,0,0.1) 0%, rgba(255,128,0,0.05) 100%);
+      }
+
+      .login-sec {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        height: calc(100vh - 60px);
+      }
+
+      .login-container {
+        display: flex;
+        width: 100%;
+        max-width: 1000px;
+        max-height: 600px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(255, 128, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .log-col {
+        flex: 1;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .log-col:first-child {
+        max-width: 450px;
+        overflow-y: auto;
+      }
+
+      .banner-img {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #ff8000 0%, #ffb366 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .banner-img:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+      }
+
+      .banner-img img {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+      }
+
+      .logo-img {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .logo-img img {
+        max-width: 160px;
+        height: auto;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      }
+
+      .welcome-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .welcome-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+        color: var(--welcome-color);
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 5px;
+        color: var(--welcome-color);
+        letter-spacing: -0.5px;
+      }
+
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: var(--primary-color);
+        position: relative;
+        display: inline-block;
+      }
+
+      h2:after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--welcome-color);
+        border-radius: 2px;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 14px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: all 0.3s;
+        background-color: #fafafa;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--welcome-color);
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.2);
+      }
+
+      .input-group {
+        display: flex;
+        margin-bottom: 5px;
+      }
+
+      .input-group-text {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        background-color: #f1f1f1;
+        border: 2px solid #e0e0e0;
+        border-left: none;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .input-group-text:hover {
+        background-color: #e0e0e0;
+      }
+
+      .input-group-text img {
+        width: 20px;
+        height: 20px;
+      }
+
+      .text-danger {
+        color: var(--error-color);
+        font-size: 13px;
+        margin-bottom: 10px;
+        min-height: 18px;
+        font-weight: 500;
+      }
+
+      .login__btn.shrink {
+        transform: scale(0.98);
+      }
+
+      .forget-pass-lnk {
+        text-align: right;
+        margin-top: 15px;
+      }
+
+      .forget-pass-lnk a {
+        color: var(--welcome-color);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .forget-pass-lnk a:hover {
+        text-decoration: underline;
+        color: var(--accent-color);
+      }
+
+      .forget-pass-lnk a:after {
+        content: "→";
+        margin-left: 5px;
+        transition: transform 0.3s;
+      }
+
+      .forget-pass-lnk a:hover:after {
+        transform: translateX(3px);
+      }
+
+      footer {
+        text-align: center;
+        padding: 15px;
+        font-size: 13px;
+        color: #777;
+        background-color: rgba(255, 128, 0, 0.05);
+        height: 60px;
+      }
+
+      .login__btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 128, 0, 0.4);
+      }
+
+      .login__btn {
+        font-family: 'Segoe UI', sans-serif;
+        width: 100%;
+        height: 50px;
+        font-size: 16px;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--welcome-color) 0%, var(--accent-color) 100%);
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 10px rgba(255, 128, 0, 0.3);
+      }
+
+      #loginBtn:disabled {
+        background: linear-gradient(135deg, #636262 0%, #8a8888 100%);
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none !important;
+      }
+
+      @media (max-width: 992px) {
+        .login-container {
+          max-height: 550px;
+        }
+        
+        .log-col {
+          padding: 25px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .login-container {
+          flex-direction: column;
+          max-height: 100%;
+          height: auto;
+        }
+
+        .log-col:first-child {
+          max-width: 100%;
+          padding: 30px;
+        }
+
+        .banner-img {
+          display: none;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+
+        h2 {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .login-sec {
+          padding: 15px;
+          height: calc(100vh - 50px);
+        }
+        
+        .log-col {
+          padding: 20px;
+        }
+
+        .welcome-icon {
+          width: 35px;
+          height: 35px;
+        }
+
+        h1 {
+          font-size: 20px;
+        }
+
+        h2 {
+          font-size: 17px;
+          margin-bottom: 20px;
+        }
+        
+        .login__btn {
+          height: 45px;
+          font-size: 15px;
+        }
+        
+        footer {
+          height: 50px;
+          padding: 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="login-sec">
+      <div class="login-container">
+        <div class="log-col">
+          <div class="form-wrap">
+            <div class="logo-img">
+              <img
+                src="https://via.placeholder.com/160x50?text=RestoPro"
+                alt="RestoPro Logo"
+              />
+            </div>
+            <div class="welcome-container">
+              <svg class="welcome-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 11v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"></path>
+                <polyline points="12 12 15 15 12 18"></polyline>
+                <line x1="12" y1="6" x2="12" y2="12"></line>
+              </svg>
+              <div>
+                <h1>Hi, Welcome to Restaurant Management</h1>
+                <p style="color: #666; font-weight: 500; font-size: 14px;">Sign in to access your dashboard</p>
+              </div>
+            </div>
+            <h2>Sign in</h2>
+
+            <form id="loginForm">
+              <div class="row">
+                <div class="col-12">
+                  <label for="username" class="form-label">Username *</label>
+                  <input
+                    type="text"
+                    id="username"
+                    class="form-control user__name"
+                    placeholder="Enter your username"
+                  />
+                  <div class="text-danger" id="usernameError"></div>
+                </div>
+                <div class="col-12">
+                  <label for="password" class="form-label">Password *</label>
+                  <div class="input-group">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control user__password"
+                      placeholder="Enter your password"
+                    />
+                    <span class="input-group-text" id="show-hide-btn">
+                      <img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWV5ZSI+PHBhdGggZD0iTTIgMTJzMy01LjUgMTAtNS41IDEwIDUuNSAxMCA1LjUtMyA1LjUtMTAgNS41LTEwLTUuNS0xMC01LjVaIi8+PHBhdGggZD0iTTEyIDEzYTEgMSAwIDEgMCAwLTJhMSAxIDAgMCAwIDAgMloiLz48L3N2Zz4="
+                        alt="Show/Hide"
+                        id="show_hide_icon"
+                      />
+                    </span>
+                  </div>
+                  <div class="text-danger" id="passwordError"></div>
+                </div>
+                <div class="col-12">
+                  <div class="text-danger" id="errMessage"></div>
+                  <button type="submit" class="btn login__btn" id="loginBtn">
+                    Login
+                  </button>
+                  <div class="forget-pass-lnk">
+                    <a href="#">Forgot your password?</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="log-col">
+          <div class="banner-img">
+            <img
+              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Restaurant Banner"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p class="mb-0">
+        Copyright © <span id="currentYear">2025</span> RestoPro Solutions. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("currentYear").textContent =
+          new Date().getFullYear();
+
+        const loginForm = document.getElementById("loginForm");
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+        const loginBtn = document.getElementById("loginBtn");
+        const showHideBtn = document.getElementById("show-hide-btn");
+        const showHideIcon = document.getElementById("show_hide_icon");
+        const usernameError = document.getElementById("usernameError");
+        const passwordError = document.getElementById("passwordError");
+        const errMessage = document.getElementById("errMessage");
+
+        let isPasswordVisible = false;
+
+        showHideBtn.addEventListener("click", function () {
+          isPasswordVisible = !isPasswordVisible;
+          password.type = isPasswordVisible ? "text" : "password";
+
+          if (isPasswordVisible) {
+            showHideIcon.src =
+              "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWV5ZS1vZmYiPjxwYXRoIGQ9Ik05Ljg4IDkuODhhMyAzIDAgMSAwIDQuMjQgNC4yNCIvPjxwYXRoIGQ9Ik0xMC43MyA1LjA4QTEwLjEgMTAuMSAwIDAgMSAxOSAxMmMxLjA0IDEuNzkgMi4yNSAzLjI2IDMuNTQgNC4yNnQyLjU0IDEuMjZhMTEgMTEgMCAwIDAgMy4wOC0xLjc1bS0yLjYyLTEuM2EzLjUzIDMuNTMgMCAwIDAtNC4yOC0uMjVtLTEwLjY1IDIuN0ExMC4xIDEwLjEgMCAwIDAgNSAxMmMtMS4xNSAxLjY0LTIuMzIgMy4yLTMuNTQgNC4yNi0xLjI5IDEuMDEtMi41NCAxLjI2LTMuNTQgMS4yOWExMSAxMSAwIDAgMS0zLjA4LTEuNzUiLz48bGluZSB4MT0iMiIgeDI9IjIyIiB5MT0iMiIgeTI9IjIyIi8+PC9zdmc+";
+          } else {
+            showHideIcon.src =
+              "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWV5ZSI+PHBhdGggZD0iTTIgMTJzMy01LjUgMTAtNS41IDEwIDUuNSAxMCA1LjUtMyA1LjUtMTAgNS41LTEwLTUuNS0xMC01LjVaIi8+PHBhdGggZD0iTTEyIDEzYTEgMSAwIDEgMCAwLTJhMSAxIDAgMCAwIDAgMloiLz48L3N2Zz4=";
+          }
+        });
+
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          usernameError.textContent = "";
+          passwordError.textContent = "";
+          errMessage.textContent = "";
+
+          let isValid = true;
+
+          if (!username.value.trim()) {
+            usernameError.textContent = "Username is required";
+            isValid = false;
+            username.focus();
+          }
+
+          if (!password.value.trim()) {
+            passwordError.textContent = "Password is required";
+            isValid = false;
+            if (isValid) password.focus();
+          }
+
+          if (isValid) {
+            loginBtn.disabled = true;
+            loginBtn.classList.add("shrink");
+
+            setTimeout(function () {
+              if (username.value === "admin" && password.value === "admin123") {
+                alert("Login successful! Redirecting to dashboard...");
+              } else {
+                errMessage.textContent = "Invalid username or password";
+                password.focus();
+              }
+
+              loginBtn.disabled = false;
+              loginBtn.classList.remove("shrink");
+            }, 1000);
+          }
+        });
+
+        password.addEventListener("keyup", function (event) {
+          if (event.key === "Enter") {
+            loginForm.dispatchEvent(new Event("submit"));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
