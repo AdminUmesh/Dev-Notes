@@ -1,0 +1,7 @@
+Mid-Level Developer (2–5 years)
+
+Focus: Optimize code, manage deployments, write testable & scalable code.
+
+Technologies: Docker, CI/CD, AWS/Azure, caching, testing frameworks.
+
+Skills to build: Microservices, Security best practices, Performance tuning
