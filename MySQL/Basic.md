@@ -242,3 +242,6 @@ ERROR 1146 (42S02): Table 'sample.sample' doesn't exist
 - extract
 - information_Schema
 - Date time in mysql (Know about Time Stamp also)
+- concat vs Group Concat 
+- row_number, over(), Count(*) over
+- limit ofset

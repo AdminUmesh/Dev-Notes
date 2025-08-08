@@ -21,12 +21,28 @@ CREATE TABLE table_name (
    ....
 );
 ```
-**Create Table Using Another Table**
+**Create New Table Using existing Table (with data) **
 ```sql
 CREATE TABLE new_table_name AS
-    SELECT column1, column2,...
+    SELECT column1, column2,... -- only those table you want
     FROM existing_table_name
-    WHERE ....;
+    WHERE ....; --Data Condition
+```
+
+**Create New Table Using existing Table (with data) **
+```sql
+CREATE TABLE new_table_name AS
+    SELECT *      -- All table you want
+    FROM existing_table_name
+    WHERE ....; --Data Condition
+```
+
+**Create New Table Using existing Table Only (with No data) **
+```sql
+CREATE TABLE new_table_name AS
+    SELECT column1, column2,... -- only those table you want
+    FROM existing_table_name
+    WHERE 1 = 0; --Data Condition
 ```
 
 **Create View**
