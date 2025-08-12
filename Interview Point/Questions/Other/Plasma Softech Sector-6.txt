@@ -1,5 +1,5 @@
 Location:- Noida Sec-6, B-151
-.Net + Angular
+.NET + Angular
 
 --> File Structure in Angular
 --> Work Follow of angular

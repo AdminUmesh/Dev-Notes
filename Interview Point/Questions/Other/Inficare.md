@@ -9,7 +9,7 @@ Kartik Mam (97112-65591)
 
 ## Questions
 1. ProtoType in JS/ Jquery
-2. result of "select * from tableName" (MS SQL/ MySql)
+2. result of "select 8 from tableName" (MS SQL/ MySql)
 3. How Many Types of design pattern you used, What is Services
 4. Use of Trriggers, Use of DI
 5. What is MiddleWare

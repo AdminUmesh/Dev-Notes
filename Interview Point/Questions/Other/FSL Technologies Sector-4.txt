@@ -1,10 +1,10 @@
 Which Port is used for Gmail Massaging
 
-How to change Project From MS SQL to MySql 
+How to change Project From MS SQL to MySQL 
 
 What is dependency injection, Pipelines and Services
 
-What is Storeprocedure and function
+What is Store procedure and function
 
 String Vs String Builder.
 
