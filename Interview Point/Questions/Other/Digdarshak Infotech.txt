@@ -1,4 +1,4 @@
-Trigger in .Net
+Trigger in .NET
 Convert.ToString() vs ToString();
 How to connect/call FTP in .net
 .net vs Core

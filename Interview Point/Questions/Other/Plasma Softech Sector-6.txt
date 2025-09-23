@@ -1,11 +1,11 @@
 Location:- Noida Sec-6, B-151
-.Net + Angular
+.NET + Angular
 
 --> File Structure in Angular
 --> Work Follow of angular
 --> How to get Data & All About
 --> What is DI & Why its used for & Write the code for DI
 --> Work follow of a application
---> how tokens work, Which tockens you use & can access session tocken on frontend
+--> how tokens work, Which tokens you use & can access session token on frontend
 --> How Reduce API call time
 --> How to validate field in angular
