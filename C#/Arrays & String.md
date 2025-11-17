@@ -50,7 +50,7 @@ public class MainClass
 ```
 
 # String
-Strings are the type of objects that can store the character of values and in C#, characters are stored using Unicode encoding and every character is stored in 16 bits.
+Strings are the type of objects that can store the character of values. characters are stored using Unicode encoding and every character is stored in 16 bits.
 
 # string vs System.String
 `In C#, the string keyword is an alias for String; therefore, String and string are equivalent. It's recommended to use the provided alias string as it works even without using System;.`
