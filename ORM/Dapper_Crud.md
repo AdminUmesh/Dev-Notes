@@ -350,3 +350,11 @@ namespace DapperPractice.Models
     }
 </script>
 ```
+## Db 
+```sql
+CREATE TABLE Employees(
+	Id int IDENTITY(1,1) NOT NULL primary key,
+	Name varchar(50) NULL,
+	Salary int NULL
+	)
+```
