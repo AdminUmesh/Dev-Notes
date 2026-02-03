@@ -1,14 +1,6 @@
-# 📘 MySQL Security & Privilege System – From Scratch (Developer Notes)
+# 1️⃣ Privileges
 
-> **Target audience:** 3–7 years software developers  
-> **Level:** Deep practical + interview ready  
-> **Goal:** Understand *why security exists*, *how MySQL enforces it*, and *how to debug real-world issues*
-
----
-
-# 1️⃣ What Are Privileges? (Start From Zero)
-
-## 🔹 What is a Privilege?
+### 🔹 What is a Privilege?
 A **privilege** is a **permission** that controls what a user can do in MySQL.
 
 Examples:
@@ -26,7 +18,7 @@ Examples:
 
 ---
 
-## 🔹 Why Privileges Exist (Real Example)
+### 🔹 Why Privileges Exist (Real Example)
 
 Imagine 3 users:
 
@@ -42,7 +34,7 @@ Without privileges → **any user could DROP tables** ❌
 
 # 2️⃣ MySQL User and Privilege System
 
-## 🔹 What is a MySQL User?
+### 🔹 What is a MySQL User?
 
 A **MySQL user** is a combination of:
 - **Username** (e.g., `root`, `app_user`)
@@ -60,7 +52,7 @@ MySQL authenticates using:
 
 ---
 
-## 🔹 Where Are Users Stored?
+### 🔹 Where Are Users Stored?
 
 MySQL stores users in:
 ```
@@ -73,7 +65,7 @@ SELECT user, host FROM mysql.user;
 
 ---
 
-## 🔹 What Does `%` Mean?
+### 🔹 What Does `%` Mean?
 
 `%` = wildcard = **any host**
 
@@ -88,7 +80,7 @@ Means: can connect from anywhere (if network allows).
 
 ### ✅ Create User
 ```sql
-CREATE USER 'report_user'@'%' IDENTIFIED BY 'secret123';
+CREATE USER 'report_user'@'%' IDENTIFIED BY 'password123';
 ```
 
 ### ✅ Change Password
@@ -121,7 +113,7 @@ SELECT CURRENT_USER(); -- authenticated user
 
 # 3️⃣ Privileges & Permission Types
 
-## 🔹 Privilege Levels
+### 🔹 Privilege Levels
 
 | Level | Scope |
 |----|----|
@@ -133,7 +125,7 @@ SELECT CURRENT_USER(); -- authenticated user
 
 ---
 
-## 🔹 Grant Privileges
+### 🔹 Grant Privileges
 
 ```sql
 GRANT SELECT, INSERT ON mydb.* TO 'app_user'@'%';
@@ -141,7 +133,7 @@ GRANT SELECT, INSERT ON mydb.* TO 'app_user'@'%';
 
 ---
 
-## 🔹 Revoke Privileges
+### 🔹 Revoke Privileges
 
 ```sql
 REVOKE INSERT ON mydb.* FROM 'app_user'@'%';
@@ -149,7 +141,7 @@ REVOKE INSERT ON mydb.* FROM 'app_user'@'%';
 
 ---
 
-## 🔹 View User Privileges
+### 🔹 View User Privileges
 
 ```sql
 SHOW GRANTS FOR 'app_user'@'%';
@@ -159,7 +151,7 @@ SHOW GRANTS FOR 'app_user'@'%';
 
 # 4️⃣ FLUSH PRIVILEGES
 
-## 🔹 What is FLUSH PRIVILEGES?
+### 🔹 What is FLUSH PRIVILEGES?
 
 Reloads privilege tables into memory.
 
@@ -179,7 +171,7 @@ FLUSH PRIVILEGES;
 
 # 5️⃣ DEFINER Clause
 
-## 🔹 What is DEFINER?
+### 🔹 What is DEFINER?
 
 `DEFINER` defines **whose privileges are used** when a routine runs.
 
@@ -189,7 +181,7 @@ CREATE DEFINER='admin'@'localhost' PROCEDURE sp_test()
 
 ---
 
-## 🔹 Is DEFINER Mandatory?
+### 🔹 Is DEFINER Mandatory?
 ❌ No
 
 Without DEFINER:
@@ -204,7 +196,7 @@ DEFINER = CURRENT_USER
 
 ---
 
-## 🔹 Why DEFINER Causes Errors
+### 🔹 Why DEFINER Causes Errors
 
 If DEFINER user is deleted:
 ```
@@ -347,17 +339,3 @@ GRANT SELECT, EXECUTE ON appdb.* TO 'app'@'%';
 ```
 
 ---
-
-# ✅ Final Developer Checklist
-
-✔ Understand users & hosts  
-✔ Know GRANT / REVOKE  
-✔ Avoid hardcoded DEFINER  
-✔ Use DEFINER intentionally  
-✔ Follow least privilege  
-✔ Debug migration issues confidently
-
----
-
-## 🎯 You are now at **Senior Developer–level MySQL security understanding**
-
