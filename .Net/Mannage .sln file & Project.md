@@ -76,10 +76,10 @@ rebuilt project
 ## Useful Commands
 
 ```sh
-dotnet build
-dotnet clean
-dotnet restore
-dotnet run --project ProjectName
+dotnet build        # Compiles the project and checks for build errors
+dotnet clean        # Removes all build outputs (bin/obj folders)
+dotnet restore      # Downloads and restores all NuGet dependencies
+dotnet run --project ProjectName   # Builds and runs the specified project
 ```
 
 ---

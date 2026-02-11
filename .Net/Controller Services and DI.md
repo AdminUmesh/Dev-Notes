@@ -1,4 +1,4 @@
-# Controller
+# Controllers
 Controllers are used for handling HTTP requests, (not business logic)
 
 1. Accept an HTTP request (from browser, Postman, etc.)
@@ -27,14 +27,14 @@ Services are lightweight, logic-only. You can test them with a simple unit test.
 You can also write the logic inside the controller, but it becomes messy if the project grows.
 
 #### Reusability
-🔴 Controller logic is not reusable.
-🟢 Service logic is reusable in many places.
+- Controller logic is not reusable.
+- Service logic is reusable in many places.
 
 #### Testability
-🔴 Controllers are tightly tied to HTTP (browser, API).
-🟢 Services are just logic — easy to test.
+- Controllers are tightly tied to HTTP (browser, API).
+- Services are just logic — easy to test.
 
-## Step-by-Step: Creating and Using a Service in .NET Core MVC
+### Step-by-Step: Creating and Using a Service in .NET Core MVC
 
 **Step 1:** Create a Services Folder (manually)
 
@@ -117,7 +117,7 @@ public class AccountController : Controller
 }
 ```
 
-## 🎁 Benefits of Doing It This Way
+#### Benefits of Doing This
 
 - ✅ Code is reusable
 - ✅ Controller stays clean
@@ -140,7 +140,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 
 // `It tells .NET: "If anyone needs an IEmailService, give them an instance of EmailService.`
 
-builder.Services.AddScoped<IRepo, Repo>();
+builder.Services.AddSingleton<IRepo, Repo>();
 builder.Services.AddTransient<ILog, Logger>();
 ```
 
@@ -400,7 +400,7 @@ public class HomeController : Controller
 
 # Summary:
 
-| Step | What You Do                                  |
+| Step | What You Do                                   |
 |------|-----------------------------------------------|
 | 1    | Define an interface (e.g., `IMessageService`) |
 | 2    | Implement it (`HelloMessageService`)          |
@@ -454,3 +454,126 @@ app.Run();
 | Singleton  | Once per app         | App-wide                 | ✅ Yes (globally)       |
 
 ---
+
+
+# Dependency Injection – Practical Understanding (No Theory)
+
+## ❌ Problem Case: Using `new` (Tightly Coupled)
+
+### Email Service
+```csharp
+public class EmailService
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("Email sent: " + message);
+    }
+}
+```
+
+### Controller (Problem)
+```csharp
+public class NotificationController
+{
+    public void Notify()
+    {
+        EmailService service = new EmailService(); // tightly coupled
+        service.Send("Hello User");
+    }
+}
+```
+
+### Problem
+- Controller directly depends on `EmailService`
+- Any change requires modifying controller code
+- Violates Open/Closed Principle
+
+---
+
+## 🔥 Requirement Change: SMS Instead of Email
+
+```csharp
+public class SmsService
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("SMS sent: " + message);
+    }
+}
+```
+
+Controller must change again ❌
+
+---
+
+## ✅ Solution: Constructor Injection
+
+### Step 1: Interface
+```csharp
+public interface INotificationService
+{
+    void Send(string message);
+}
+```
+
+### Step 2: Implementations
+```csharp
+public class EmailService : INotificationService
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("Email sent: " + message);
+    }
+}
+```
+
+```csharp
+public class SmsService : INotificationService
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("SMS sent: " + message);
+    }
+}
+```
+
+### Step 3: Controller (Never Changes)
+```csharp
+public class NotificationController
+{
+    private readonly INotificationService _service;
+
+    public NotificationController(INotificationService service)
+    {
+        _service = service;
+    }
+
+    public void Notify()
+    {
+        _service.Send("Hello User");
+    }
+}
+```
+
+### Step 4: Configure Dependency
+```csharp
+services.AddScoped<INotificationService, EmailService>();
+// OR
+services.AddScoped<INotificationService, SmsService>();
+```
+
+---
+
+## 🔥 Real Benefit
+
+| Scenario | Using `new` | Constructor Injection |
+|--------|------------|-----------------------|
+| Change service | Controller change | Only config change |
+| Testing | Hard | Easy |
+| Maintainability | Poor | Excellent |
+
+---
+
+## 🧠 Key Takeaway
+> Using `new` couples your code.  
+> Constructor Injection keeps it flexible and clean.
