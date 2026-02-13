@@ -69,3 +69,23 @@ Semantic Search
 Function Calling / Tool Calling
 
 AI Agent Architecture
+
+
+# Also focused on
+To move from 8/10 → 9/10 level:
+
+**You must:**
+
+- Strengthen system design deeply
+
+- Master distributed systems
+
+- Practice production debugging
+
+- Build one real AI-powered system end-to-end
+
+- Improve communication clarity (very important for 20 LPA+ roles)
+
+- Right now you are:
+
+- Strong mid-level moving toward senior.
