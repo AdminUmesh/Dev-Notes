@@ -1,0 +1,30 @@
+json-server --watch db.json --port 3001 
+
+React topic
+1️⃣ Installation
+2️⃣ JSX
+3️⃣ Components
+4️⃣ Props
+5️⃣ State (useState)
+6️⃣ Events
+7️⃣ Conditional rendering
+8️⃣ Lists rendering
+9️⃣ Forms
+🔟 useEffect lifecycle
+11️⃣ API calls
+12️⃣ Custom hooks
+13️⃣ Context API
+14️⃣ Routing
+15️⃣ State management (Redux)
+16️⃣ Performance optimization
+17️⃣ Project architecture
+
+Recommended Learn
+1️⃣ JSX
+2️⃣ Components
+3️⃣ Props
+4️⃣ useState
+5️⃣ useEffect
+6️⃣ API calls
+7️⃣ Forms (React Hook Form)
+8️⃣ Routing
