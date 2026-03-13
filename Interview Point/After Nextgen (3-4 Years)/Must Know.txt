@@ -1,0 +1,75 @@
+What Companies Expect From 3–4 Year Developer
+
+Typical expectations:
+
+Strong Backend Knowledge
+
+You should be comfortable with:
+
+ASP.NET Core
+
+REST API design
+
+authentication / authorization
+
+middleware
+
+dependency injection
+
+logging
+
+caching
+
+Database Knowledge
+
+You should know:
+
+SQL joins
+
+indexing
+
+query optimization
+
+transactions
+
+stored procedures
+
+performance tuning
+
+Architecture Basics
+
+At 3–4 years, you should understand:
+
+layered architecture
+
+repository pattern
+
+service pattern
+
+clean architecture basics
+
+microservice vs monolith
+
+Debugging Skills
+
+Good developers can:
+
+debug production issues
+
+analyze logs
+
+trace API failures
+
+optimize slow queries
+
+Code Quality
+
+You should be comfortable with:
+
+SOLID principles
+
+design patterns
+
+writing clean code
+
+code reviews
