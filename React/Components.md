@@ -1,6 +1,4 @@
-# React Components Notes
-
-## 📌 What is a Component?
+## What is a Component?
 
 A **Component** is a reusable piece of UI in React.
 
@@ -317,5 +315,3 @@ React Components allow developers to:
 ✔ Reuse UI elements\
 ✔ Build scalable applications\
 ✔ Maintain clean project structure
-
-Components are the **foundation of React applications**.

@@ -1,6 +1,4 @@
-# React useState Notes
-
-## 📌 What is useState?
+## What is useState?
 
 `useState` is a **React Hook** used to **create and manage state inside
 functional components**.
@@ -19,13 +17,13 @@ Now we can use it in **functional components**.
 const [state, setState] = useState(initialValue);
 ```
 
-Explanation:
+**Explanation:**
 
-  Part           Meaning
-  -------------- -------------------------------
-  state          Current value
-  setState       Function used to update state
-  initialValue   Starting value of state
+  |Part    |       Meaning |
+  |-------------- | -------------------------------|
+  |state          | Current value|
+  |setState       | Function used to update state|
+  |initialValue   | Starting value of state|
 
 ------------------------------------------------------------------------
 
@@ -50,7 +48,7 @@ function Counter() {
 }
 ```
 
-Flow:
+**Flow:**
 
     User Clicks Button
             ↓
@@ -96,7 +94,7 @@ const [age, setAge] = useState(0);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 ```
 
-Example component:
+**Example component:**
 
 ``` jsx
 function Profile(){
@@ -225,11 +223,11 @@ Use useState when:
 
 # useState vs Props
 
-  Feature         useState                Props
-  --------------- ----------------------- ------------------------------
-  Data location   Inside component        From parent
-  Mutable         Yes                     No
-  Purpose         Manage component data   Pass data between components
+  |Feature         |useState              |  Props|
+  --------------- |-----------------------| ------------------------------|
+  |Data location   |Inside component      |  From parent|
+  |Mutable         |Yes                   |  No|
+  |Purpose         |Manage component data |  Pass data between components|
 
 ------------------------------------------------------------------------
 

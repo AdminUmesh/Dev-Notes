@@ -1,6 +1,4 @@
-# React Forms Notes
-
-## 📌 What are Forms in React?
+## What are Forms in React?
 
 Forms are used to **collect user input** such as:
 
@@ -10,15 +8,13 @@ Forms are used to **collect user input** such as:
 -   Feedback forms
 -   Contact details
 
-React handles forms using **controlled components**, where form data is
-managed by **React state**.
+React handles forms using **controlled components**, where form data is managed by **React state**.
 
 ------------------------------------------------------------------------
 
 # Controlled Components
 
-A **controlled component** means the form input value is controlled by
-React state.
+A **controlled component** means the form input value is controlled by React state.
 
 Example:
 
@@ -45,7 +41,7 @@ function LoginForm() {
 }
 ```
 
-Flow:
+**Flow:**
 
     User Types
          ↓
@@ -61,7 +57,7 @@ Flow:
 
 # Handling Multiple Inputs
 
-Example:
+**Example:**
 
 ``` jsx
 import { useState } from "react";
@@ -107,7 +103,7 @@ function Register(){
 
 # Form Submission
 
-Example:
+**Example:**
 
 ``` jsx
 function Contact(){
@@ -137,15 +133,15 @@ function Contact(){
 
 # Input Types in React Forms
 
-  Input Type   Example
-  ------------ -----------------------------
-  Text         `<input type="text" />`
-  Password     `<input type="password" />`
-  Email        `<input type="email" />`
-  Checkbox     `<input type="checkbox" />`
-  Radio        `<input type="radio" />`
-  Select       `<select>` dropdown
-  Textarea     `<textarea>`
+  |Input Type  | Example|
+  |------------| -----------------------------|
+  |Text        | `<input type="text" />`|
+  |Password    | `<input type="password" />`|
+  |Email       | `<input type="email" />`|
+  |Checkbox    | `<input type="checkbox" />`|
+  |Radio       | `<input type="radio" />`|
+  |Select      | `<select>` dropdown|
+  |Textarea    | `<textarea>`|
 
 Example:
 
@@ -359,5 +355,3 @@ React Forms allow developers to:
 ✔ Manage form state\
 ✔ Validate user data\
 ✔ Submit data to APIs
-
-Forms are a **key part of building interactive web applications**.

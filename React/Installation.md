@@ -1,6 +1,4 @@
-# React Installation and New Page Setup Guide
-
-## ✅ Step 1: Install Node.js
+## Step 1: Install Node.js
 
 React requires Node.js and npm to manage packages and run the
 development server.
@@ -192,7 +190,7 @@ Open your browser and navigate to:
 
 ------------------------------------------------------------------------
 
-## 🎯 Typical React Project Folder Structure (Recommended)
+## Typical React Project Folder Structure (Recommended)
 
     src
     │
@@ -217,7 +215,7 @@ Explanation:
 
 ------------------------------------------------------------------------
 
-## 🚀 Basic React Development Flow
+## Basic React Development Flow
 
     Component Created
            ↓
@@ -233,13 +231,4 @@ Explanation:
 
 ------------------------------------------------------------------------
 
-## 🎉 Your React App is Ready!
-
-You now know how to:
-
-✔ Install React\
-✔ Create a project\
-✔ Run the development server\
-✔ Create pages (components)\
-✔ Add routing\
-✔ Navigate between pages
+## Now Your React App is Ready 🎉

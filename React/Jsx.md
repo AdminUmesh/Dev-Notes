@@ -1,6 +1,4 @@
-# JSX Notes (React)
-
-## 📌 What is JSX?
+## What is JSX?
 
 JSX stands for **JavaScript XML**.\
 It allows developers to write **HTML-like code inside JavaScript**.
@@ -269,12 +267,12 @@ function App() {
 
 # JSX vs HTML
 
-  Feature          HTML     JSX
-  ---------------- -------- -----------
-  class            class    className
-  for              for      htmlFor
-  JS expressions   ❌       ✔
-  styling          string   JS object
+  |Feature         | HTML    | JSX|
+  |----------------| --------| -----------|
+  |class           | class   | className|
+  |for             | for     | htmlFor|
+  |JS expressions  | ❌     |  ✔|
+  |styling         | string  | JS object|
 
 ------------------------------------------------------------------------
 
@@ -331,5 +329,3 @@ JSX allows developers to:
 ✔ Create dynamic UI easily\
 ✔ Use JavaScript expressions in UI\
 ✔ Build reusable components
-
-JSX is one of the **core concepts of React development**.

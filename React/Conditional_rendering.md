@@ -1,6 +1,4 @@
-# React Conditional Rendering Notes
-
-## 📌 What is Conditional Rendering?
+## What is Conditional Rendering?
 
 **Conditional Rendering** means displaying different UI elements
 depending on a condition.
@@ -8,7 +6,7 @@ depending on a condition.
 Just like JavaScript conditions (`if`, `else`, `ternary`), React can
 render different components or elements based on state or props.
 
-Example:
+**Example:**
 
 ``` jsx
 function App() {
@@ -38,7 +36,7 @@ Conditional rendering helps to:
 
 # 1️⃣ Using if Statement
 
-Example:
+**Example:**
 
 ``` jsx
 function Greeting({ isLoggedIn }) {
@@ -57,13 +55,13 @@ function Greeting({ isLoggedIn }) {
 
 The most common method in React.
 
-Syntax:
+**Syntax:**
 
 ``` jsx
 condition ? trueUI : falseUI
 ```
 
-Example:
+**Example:**
 
 ``` jsx
 function App(){
@@ -84,7 +82,7 @@ function App(){
 
 Used when you only want to show UI if condition is true.
 
-Example:
+**Example:**
 
 ``` jsx
 function App(){
@@ -107,7 +105,7 @@ If condition is **false**, nothing will render.
 
 You can store JSX in variables.
 
-Example:
+**Example:**
 
 ``` jsx
 function App(){
@@ -134,7 +132,7 @@ function App(){
 
 # 5️⃣ Conditional Rendering with Components
 
-Example:
+**Example:**
 
 ``` jsx
 function Login(){
@@ -161,7 +159,7 @@ function App(){
 
 # 6️⃣ Conditional Rendering with Loading State
 
-Example:
+**Example:**
 
 ``` jsx
 import { useState, useEffect } from "react";
@@ -188,7 +186,7 @@ function Data(){
 
 # 7️⃣ Conditional Rendering in Lists
 
-Example:
+**Example:**
 
 ``` jsx
 const users = ["Umesh", "Rahul", "Amit"];
@@ -206,13 +204,13 @@ const users = ["Umesh", "Rahul", "Amit"];
 
 # Common Use Cases
 
-  Situation        Example
-  ---------------- -------------------------
-  Authentication   Show Login or Dashboard
-  Loading          Show spinner
-  Error Handling   Show error message
-  Empty Data       Show "No Data" message
-  Feature Flags    Enable/disable UI
+  |Situation       | Example|
+  |----------------| -------------------------|
+  |Authentication  | Show Login or Dashboard|
+  |Loading         | Show spinner|
+  |Error Handling  | Show error message|
+  |Empty Data      | Show "No Data" message|
+  |Feature Flags   | Enable/disable UI|
 
 ------------------------------------------------------------------------
 
@@ -265,5 +263,3 @@ Conditional Rendering allows React developers to:
 ✔ Control UI based on state or props\
 ✔ Improve user experience\
 ✔ Handle loading and authentication flows
-
-It is an **essential concept for building dynamic React applications**.

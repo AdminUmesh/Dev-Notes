@@ -1,6 +1,4 @@
-# React List Rendering Notes
-
-## 📌 What is List Rendering?
+## What is List Rendering?
 
 **List Rendering** in React means displaying multiple items from an
 array or data collection in the UI.
@@ -34,7 +32,6 @@ List rendering is used when:
 -   Showing tables
 -   Rendering menus
 -   Displaying products
--   Showing comments or messages
 
 Most real applications render data **dynamically using lists**.
 
@@ -317,5 +314,3 @@ React List Rendering allows developers to:
 ✔ Render UI from arrays\
 ✔ Handle API data\
 ✔ Build tables and lists efficiently
-
-List rendering is a **fundamental concept in React applications**.

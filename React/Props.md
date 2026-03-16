@@ -1,13 +1,11 @@
-# React Props Notes
-
-## 📌 What are Props?
+## What are Props?
 
 **Props (short for Properties)** are used to **pass data from a parent
 component to a child component**.
 
-Props make components **dynamic and reusable**.
+- Props make components **dynamic and reusable**.
 
-React components receive props as **input parameters**.
+- React components receive props as **input parameters**.
 
 ------------------------------------------------------------------------
 
@@ -264,11 +262,11 @@ Use state if you need to change data.
 
 # Props vs State
 
-  Feature       Props              State
-  ------------- ------------------ ----------------------
-  Data source   Parent component   Inside component
-  Mutable       No                 Yes
-  Purpose       Pass data          Manage internal data
+  |Feature      | Props             | State|
+  |-------------| ------------------| ----------------------|
+  |Data source  | Parent component  | Inside component|
+  |Mutable      | No                | Yes|
+  |Purpose      | Pass data         | Manage internal data|
 
 ------------------------------------------------------------------------
 
