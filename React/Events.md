@@ -1,6 +1,4 @@
-# React Events Notes
-
-## 📌 What are Events in React?
+## What are Events in React?
 
 Events in React are **user interactions with the UI**.
 
@@ -12,8 +10,7 @@ Examples of events:
 -   Keyboard typing
 -   Input change
 
-React handles events using **event handlers** similar to JavaScript but
-with some differences.
+React handles events using **event handlers** similar to JavaScript but with some differences.
 
 ------------------------------------------------------------------------
 
@@ -34,12 +31,12 @@ function App() {
 }
 ```
 
-Explanation:
+**Explanation:**
 
-  Part          Meaning
-  ------------- ------------------------
-  onClick       React event
-  handleClick   Event handler function
+  |Part         | Meaning|
+  |-------------| ------------------------|
+  |onClick      | React event|
+  |handleClick  | Event handler function|
 
 ------------------------------------------------------------------------
 
@@ -47,13 +44,13 @@ Explanation:
 
 React uses **camelCase** for events.
 
-  HTML       React
-  ---------- ----------
-  onclick    onClick
-  onchange   onChange
-  onsubmit   onSubmit
+  |HTML      | React|
+  |----------| ----------|
+  |onclick   | onClick|
+  |onchange  | onChange|
+  |onsubmit  | onSubmit|
 
-Example:
+**Example:**
 
 ``` jsx
 <button onClick={handleClick}>Click</button>
@@ -63,20 +60,20 @@ Example:
 
 # Common React Events
 
-  Event          Description
-  -------------- ------------------------------------
-  onClick        Triggered when button is clicked
-  onChange       Triggered when input value changes
-  onSubmit       Triggered when form is submitted
-  onMouseEnter   Mouse enters element
-  onMouseLeave   Mouse leaves element
-  onKeyDown      Keyboard key pressed
+  |Event         | Description|
+  |--------------| ------------------------------------|
+  |onClick       | Triggered when button is clicked|
+  |onChange      | Triggered when input value changes|
+  |onSubmit      | Triggered when form is submitted|
+  |onMouseEnter  | Mouse enters element|
+  |onMouseLeave  | Mouse leaves element|
+  |onKeyDown     | Keyboard key pressed|
 
 ------------------------------------------------------------------------
 
 # Button Click Event
 
-Example:
+**Example:**
 
 ``` jsx
 function Button(){
@@ -97,7 +94,7 @@ function Button(){
 
 # Passing Arguments to Event
 
-Example:
+**Example:**
 
 ``` jsx
 function App(){
@@ -120,7 +117,7 @@ Arrow function is used to pass arguments.
 
 # Input Change Event
 
-Example:
+**Example:**
 
 ``` jsx
 import { useState } from "react";
@@ -158,7 +155,7 @@ Explanation:
 
 # Form Submit Event
 
-Example:
+**Example:**
 
 ``` jsx
 function Login(){
@@ -188,7 +185,7 @@ function Login(){
 
 # Mouse Events
 
-Example:
+**Example:**
 
 ``` jsx
 function HoverExample(){
@@ -209,7 +206,7 @@ function HoverExample(){
 
 # Keyboard Events
 
-Example:
+**Example:**
 
 ``` jsx
 function KeyExample(){
@@ -242,7 +239,7 @@ Benefits:
 -   Cross-browser compatibility
 -   Consistent behavior
 
-Example:
+**Example:**
 
 ``` jsx
 function Click(){
@@ -324,5 +321,3 @@ React Events allow developers to:
 ✔ Update UI dynamically\
 ✔ Control forms and inputs\
 ✔ Trigger application logic
-
-Events are a **core part of building interactive React applications**.

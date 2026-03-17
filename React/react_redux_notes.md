@@ -1,6 +1,4 @@
-# Redux Notes for React
-
-## 📌 What is Redux?
+## What is Redux?
 
 Redux is a **state management library** used to manage **global
 application state** in React applications.
@@ -36,11 +34,11 @@ All components can access shared data.
 
 Redux has three main parts:
 
-  Concept    Description
-  ---------- ------------------------
-  Store      Global state container
-  Actions    Describe what happened
-  Reducers   Update the state
+ | Concept   | Description|
+ | ----------| ------------------------|
+ | Store     | Global state container|
+ | Actions   | Describe what happened|
+ | Reducers  | Update the state|
 
 ------------------------------------------------------------------------
 
@@ -237,12 +235,12 @@ https://chrome.google.com/webstore/detail/redux-devtools
 
 # Redux vs Context API
 
-  Feature       Redux        Context API
-  ------------- ------------ --------------------
-  Complexity    Higher       Simpler
-  Best for      Large apps   Small apps
-  DevTools      Yes          No
-  Performance   Optimized    Can re-render more
+  |Feature      | Redux       | Context API|
+  |-------------| ------------| --------------------|
+  |Complexity   | Higher      | Simpler|
+  |Best for     | Large apps  | Small apps|
+  |DevTools     | Yes         | No|
+  |Performance  | Optimized   | Can re-render more|
 
 ------------------------------------------------------------------------
 
@@ -266,6 +264,3 @@ Redux helps React developers:
 ✔ Avoid prop drilling\
 ✔ Maintain predictable state updates\
 ✔ Build scalable applications
-
-Modern React apps typically use **Redux Toolkit** for cleaner and
-simpler Redux code.

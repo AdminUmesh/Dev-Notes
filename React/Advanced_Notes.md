@@ -1,9 +1,4 @@
-# Advanced React Notes
-
-This document covers important advanced React concepts used in
-real-world applications.
-
-Topics included:
+### Topics included:
 
 1.  useEffect Lifecycle\
 2.  API Calls\
@@ -42,11 +37,11 @@ useEffect(() => {
 
 ### Dependency Array Behavior
 
-  Dependency   Behavior
-  ------------ -----------------------------
-  `[]`         Runs once (component mount)
-  `[value]`    Runs when value changes
-  none         Runs every render
+ | Dependency  | Behavior|
+ | ------------| -----------------------------|
+ | `[]`        | Runs once (component mount)|
+ | `[value]`   | Runs when value changes|
+ | none        | Runs every render|
 
 Example:
 
@@ -196,13 +191,13 @@ const user = useContext(UserContext);
 
 Routing allows navigation between pages without reloading.
 
-Install:
+**Install:**
 
 ``` bash
 npm install react-router-dom
 ```
 
-Example:
+**Example:**
 
 ``` jsx
 import { BrowserRouter,Routes,Route } from "react-router-dom";
@@ -329,18 +324,18 @@ Typical **production React project structure**:
     ├── App.tsx
     └── main.tsx
 
-Explanation:
+**Explanation:**
 
-  Folder       Purpose
-  ------------ ------------------
-  components   reusable UI
-  pages        full screens
-  hooks        custom hooks
-  context      global contexts
-  redux        redux store
-  services     API calls
-  utils        helper functions
-  routes       routing config
+  |Folder      | Purpose|
+  |------------| ------------------|
+  |components  | reusable UI|
+  |pages       | full screens|
+  |hooks       | custom hooks|
+  |context     | global contexts|
+  |redux       | redux store|
+  |services    | API calls|
+  |utils       | helper functions|
+  |routes      | routing config|
 
 ------------------------------------------------------------------------
 
@@ -359,17 +354,3 @@ Explanation:
     UI Re-render
 
 ------------------------------------------------------------------------
-
-# Summary
-
-These advanced topics help build **scalable React applications**.
-
-Important concepts:
-
-✔ useEffect lifecycle\
-✔ API communication\
-✔ Custom hooks\
-✔ Global state with Context / Redux\
-✔ Routing with React Router\
-✔ Performance optimization\
-✔ Clean project architecture
