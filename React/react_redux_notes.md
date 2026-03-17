@@ -6,14 +6,14 @@ application state** in React applications.
 It helps when multiple components need to share and update the same
 data.
 
-Example use cases: - Authentication state - Shopping cart - Theme
+**Example use cases:** - Authentication state - Shopping cart - Theme
 settings - User profile - Dashboard data
 
 ------------------------------------------------------------------------
 
 # Why Redux is Used
 
-Without Redux:
+**Without Redux:**
 
 Component A ↓ props Component B ↓ props Component C
 
@@ -53,7 +53,7 @@ UI Re-renders
 
 Modern React apps use **Redux Toolkit**.
 
-Install:
+**Install:**
 
 ``` bash
 npm install @reduxjs/toolkit react-redux
@@ -63,7 +63,7 @@ npm install @reduxjs/toolkit react-redux
 
 # Creating a Redux Store
 
-Example:
+**Example:**
 
 ``` javascript
 import { configureStore } from "@reduxjs/toolkit";
@@ -96,7 +96,7 @@ Now all components can access Redux state.
 
 Redux Toolkit uses **Slices**.
 
-Example:
+**Example:**
 
 ``` javascript
 import { createSlice } from "@reduxjs/toolkit";
@@ -167,7 +167,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./counterSlice";
 
 function Counter(){
-
   const count = useSelector((state)=>state.counter.value);
   const dispatch = useDispatch();
 
