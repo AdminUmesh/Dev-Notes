@@ -1,7 +1,7 @@
 
 # Custom Middleware in ASP.NET Core
 
-## **What is Custom Middleware?**
+### **What is Custom Middleware?**
 
 **Middleware** is a class that:
 - Runs for **every request**
@@ -34,7 +34,7 @@ Outgoing Response
 
 ---
 
-## **Why Custom Middleware?**
+### **Why Custom Middleware?**
 | Purpose | Example |
 |---------|---------|
 | Centralized exception handling | Global try/catch |
@@ -45,9 +45,9 @@ Outgoing Response
 
 ---
 
-## **How to Create Custom Middleware**
+### **How to Create Custom Middleware**
 
-### **1. Create a middleware class**
+#### **1. Create a middleware class**
 ```csharp
 public class RequestLoggingMiddleware
 {
@@ -71,12 +71,12 @@ public class RequestLoggingMiddleware
 
 ---
 
-### **2. Register in Program.cs**
+#### **2. Register in Program.cs**
 ```csharp
 app.UseMiddleware<RequestLoggingMiddleware>();
 ```
 
-### **Order is important**
+##### **Order is important**
 ```csharp
 app.UseRouting();
 app.UseAuthentication();
@@ -86,7 +86,7 @@ app.MapControllers();
 
 ---
 
-## **Example: Exception Handling Middleware**
+### **Example: Exception Handling Middleware**
 ```csharp
 public class ExceptionMiddleware
 {
@@ -118,7 +118,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 ---
 
-## **Example: Modify/Replace Response**
+### **Example: Modify/Replace Response**
 ```csharp
 public async Task InvokeAsync(HttpContext context)
 {
@@ -141,7 +141,7 @@ public async Task InvokeAsync(HttpContext context)
 
 ---
 
-### Example blocking middleware
+##### Example blocking middleware
 ```csharp
 if (!context.Request.Headers.ContainsKey("X-Key"))
 {
@@ -153,8 +153,8 @@ if (!context.Request.Headers.ContainsKey("X-Key"))
 
 ---
 
-## **Common Interview-level Questions**
-### ❓ What is difference between Middleware & Services?
+### **Common Interview-level Questions**
+##### What is difference between Middleware & Services?
 | Middleware | Services |
 |-----------|----------|
 | Runs on every request | Runs only when requested |
@@ -162,10 +162,10 @@ if (!context.Request.Headers.ContainsKey("X-Key"))
 | Can modify response | Cannot modify response |
 | Added via `app.Use()` | Added via `builder.Services.Add()` |
 
-### ❓ Why does order matter in middleware?
+#### Why does order matter in middleware?
 Because each middleware decides whether and when the next component executes.
 
-### ❓ When to use custom middleware?
+#### When to use custom middleware?
 When common behavior must apply to all endpoints.
 
 ---
@@ -179,7 +179,7 @@ When common behavior must apply to all endpoints.
 
 ---
 
-# Audit Log for every click
+# **Audit Log for every click**
 ```c#
 public class AuditMiddleware
 {
@@ -225,7 +225,7 @@ app.UseMiddleware<AuditMiddleware>();
 - IP
 - Result (success/failure)
 
-# Handle Exception in SQL Server
+# **Handle Exception in SQL Server**
 ```c#
 public class ExceptionMiddleware
 {
