@@ -308,3 +308,62 @@ ADD CONSTRAINT PK_Student PRIMARY KEY (stud_id, subject);
 **Composite Key:** A composite key can be defined on more than one column, typically used when a single column cannot uniquely identify rows.
 
 **Removing Constraints:** In MS SQL, you must specify the name of the constraint when removing it (e.g., DROP CONSTRAINT), unlike MySQL where it can be dropped by the column name.
+
+# **Union and Union All**
+
+### **1. UNION**
+UNION is used to combine results of two or more SELECT queries and removes duplicate rows.
+
+**Syntax**
+```csharp
+SELECT column1, column2 FROM Table1
+UNION
+SELECT column1, column2 FROM Table2;
+```
+
+**Key Points**
+- Removes duplicate records
+- Performs an implicit DISTINCT
+- Requires:
+  - Same number of columns
+  - Same order of columns
+  - Compatible data types
+
+**Example**
+```sql
+SELECT Name FROM Employees
+UNION
+SELECT Name FROM Managers;
+```
+👉 If "John" exists in both tables → shown only once
+
+### **2. UNION ALL**
+UNION ALL combines results but does NOT remove duplicates
+
+**Syntax**
+```sql
+SELECT column1, column2 FROM Table1
+UNION ALL
+SELECT column1, column2 FROM Table2;
+```
+
+**Key Points**
+- Keeps all duplicate rows
+- Faster than UNION
+- No DISTINCT operation
+
+**Example**
+```sql
+SELECT Name FROM Employees
+UNION ALL
+SELECT Name FROM Managers;
+```
+👉 If "John" exists twice → shown twice
+
+### **UNION vs UNION ALL**
+|Feature|	UNION	|UNION ALL|
+|-------|-----------|---------|
+|Duplicate removal	|✅ Yes	|❌ No|
+|Performance	❌ |Slower	|✅ Faster|
+|Uses DISTINCT	|✅ Yes	|❌ No|
+|Sorting overhead	|High	|Low|

@@ -2,8 +2,10 @@
 A trigger is a special stored procedure that runs automatically when you insert, update, or delete data in a table or view.
 
 # Types of Triggers in SQL Server:
-### 1. DML Triggers (Data Manipulation Language Triggers):
-- AFTER Triggers (Default):
+
+### **1. DML Triggers (Data Manipulation Language Triggers):**
+
+- **AFTER Triggers (Default):**
 Run after an INSERT, UPDATE, or DELETE.
 
 ```sql
@@ -17,7 +19,7 @@ BEGIN
 END;
 ```
 
-- INSTEAD OF Triggers:
+- **INSTEAD OF Triggers:**
 Run instead of the actual INSERT, UPDATE, or DELETE.
 
 ```sql
@@ -46,7 +48,7 @@ END;
 --Otherwise, it allows the delete.
 ```
 
-### 2. DDL Triggers (Data Definition Language Triggers):**
+### **2. DDL Triggers (Data Definition Language Triggers):**
 - Run when database objects change, like: CREATE, ALTER, DROP a table, view, or schema.
 
 **Example:** Prevent users from dropping important tables.
@@ -73,7 +75,7 @@ BEGIN
 END;
 ```
 
-### 3. LOGON and LOGOFF Triggers**
+### **3. LOGON and LOGOFF Triggers**
 - Run when a user logs in or logs out of SQL Server.
 
 ```sql
@@ -103,7 +105,7 @@ END;
 
 **Example:** Used for logging or security checks.
 
-# Uses of Triggers
+# **Uses of Triggers**
 
 - **Data Validation:** Make sure the data is correct before saving — for example, stop negative values from being inserted.
 ```sql
@@ -167,7 +169,7 @@ BEGIN
 END;
 ```
 
-# 1. Creating a Trigger
+# **1. Creating a Trigger**
 Syntax for creating a trigger:
 ```sql
 CREATE TRIGGER TriggerName
@@ -191,7 +193,7 @@ BEGIN
 END;
 ```
 
-# 2. Executing a Trigger
+# **2. Executing a Trigger**
 Triggers are automatically executed when the specified event occurs on the table. You don't manually execute a trigger. It fires in response to an INSERT, UPDATE, or DELETE operation.
 
 **Example:** When you insert a row into the Employee table, the LogEmployeeInsert trigger will automatically execute:
@@ -202,7 +204,7 @@ VALUES (1, 'John Doe', 'Manager');
 ```
 This will cause the trigger LogEmployeeInsert to log the action in the AuditLog table.
 
-# 3. Altering a Trigger
+# **3. Altering a Trigger**
 To modify a trigger, you use the ALTER TRIGGER command.
 
 **Syntax:**
@@ -228,7 +230,7 @@ BEGIN
 END;
 ```
 
-# 4. Dropping a Trigger
+# **4. Dropping a Trigger**
 To remove a trigger from a table, you can use the DROP TRIGGER command.
 
 **Syntax:**
@@ -241,7 +243,7 @@ DROP TRIGGER TriggerName;
 DROP TRIGGER LogEmployeeInsert;
 ```
 
-# Example of Using Triggers
+# **Example of Using Triggers**
 Here’s an example that combines multiple types of triggers:
 
 **Trigger for AFTER INSERT:** Automatically logs insert operations into an audit table.
@@ -280,5 +282,106 @@ BEGIN
     BEGIN
         DELETE FROM Employee WHERE EmployeeID = @EmployeeID;
     END
+END;
+```
+
+# **Magic Tables in SQL Server**
+Magic tables are temporary internal tables (INSERTED and DELETED) created automatically by SQL Server during DML operations (INSERT, UPDATE, DELETE).
+
+**Key Points**
+- Created automatically by SQL Server
+- Not physical tables (exist only temporarily)
+- Used inside triggers only
+- Cannot be accessed directly outside triggers
+
+### **Types of Magic Tables**
+**1. INSERTED Table**
+👉 Stores new rows
+
+**Used in:**
+- INSERT
+- UPDATE (new values)
+
+**2. DELETED Table**
+👉 Stores old rows
+
+**Used in:**
+- DELETE
+- UPDATE (old values)
+
+### **Magic Table Example**
+
+```sql
+CREATE TRIGGER trg_AfterInsert
+ON Employees
+AFTER INSERT
+AS
+BEGIN
+    SELECT * FROM INSERTED;
+END
+
+-- This will show newly inserted rows
+```
+
+```sql
+-- Update Example
+CREATE TRIGGER trg_Update
+ON Employees
+AFTER UPDATE
+AS
+BEGIN
+    SELECT * FROM INSERTED; -- new values
+    SELECT * FROM DELETED;  -- old values
+END
+```
+
+### **Note**
+`Think like:`
+
+- INSERTED = after change (new data)
+- DELETED = before change (old data)
+
+# **For MySql**
+MySQL uses `NEW` and `OLD` keywords inside triggers
+
+## **Comparison**
+|SQL Server	|MySQL|
+|----------|------|
+|INSERTED	|NEW|
+|DELETED	|OLD|
+
+### **MySQL Example**
+**INSERT Trigger**
+```sql
+CREATE TRIGGER before_insert_user
+BEFORE INSERT ON users
+FOR EACH ROW
+BEGIN
+    SET NEW.name = UPPER(NEW.name);
+END;
+```
+👉 NEW = new row values
+
+**UPDATE Trigger**
+```sql
+CREATE TRIGGER before_update_user
+BEFORE UPDATE ON users
+FOR EACH ROW
+BEGIN
+    IF OLD.salary <> NEW.salary THEN
+        -- do something
+    END IF;
+END;
+```
+👉 OLD = previous values
+👉 NEW = updated values
+
+**DELETE Trigger**
+```sql
+CREATE TRIGGER before_delete_user
+BEFORE DELETE ON users
+FOR EACH ROW
+BEGIN
+    -- access OLD values
 END;
 ```
