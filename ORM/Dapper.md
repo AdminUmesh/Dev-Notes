@@ -1,11 +1,3 @@
-# Dapper in .NET – Complete Notes (ADO.NET Alternative)
-
-Author: Umesh Kumar Singh  
-Level: Beginner → Intermediate  
-Based on: ADO.NET concepts (Connection, Command, Reader, Adapter)
-
----
-
 ## What is Dapper
 
 **Dapper** is a **micro-ORM** (Object Relational Mapper) for .NET created by the StackOverflow team.
@@ -17,19 +9,15 @@ Based on: ADO.NET concepts (Connection, Command, Reader, Adapter)
 
 > 👉 Dapper internally uses **ADO.NET (SqlConnection, SqlCommand, SqlDataReader)**
 
----
-
 ## Where Dapper Fits
 
-```
+```bash
 ADO.NET (Low-level, verbose)
         ↓
 Dapper (Fast, simple, SQL-first)
         ↓
 Entity Framework Core (High-level, abstraction, tracking)
 ```
-
----
 
 ## Why Use Dapper
 
@@ -39,8 +27,6 @@ Entity Framework Core (High-level, abstraction, tracking)
 - ✔ Perfect for APIs & reporting systems
 - ❌ No change tracking
 - ❌ No LINQ abstraction like EF Core
-
----
 
 ## How to Add Dapper in .NET (NuGet)
 
@@ -64,15 +50,11 @@ Namespace:
 using Dapper;
 ```
 
----
-
 ## Core Concept of Dapper
 
 > **Dapper = SQL + Mapping**
 
 You write SQL → Dapper executes it → Maps result to object
-
----
 
 ## Dapper Uses ADO.NET Connection
 
@@ -92,15 +74,15 @@ using IDbConnection con = new SqlConnection(cs);
 
 ## Dapper Main Methods
 
-| Method | Purpose |
-|------|--------|
-| Query<T>() | Multiple rows |
-| QueryFirst<T>() | First row |
-| QueryFirstOrDefault<T>() | First or null |
-| QuerySingle<T>() | Exactly one row |
-| QuerySingleOrDefault<T>() | One or null |
-| Execute() | Insert/Update/Delete |
-| ExecuteScalar<T>() | Single value (count, max, sum) |
+| Sync Method | Async Version | Purpose |
+|--------|--------------|--------|
+| Query<T>() | QueryAsync<T>() | Multiple rows |
+| QueryFirst<T>() | QueryFirstAsync<T>() | First row |
+| QueryFirstOrDefault<T>() | QueryFirstOrDefaultAsync<T>() | First or null |
+| QuerySingle<T>() | QuerySingleAsync<T>() | Exactly one row |
+| QuerySingleOrDefault<T>() | QuerySingleOrDefaultAsync<T>() | One or null |
+| Execute() | ExecuteAsync() | Insert/Update/Delete |
+| ExecuteScalar<T>() | ExecuteScalarAsync<T>() |Single value (count, max, sum) |
 
 ---
 
