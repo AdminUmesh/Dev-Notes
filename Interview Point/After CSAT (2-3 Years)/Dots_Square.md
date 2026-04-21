@@ -19,13 +19,26 @@ I want to write a query that allows the user to input a **"From Date"** and a **
 ### Example:
 If the user enters the date range from **01-May-2025 to 25-May-2025**, the output should group the total transaction amount week-wise:
 
+**Each row should contain:**
+- Week Number (Week 1, Week 2, …)
+- Week Start Date
+- Week End Date
+- Total Transaction Amount
+
+- Week must be Monday → Sunday
+- If range starts mid-week → first week is partial
+- If range ends mid-week → last week is partial
+
+**Example:**
+`01-May (Saturday) → Week 1 = Sat–Sun (2 days only)`
+
 - **Week 1**: 01–03 May (if 01-May is Thursday)  
 - **Week 2**: 04–10 May  
 - **Week 3**: 11–17 May  
 - **Week 4**: 18–24 May  
 - **Week 5**: 25-May only  
 
-Each row in the result should show the **week number** and the **total `trn_amt`** for that week.
+Each row in the result should show the **week number**, **Start**, **End** the **total `trn_amt`** for that week.
 
 **Goal:**  
 Write a SQL Server query to generate this weekly summary based on the user-defined date range.

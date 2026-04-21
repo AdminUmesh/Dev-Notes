@@ -545,7 +545,7 @@ class Program
 ```
 
 ## Interface
-An interface in C# is similar to a class but  implicitly  contains abstract methods(This means that the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
+Interface is similar to a class but  implicitly  contains abstract methods (This means that the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
 
 - An interface class is declared using the interface keyword.
 - To achieve interface implementation in C#, use the : syntex.
@@ -659,19 +659,6 @@ public class Car : IEngine
     }
 }
 
-public class Bus : IEngine
-{
-    public void Start()
-    {
-        Console.WriteLine("Bus engine is starting...");
-    }
-
-    public void Stop()
-    {
-        Console.WriteLine("Bus engine is stopping...");
-    }
-}
-
 public class MainClass
 {
     public static void Main(string[] args)
@@ -685,13 +672,10 @@ public class MainClass
         vehicle = new Car();
         vehicle.Start();
         vehicle.Stop();
-
-        vehicle = new Bus();
-        vehicle.Start();
-        vehicle.Stop();
     }
 }
 ```
+
 ### Interface Key Point
 **Decoupling Code**
 Interfaces allow you to define functionality without tying your code to a specific implementation, which supports loose coupling and flexibility (e.g., using dependency injection).
@@ -700,7 +684,7 @@ Interfaces allow you to define functionality without tying your code to a specif
 A class can implement multiple interfaces, which is useful because C# does not support multiple inheritance of classes.
 
 **access modifiers**
-Where  a Class have access modifiers (public, private, etc.). But interface are public by default, cannot have access modifiers.
+Where a Class have access modifiers (public, private, etc.). But interface are public by default, cannot have access modifiers.
 
 ## Static Methods and Properties
 - Declared with the **static** keyword:
