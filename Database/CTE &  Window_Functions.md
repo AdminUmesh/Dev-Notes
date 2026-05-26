@@ -1,5 +1,3 @@
-# SQL Notes: CTE and Window Functions
-
 ## 1. What is a CTE (Common Table Expression)?
 
 A **CTE** is a temporary result set that can be referenced within a SQL
@@ -67,8 +65,55 @@ FROM EmployeeHierarchy;
 Used for: - Organization charts - Tree structures - Category hierarchies
 
 ------------------------------------------------------------------------
+## Note:
+CTE is NOT for making impossible queries possible. Mostly: `CTE is for making complex queries readable and manageable.`
 
-## 3. What is a Window Function?
+### Example WITHOUT CTE
+**Find employees earning above department average salary**
+
+```sql
+SELECT e.*
+FROM Employees e
+JOIN (
+    SELECT DepartmentID,
+           AVG(Salary) AS AvgSalary
+    FROM Employees
+    GROUP BY DepartmentID
+) d
+ON e.DepartmentID = d.DepartmentID
+WHERE e.Salary > d.AvgSalary;
+```
+
+**Beginner Problem Here**
+```sql
+JOIN (
+    SELECT ...
+)
+```
+**is harder to read.** `Especially when query becomes huge.`
+
+SAME Query WITH CTE
+```sql
+WITH DepartmentAverage AS (
+    SELECT DepartmentID,
+           AVG(Salary) AS AvgSalary
+    FROM Employees
+    GROUP BY DepartmentID
+)
+
+SELECT e.*
+FROM Employees e
+JOIN DepartmentAverage d
+ON e.DepartmentID = d.DepartmentID
+WHERE e.Salary > d.AvgSalary;
+```
+
+### GOLDEN LINE
+- CTE does NOT make SQL more powerful.
+- It makes SQL more readable and maintainable.
+------------------------------------------------------------------------
+
+# 3. Window Function?
 
 A **Window Function** performs calculations across a set of table rows
 related to the current row.
@@ -83,7 +128,30 @@ FUNCTION_NAME() OVER (
     ORDER BY column
 )
 ```
+### Problem
+In a Result table you have to calculate RanK of Stundent
 
+```sql
+SELECT StudentName,
+       Marks,
+       ROW_NUMBER() OVER(
+           ORDER BY Marks DESC
+       ) AS Rank
+FROM Studentss;
+```
+
+### MOST IMPORTANT PART
+```sql
+OVER(...)
+-- Perform calculation across related rows
+```
+
+### Result
+| StudentName | Marks | Rank |
+| ----- | ----- | ----- | 
+|Simran| 90|	1|
+|Rahul|	70 |	2|
+|Karan|	60 |	3|
 ------------------------------------------------------------------------
 
 ## 4. Common Window Functions

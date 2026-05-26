@@ -1,4 +1,4 @@
-# SQL Notes: CONCAT vs GROUP_CONCAT
+# CONCAT vs GROUP_CONCAT
 
 ## 1. CONCAT()
 
@@ -119,12 +119,12 @@ This sorts values before concatenation.
 
 # 5. Key Differences
 
-  Feature             CONCAT                GROUP_CONCAT
-  ------------------- --------------------- ------------------------------
-  Type                String function       Aggregate function
-  Works on            Columns in same row   Values across multiple rows
-  Requires GROUP BY   No                    Usually Yes
-  Use Case            Combine fields        Combine rows into one string
+  |Feature            | CONCAT            |   GROUP_CONCAT |
+  |------------------| ------------------ | ----- |
+  |Type               | String function     |  Aggregate function|
+  |Works on           | Columns in same row |  Values across |multiple rows|
+  |Requires GROUP BY  | No                  |  Usually Yes|
+  |Use Case           | Combine fields      |  Combine rows into |one string|
 
 ------------------------------------------------------------------------
 
