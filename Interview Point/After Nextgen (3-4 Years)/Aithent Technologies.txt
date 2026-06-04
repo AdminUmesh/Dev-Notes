@@ -1,0 +1,13 @@
+1. Introduction
+2. Explain Your Project
+3. How to relate two Database
+4. what is Normalazition
+5. .net Core vs .Net MVC
+6. DML vs DDL Commands
+7. How DI Works
+8. How You Retrieve Data in your project 
+9. What is Rest Api and how its work
+10. Put vs Patch
+11. Why we use Diffrent Methods (like put and Patch)
+12. Method Overloading vs Overriding 
+13. Abstract Class vs Interface
