@@ -1,4 +1,4 @@
-# EF Core + MySQL / SQL Server – Setup Notes (.NET)
+# EF Core + MySQL / SQL Server
 
 These notes show step‑by‑step how to add **Entity Framework Core** to your ASP.NET Core Web API project with either:
 

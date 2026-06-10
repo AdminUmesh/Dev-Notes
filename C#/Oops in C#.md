@@ -8,25 +8,19 @@ OOP (Object-Oriented Programming) is a way of programming that helps us to make 
 4. Securely protects sensitive information through encapsulation
 
 **What makes C# Object-Oriented**
-C# is a programming language that follows the principles of object-oriented programming (OOP), including concepts like inheritance, polymorphism, encapsulation, and abstraction.
+C# is object-oriented because it supports the four main principles of OOP, Encapsulation, Inheritance Polymorphism, Abstraction etc.
 
 ## Classes
 A class is a template for objects, and an object is an instance of a class.
 
-Everything in C# is associated with classes and objects, along with its attributes and methods.
-
-|Predefined Class|	User Defined Class|
-|----------------|--------------------|
-|Console	     |      Dog|
-|String|	A|
-|System	|Test|
+**Predefined Class:** Console, String, System etc
+**User Defined Class:** Dog, Test etc
 
 **Benefits of Class:** A class is used to bind data as well as methods together as a single unit.
 
 ## Object
 An object is an instance of a class that executes the class. Once the object is created, it takes up space in memory like other variables.
 
-- Objects of a class are created using the new keyword.
 ```csharp
 public class Main {
     int x = 5;
@@ -204,7 +198,7 @@ A constructor is a special type of method whose name is the same as the class na
 - Every C# class has a constructor.
 - The constructor is automatically called at the time of object creation.
 - A constructor never contains any return type, including void.
-
+    
 ```csharp
 public class A {
     public int abc;
@@ -269,6 +263,7 @@ class B {
  It is possible to make a constructor private in C# using private keyword before constructor name. `it helps us avoid to acceess constructor contains in other class.`
 
 - We can't make object of a private constructor in other class. (which means objects of the class cannot be created directly from outside the class.)
+
 ```C#
 public class MyClass
 {
@@ -368,7 +363,7 @@ class Program
 ```
 
 2. **Multilevel Inheritance**
-In this type of inheritance, we will have more than 2 classes and a parent class will be inherited by a child class then that child class will be inherited by the another child class.
+In Multilevel inheritance, we will have more than 2 classes and a parent class will be inherited by a child class then that child class will be inherited by the another child class.
 ```csharp
 public class Super {
     public void Print() {
@@ -390,7 +385,7 @@ public class Sub2 : Sub1 {
 ```
 
 3. **Hierarchical Inheritance**
- In this type of inheritance, a parent class is direct inherited by more than one child class.
+ In Hierarchical inheritance, a parent class is direct inherited by more than one child class.
 ```csharp
 public class Super {
     public void Print() {
@@ -544,7 +539,7 @@ class Program
 }
 ```
 
-## Interface
+# Interface
 Interface is similar to a class but  implicitly  contains abstract methods (This means that the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
 
 - An interface class is declared using the interface keyword.
@@ -712,7 +707,7 @@ class TestOverloading {
 }
 ```
 
-## ITERABLE or ITERATOR in C#:
+# ITERABLE or ITERATOR in C#:
 An iterable is any object that can be looped through using a foreach loop.
 
 - Iterators are used in the .NET collection framework to retrieve elements one by one.
@@ -764,7 +759,7 @@ class MainClass {
 
 **Control:** The Deposit and Withdraw methods control how money can be added or subtracted from the account, preventing invalid operations (like withdrawing more than the balance).
 
-## Polymorphism
+# Polymorphism
 Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. 
 
 **Compile-time Polymorphism (Method Overloading)(Static Polymorphism)**
@@ -911,7 +906,7 @@ class MainClass {
 //Super class
 ```
 
-## Abstraction
+# Abstraction
 Data abstraction is the process of hiding certain details and showing only essential information to the user.
 `Abstraction can be achieved with either abstract classes or interfaces`
 
@@ -1107,7 +1102,6 @@ class Program
 Before change: 50
 After change: 50
 ```
-
 
 ## 2. Call by Reference
 In Call by Reference, the method receives a reference (or memory address) to the argument, which means any changes made to the parameter inside the method will affect the original argument.
