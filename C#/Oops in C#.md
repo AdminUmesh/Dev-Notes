@@ -68,12 +68,14 @@ class Second {
 ## Access Modifiers
 Properties and methods can have access modifiers that control where they can be accessed.
 
-**There are four access modifiers:**
+**There are four (Six) access modifiers:**
 
-1. **public:** The access level of a public modifier is everywhere. It can be accessed from within the class, outside the class, within the package, and outside the package.
-2. **protected:** The access level of a protected modifier is within the package/Class and outside the package/Class through a derived class.
+1. **public:** The access level of a public modifier is everywhere. It can be accessed from within the class, outside the class, within the assembly, and outside the assembly.
+2. **protected:** A protected member can be accessed within its class and by derived classes, even if the derived classes are in another assembly.
 3. **private:** The property or method can only be accessed within the class.
 4. **internal:** The access level of an internal modifier is only within the assembly. It cannot be accessed from outside the assembly.
+5. **protected internal**
+6. **private protected**
 
 **Protected Example:-1**
 ```C#
@@ -192,7 +194,7 @@ class Program
 
 ## Constructor
 **Define Constructor:**
-A constructor is a special type of method whose name is the same as the class name. C# creates a constructor by default when we do not create one manually.
+A constructor is a special type of method whose name is the same as the class name. If no constructor is defined, the compiler generates a parameterless constructor
 
 - The main purpose of a constructor is to initialize the object.
 - Every C# class has a constructor.
@@ -228,7 +230,7 @@ class B {
 
 **2. Parameterized Constructor:** A constructor that takes one or more parameters.
 
-**3. Copy Constructor:** A constructor that passes an object reference in the constructor.
+**3. Copy Constructor:** A Constructor that initializes a new object using values from another object of the same class..
 
 ```csharp
 public class A {
@@ -260,7 +262,7 @@ class B {
 ```
 
 **4. Private Constructor**
- It is possible to make a constructor private in C# using private keyword before constructor name. `it helps us avoid to acceess constructor contains in other class.`
+ It is possible to make a constructor private in C# using private keyword before constructor name. `it helps us avoid to access constructor contains in other class.`
 
 - We can't make object of a private constructor in other class. (which means objects of the class cannot be created directly from outside the class.)
 
@@ -322,28 +324,28 @@ public class ConstructorOverloading {
 # Inheritance
 Inheritance allows one class to acquire the properties and methods of another class.
 
-- Defined using the : base keyword in C#.
+- Defined using the : symbol in C#.
 - Provides code reusability.
 - Method overriding is only possible through inheritance.
 
 1. **Single Inheritance**
-Single inheritance support only one supper and one sub class
+Single inheritance support only one supper and one Derived class
 ```csharp
 using System;
 
-public class Super
+public class Base
 {
     public void Print()
     {
-        Console.WriteLine("This is the superclass");
+        Console.WriteLine("This is the Base class");
     }
 }
 
-public class Sub : Super
+public class Derived : Base
 {
     public void Display()
     {
-        Console.WriteLine("This is the subclass");
+        Console.WriteLine("This is the Derived class");
     }
 }
 
@@ -351,12 +353,12 @@ class Program
 {
     static void Main()
     {
-        // Create an instance of the Sub class
-        Sub sub = new Sub();
+        // Create an instance of the Derived class
+        Derived Derived = new Derived();
 
-        // Call both the Print method from the superclass and the Display method from the subclass
-        sub.Print();    // Calling the Print() method from the Super class
-        sub.Display();  // Calling the Display() method from the Sub class
+        // Call both the Print method from the Base class and the Display method from the Derived Class
+        Derived.Print();    // Calling the Print() method from the Base class
+        Derived.Display();  // Calling the Display() method from the Derived class
     }
 }
 
@@ -365,21 +367,21 @@ class Program
 2. **Multilevel Inheritance**
 In Multilevel inheritance, we will have more than 2 classes and a parent class will be inherited by a child class then that child class will be inherited by the another child class.
 ```csharp
-public class Super {
+public class Base {
     public void Print() {
-        Console.WriteLine("This is the superclass");
+        Console.WriteLine("This is the Base class");
     }
 }
 
-public class Sub1 : Super {
+public class Sub1 : Base {
     public void Display() {
-        Console.WriteLine("This is subclass 1");
+        Console.WriteLine("This is Derived Class 1");
     }
 }
 
 public class Sub2 : Sub1 {
     public void Show() {
-        Console.WriteLine("This is subclass 2");
+        Console.WriteLine("This is Derived Class 2");
     }
 }
 ```
@@ -387,21 +389,21 @@ public class Sub2 : Sub1 {
 3. **Hierarchical Inheritance**
  In Hierarchical inheritance, a parent class is direct inherited by more than one child class.
 ```csharp
-public class Super {
+public class Base {
     public void Print() {
-        Console.WriteLine("This is the superclass");
+        Console.WriteLine("This is the Base class");
     }
 }
 
-public class Sub1 : Super {
+public class Sub1 : Base {
     public void Display() {
-        Console.WriteLine("This is subclass 1");
+        Console.WriteLine("This is Derived class 1");
     }
 }
 
-public class Sub2 : Super {
+public class Sub2 : Base {
     public void Show() {
-        Console.WriteLine("This is subclass 2");
+        Console.WriteLine("This is Derived class 2");
     }
 }
 ```
@@ -494,10 +496,10 @@ class Base {
 //This is a non-abstract method in the Sunstar class.
 
 ```
-**Real life use:** Let's in a university application we make a class in which we declare fee report of all student, and we want only authorised person can see the fee detail Then we must have to make this class abstract. So that developer can't call directlly via make a object of this class.
+**Real life use:** Let's in a university application we make a class in which we declare fee report of all student, and we want only authorised person can see the fee detail Then we must have to make this class abstract. Abstract classes are used to define common behavior and force derived classes to implement required functionality.
 
 ## Abstract Method in C#:
-- An abstract method is a method that is declared using the abstract keyword. It does not have a body (implementation). The body of the abstract method must be provided in the derived class.
+- An abstract method declared using the abstract keyword. It does not have a body (implementation). The body of the abstract method must be provided in the derived class.
 
 - Abstract methods can only be declared within abstract classes.
 
@@ -542,10 +544,18 @@ class Program
 # Interface
 Interface is similar to a class but  implicitly  contains abstract methods (This means that the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
 
+### **Interfaces are also used for: C#**
+
+- Multiple inheritance
+- Loose coupling
+- Dependency Injection
+- Testability
+- Polymorphism
+
 - An interface class is declared using the interface keyword.
-- To achieve interface implementation in C#, use the : syntex.
+- To achieve interface implementation in C#, use the : syntax.
 - Interface methods are implicitly public and abstract.
-- Interface variables are public, static, and readonly by default.
+- Interfaces cannot contain instance fields (variables).
 - If a class implements an interface, it must provide implementations for all the methods defined in that interface.
 
 ```csharp
@@ -577,7 +587,7 @@ class MainClass {
 
 2. **To Achieve Multiple Inheritance -** C# does not support multiple inheritance (i.e., a class cannot inherit from multiple classes). However, you can implement multiple interfaces in a class. This allows you to inherit functionality from multiple sources without the complexities of multiple inheritance. Note: To implement multiple interfaces in C#, separate them with a comma (see example below).
 
-**Example and Clearification (class vs Interface)**
+**Example and Clarification (class vs Interface)**
 ```C#
 // Example of Class
 public class Truck 
@@ -718,12 +728,12 @@ foreach (var item in customDataStructure) {
 ```
 `In C#, the foreach loop is used to iterate over collections that implement the IEnumerable interface, which makes them` iterable.
 
-## Encapsulation
+# Encapsulation
 Encapsulation in C# is a concept used to hide the internal workings of a class and expose only the necessary parts through public methods or properties. It enhances data security, provides flexibility for future changes, and makes the system easier to maintain and scale.
 
 Encapsulation allows access to private variables indirectly by providing controlled access through public methods (also called getters and setters) or properties. This means that the private variables themselves cannot be accessed directly from outside the class, but their values can be accessed or modified using public methods or properties.
 
-- Declare the class varieble as privet.
+- Declare the class variable as private.
 - Declare the class method as public
 
 ```csharp
@@ -760,7 +770,7 @@ class MainClass {
 **Control:** The Deposit and Withdraw methods control how money can be added or subtracted from the account, preventing invalid operations (like withdrawing more than the balance).
 
 # Polymorphism
-Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. 
+Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. or `Polymorphism allows the same interface or method call to behave differently depending on the object.`
 
 **Compile-time Polymorphism (Method Overloading)(Static Polymorphism)**
 A polymorphism which is exists at the time of compilation is called **`compile time`** or **`early binding`** or **`static polymorphism`**.
@@ -793,117 +803,120 @@ public class Sum {
 **Run-time Polymorphism (Method Overriding)(Dynamic Dispatch)(Dynamic Polymorphism)**
 A polymorphism which is exists at run time is called **`run time`** or **`late binding`** or **`dynamic polymorphism`**.
 
-- **Method Overriding-** Whenever we writting method in super and sub classes in such a way thats method name and parameter must be same called method overiding.
+- **Method Overriding-** Whenever we writing method in Base and Derived classes in such a way thats method name and parameter must be same called method overriding.
+
+`In C#, having the same method name and parameters is not enough. The base method must be marked virtual, abstract, or already override, and the derived method must use override.`
+
 ```csharp
-public class Super {
+public class Base {
     public virtual void Print() {
-        Console.WriteLine("Super class");
+        Console.WriteLine("Base class");
     }
 }
 
-public class Sub : Super {
+public class Derived : Base {
     public override void Print() {
-        Console.WriteLine("Sub class");
+        Console.WriteLine("Derived class");
     }
 }
 
 class MainClass {
     public static void Main(string[] args) {
-        Super obj = new Sub();
+        Base obj = new Derived();
         obj.Print();
     }
 }
 ```
-**Declaring an Object Superclass Type and Creating an Instance of Subclass**
+**Declaring an Object Base class Type and Creating an Instance of Derived Class**
 ```c#
-Super obj = new Sub();
-obj.Print(); // Output: "Sub class"
+Base obj = new Derived();
+obj.Print(); // Output: "Derived class"
 
-//if you make Object type as super class you can call super or sub class both
+//if you make Object type as Base class you can call Base or Derived class both
 ```
 
-**Declaring an Object Superclass Type and Creating an Instance of Superclass**
+**Declaring an Object Base Class Type and Creating an Instance of Base Class**
 ```c#
-Super obj = new Super();
-obj.Print(); // Output: "Super class"
+Base obj = new Base();
+obj.Print(); // Output: "Base class"
 
-//if you make Object type as super class you can call super or sub class both
+//if you make Object type as Base class you can call Base or Derived class both
 ```
 
-**Declaring an Object Subclass Type and Creating an Instance of Subclass**
+**Declaring an Object Derived Class Type and Creating an Instance of Derived Class**
 ```c#
-Sub obj = new Sub();
-obj.Print(); // Output: "Sub class"
+Derived obj = new Derived();
+obj.Print(); // Output: "Derived class"
 
-//if you make Object type as Sub class you can only call sub class method
+//if you make Object type as Derived class you can only call Derived class method
 ```
 
-**Declaring an Object Subclass Type and Creating an Instance of Superclass**
+**Declaring an Object Derived Class Type and Creating an Instance of Base Class**
 ```C#
-Sub obj = new Super();
+Derived obj = new Base();
 obj.Print(); 
-//error CS0266: Cannot implicitly convert type 'Super' to 'Sub'. An explicit conversion exists (are you missing a cast?)
+//error CS0266: Cannot implicitly convert type 'Base' to 'Derived'. An explicit conversion exists (are you missing a cast?)
 
-//if you make Object type as Sub class you can only call sub class method
+//if you make Object type as Derived class you can only call Derived class method
 ```
-**Call Super Class using sub class**
-You can explicitly call the method of the superclass from the subclass using the `base` keyword.
+**Call Base Class using Derived class**
+You can explicitly call the method of the Base Class from the Derived Class using the `base` keyword.
 ```csharp
-public class Super {
+public class Base {
     public virtual void Print() {
-        Console.WriteLine("Super class");
+        Console.WriteLine("Base class");
     }
 }
 
-public class Sub : Super
+public class Derived : Base
 {
     public override void Print()
     {
-        Console.WriteLine("Sub class");
-        base.Print(); // Call the Super class method
+        Console.WriteLine("Derived class");
+        base.Print(); // Call the Base class method
     }
 }
 
 class MainClass {
     public static void Main(string[] args) {
-        Super obj = new Sub();
+        Base obj = new Derived();
         obj.Print();
     }
 }
 
 //output
-//Sub class
-//Super class
+//Derived class
+//Base class
 ```
 
-**Call super class with object and instance of Sub Class**
+**Call Base class with object and instance of Derived Class**
 ```c#
-public class Super {
+public class Base {
     public virtual void Print() {
-        Console.WriteLine("Super class");
+        Console.WriteLine("Base class");
     }
 }
 
-public class Sub : Super {
+public class Derived : Base {
     public override void Print() {
-        Console.WriteLine("Sub class");
-        // base.Print(); // This calls the Super class method inside Sub.
+        Console.WriteLine("Derived class");
+        // base.Print(); // This calls the Base class method inside Derived.
     }
 }
 
 class MainClass {
     public static void Main(string[] args) {
-        Sub obj = new Sub();  // Instantiate Sub class
+        Derived obj = new Derived();  // Instantiate Derived class
 
-        // Call the Super class Print method directly
-        ((Super)obj).Print();  // Cast to Super and call Print
+        // Call the Base class Print method directly
+        ((Base)obj).Print();  // Cast to Base and call Print
 
-        // Alternatively, the following would call the Sub's overridden method:
+        // Alternatively, the following would call the Derived's overridden method:
         // obj.Print(); 
     }
 }
 //Output
-//Super class
+//Base class
 ```
 
 # Abstraction
@@ -1000,7 +1013,6 @@ Static binding occurs when the method call is resolved at compile time by the co
 **Characteristics:**
 - Occurs at compile time.
 - Used for method overloading and static methods.
-- Commonly used with private, static, and final (in C# it's sealed) methods.
 
 ```csharp
 // Example of Static Binding:
@@ -1109,7 +1121,7 @@ In Call by Reference, the method receives a reference (or memory address) to the
 **Characteristics:**
 - The reference (memory address) is passed.
 - Changes made to the parameter will affect the original argument.
-- Used for reference types (e.g., objects, arrays).
+- Call by Reference is not automatically used for reference types. Objects and arrays are still passed by value unless ref, out, or in is used.
 - In C#, Call by Reference is implemented using the ref or out keyword.
 
 **Example of Call by Reference:**
@@ -1143,8 +1155,33 @@ After change: 150
 
 ### Important Notes in C#:
 
-- C# does not support Call by Reference directly for primitive data types like int, float, etc., but references to objects are inherently passed by reference.
+- In C#, all parameters are passed by value by default, including object references. To pass a variable itself by reference, use the ref, out, or in keyword..
 
 - To use Call by Reference, C# requires explicit use of the ref or out keywords.
 
 - **Call by Value** is the default for all value types (primitive types) in C#.
+
+```c#
+class Person
+{
+    public string Name;
+}
+
+static void Change(Person p)
+{
+    p = new Person();
+    p.Name = "John";
+}
+
+static void Main()
+{
+    Person p = new Person();
+    p.Name = "Mike";
+
+    Change(p);
+
+    Console.WriteLine(p.Name);
+}
+
+// Output: Mike
+```
