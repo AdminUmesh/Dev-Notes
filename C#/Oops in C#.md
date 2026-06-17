@@ -840,7 +840,7 @@ account.balance = -5000;
 # Polymorphism
 Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. or `Polymorphism allows the same interface or method call to behave differently depending on the object.`
 
-**Compile-time Polymorphism (Method Overloading)(Static Polymorphism)**
+### **Compile-time Polymorphism** (Method Overloading)(Static Polymorphism)
 A polymorphism which is exists at the time of compilation is called **`compile time`** or **`early binding`** or **`static polymorphism`**.
 
 - **Method Overloading:-** Whenever a class contain more than one method with same name and different types of parameters called method overloading.
@@ -868,7 +868,7 @@ public class Sum {
 }
 ```
 
-**Run-time Polymorphism (Method Overriding)(Dynamic Dispatch)(Dynamic Polymorphism)**
+### **Run-time Polymorphism** (Method Overriding)(Dynamic Dispatch)(Dynamic Polymorphism)
 A polymorphism which is exists at run time is called **`run time`** or **`late binding`** or **`dynamic polymorphism`**.
 
 - **Method Overriding-** Whenever we writing method in Base and Derived classes in such a way thats method name and parameter must be same called method overriding.

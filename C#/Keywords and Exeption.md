@@ -1,4 +1,252 @@
-# 1. base
+# What is Static Keyword?
+
+A static member belongs to the **class** instead of an **object**.
+
+* No object creation required.
+* Only one shared copy exists in memory.
+* Access using the class name.
+
+## When Should We Make a Class Static?
+Use a static class when:
+
+* Class only contains helper/utility methods.
+* No object state is required.
+* No instance data is needed.
+
+```csharp
+public static class EncryptionHelper
+{
+    public static string Encrypt(string text)
+    {
+        return text;
+    }
+}
+```
+
+Usage:
+
+```csharp
+EncryptionHelper.Encrypt("Hello");
+```
+
+---
+
+## Can Static Members Be Accessed Without Object Creation?
+
+Yes.
+
+```csharp
+class Employee
+{
+    public static int Count;
+}
+```
+
+Usage:
+
+```csharp
+Employee.Count = 10;
+```
+
+No object required.
+
+---
+
+## Can Static Members Be Used Inside a Non-Static Class?
+
+Yes.
+
+```csharp
+class Employee
+{
+    public static int Count;
+}
+
+class Program
+{
+    static void Main()
+    {
+        Employee.Count = 10;
+    }
+}
+```
+
+Static members belong to the class, not to a static class.         
+
+---
+
+## If a Class is Static, Do All Members Become Static?
+
+Yes. if no static member then comCompile error. because `A static class can contain only static members.`
+
+---
+
+## Can a Static Class Be Inherited?
+
+No.
+
+```csharp
+public static class Utility
+{
+}
+
+class MyUtility : Utility
+{
+}
+```
+
+❌ Compile Error
+
+Static classes cannot be inherited.
+
+---
+
+## Can We Create an Object of a Static Class?
+
+No.
+
+```csharp
+Utility obj = new Utility();
+```
+
+❌ Compile Error
+
+---
+
+## Can a Static Class Have a Constructor?
+
+Yes, but only a static constructor.
+
+```csharp
+static Utility()
+{
+}
+```
+
+Valid.
+
+```csharp
+public Utility()
+{
+}
+```
+
+❌ Not Allowed
+
+Reason: Objects cannot be created for a static class.
+
+---
+
+## Can a Static Method Access Non-Static Members?
+
+No.
+
+```csharp
+class Employee
+{
+    public string Name;
+
+    public static void Print()
+    {
+        Console.WriteLine(Name);
+    }
+}
+```
+
+❌ Compile Error
+
+Reason:
+
+* Static method belongs to the class.
+* Name belongs to an object.
+* .NET doesn't know which object's Name to use.
+
+---
+
+## Can a Non-Static Method Access Static Members?
+
+Yes.
+
+```csharp
+class Employee
+{
+    public static int Count;
+
+    public void Print()
+    {
+        Console.WriteLine(Count);
+    }
+}
+```
+
+✔ Valid
+
+---
+
+## Why is Main Method Static?
+
+```csharp
+static void Main()
+{
+}
+```
+
+Reason:
+
+* Program execution starts from `Main()`.
+* No object exists when CLR starts the application.
+* Therefore Main must be static.
+
+---
+
+## Can We Overload Static Methods?
+
+Yes.
+
+```csharp
+public static void Print()
+{
+}
+
+public static void Print(string name)
+{
+}
+```
+
+✔ Valid
+
+---
+
+## Can Static Methods Be Overridden?
+
+No.
+
+```csharp
+class Parent
+{
+    public static void Show()
+    {
+    }
+}
+
+class Child : Parent
+{
+    public override void Show()
+    {
+    }
+}
+```
+
+❌ Compile Error
+
+Reason:
+
+* Overriding works with inheritance and objects.
+* Static methods belong to the class, not to objects.
+
+---
+
+ # 1. base
 Purpose: Access members of the base class from the derived class.
 ```csharp
 using System;
@@ -51,6 +299,34 @@ class Program {
 // Output: Overridden method in derived class
 ```
 
+## override vs new
+
+| override | new |
+|------------|------------|
+| Replaces base method | Hides base method |
+| Runtime Polymorphism | Compile-time Method Hiding |
+| Requires virtual/abstract | Does not require virtual |
+| Recommended when changing behavior | Used when intentionally hiding |
+
+Example:
+
+```csharp
+class Parent
+{
+    public virtual void Show()
+    {
+        Console.WriteLine("Parent");
+    }
+}
+
+class Child : Parent
+{
+    public override void Show()
+    {
+        Console.WriteLine("Child");
+    }
+}
+
 # 3. readonly
 Purpose: Declare fields that can only be assigned during initialization or in the constructor.
 
@@ -74,6 +350,27 @@ class Program {
 }
 // Output: 10
 ```
+
+# readonly vs const
+
+| const | readonly |
+|---------|---------|
+| Compile-time constant | Runtime constant |
+| Must be assigned at declaration | Can be assigned in constructor |
+| Implicitly static | Not static by default |
+| Same value for all objects | Can vary per object |
+
+Example:
+
+```csharp
+const double PI = 3.14;
+
+readonly int EmployeeId;
+
+public Employee(int id)
+{
+    EmployeeId = id;
+}
 
 # 4. this
 Purpose: Refers to the current instance of the class.
@@ -102,7 +399,9 @@ class Program {
 // Output: Value: 5
 ```
 # 5. new
-Purpose: Used to create objects or hide members of the base class.
+**Purpose:**
+1. Used to create objects
+2. Hide members of the base class.
 
 **Example (Object creation):**
 ```csharp
@@ -149,7 +448,7 @@ class Program {
 // Output: New method in derived class
 ```
 
-# 6. is (Alternative to instanceof in C#)
+# 6. is 
 Purpose: Check if an object is of a certain type.
 
 ```csharp
@@ -195,7 +494,6 @@ In C#, exceptions are objects that derive from the System.Exception class. `The 
      - `System.IO.IOException:` General I/O errors.
     - `System.ApplicationException` (For application-specific exceptions, although ApplicationException itself is rarely used directly.)
 
-   - `System.Error` (Errors that are typically fatal and beyond the control of the program, such as OutOfMemoryException and StackOverflowException).
 
 # Mechanisms to Handle Exceptions in C#
 ## try Block:
@@ -295,7 +593,9 @@ class MainClass {
     public static void Main(string[] args) {
         try {
             // ArithmeticException
-            int result = 10 / 0;  // Division by zero
+            int x = 10;
+            int y = 0;
+            int result = x / y;  // Division by zero
         }
         catch (DivideByZeroException e) {
             Console.WriteLine("Caught DivideByZeroException: " + e.Message);
@@ -371,3 +671,26 @@ Caught exception in inner block: An error in the inner block.
 - `throw:` Used to explicitly throw an exception.
 - `Multiple` **catch` blocks:** Handle different exceptions separately.
 - **No Checked Exceptions:** In C#, all exceptions are unchecked, so no need to declare exceptions in method signatures.
+
+# Frequently Asked Interview Questions
+
+### Static
+- Why is Main() static?
+- Can static methods be overridden?
+- Can static classes be inherited?
+- Can a static constructor be called manually?
+
+### Inheritance
+- Difference between override and new?
+- Difference between base and this?
+- Can a sealed class be inherited?
+
+### Exceptions
+- Difference between throw and throw ex?
+- Can finally execute without catch?
+- What happens if an exception is not handled?
+
+### Keywords
+- Difference between readonly and const?
+- Difference between is and as?
+- Difference between ref and out?
