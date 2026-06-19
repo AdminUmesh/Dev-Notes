@@ -20,7 +20,7 @@ The clustered index determines the physical order of data in the table. A table 
 
 - When a clustered index is created, the data rows are rearranged to match the order of the indexed column.
 
-**When a table does not have a primary key, which is very rare, you can use the CREATE CLUSTERED INDEX**
+**When a table does not have a primary key (which is very rare), you can use the CREATE CLUSTERED INDEX**
 ```sql
 -- create a clustered index manually.
 CREATE CLUSTERED INDEX idx_clustered ON Employee(EmployeeID);

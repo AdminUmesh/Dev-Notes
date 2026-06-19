@@ -38,23 +38,13 @@ BEGIN
 END;
 ```
 
-## With a Single Parameter:
+## With Parameter:
 **Example:**
 ```SQL
 CREATE PROCEDURE GetEmployeeByID (@EmployeeID INT)
 AS
 BEGIN
     SELECT * FROM Employees WHERE EmployeeID = @EmployeeID;
-END;
-```
-## With Multiple Parameters:
-**Example:**
-```SQL
-CREATE PROCEDURE GetEmployeeByDepartmentAndSalary
-(@DepartmentID INT, @MinSalary DECIMAL)
-AS
-BEGIN
-    SELECT * FROM Employees WHERE DepartmentID = @DepartmentID AND Salary >= @MinSalary;
 END;
 ```
 
@@ -91,17 +81,6 @@ BEGIN
 END;
 ```
 
-**Example:**
-
-```sql
-ALTER PROCEDURE GetEmployeeByDepartmentAndSalary
-(@DepartmentID INT, @MinSalary DECIMAL)
-AS
-BEGIN
-    SELECT * FROM Employees WHERE DepartmentID = @DepartmentID AND Salary >= @MinSalary;
-END;
-```
-
 # How to Drop a Stored Procedure
 To delete a stored procedure, use the DROP PROCEDURE 
 
@@ -109,16 +88,6 @@ To delete a stored procedure, use the DROP PROCEDURE
 ```sql
 DROP PROCEDURE ProcedureName;
 ```
-
-**Example:**
-
-```sql
-DROP PROCEDURE GetEmployeeByID;
--- This command will remove the stored procedure from the database.
-```
-
-# Physical Location:
-You can check Under `database -> Programmability -> Stored Procedures`
 
 # Summary
 - `Stored procedures are used to encapsulate SQL logic and improve performance, security, and maintainability.`

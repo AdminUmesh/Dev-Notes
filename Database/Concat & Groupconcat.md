@@ -18,17 +18,7 @@ SELECT CONCAT(FirstName, ' ', LastName) AS FullName
 FROM Employees;
 ```
 
-### Result
-
-If: FirstName = John\
-LastName = Doe
-
-Output:
-
-    John Doe
-
 ### Characteristics
-
 -   Combines **columns or strings in the same row**
 -   Works row by row
 -   Returns a single combined value
@@ -121,9 +111,9 @@ This sorts values before concatenation.
 
   |Feature            | CONCAT            |   GROUP_CONCAT |
   |------------------| ------------------ | ----- |
-  |Type               | String function     |  Aggregate function|
-  |Works on           | Columns in same row |  Values across |multiple rows|
-  |Requires GROUP BY  | No                  |  Usually Yes|
+  |Type               | String function     |     Aggregate function  |
+  |Works on           | Columns in same row |  Values across       |multiple rows        |
+  |Requires GROUP BY  | No                  |  Usually Yes         |
   |Use Case           | Combine fields      |  Combine rows into |one string|
 
 ------------------------------------------------------------------------

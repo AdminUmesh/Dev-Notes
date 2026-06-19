@@ -1,4 +1,4 @@
-## 1. What is a CTE (Common Table Expression)?
+## 1. What is CTE (Common Table Expression)?
 
 A **CTE** is a temporary result set that can be referenced within a SQL
 query.\
