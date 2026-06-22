@@ -1,9 +1,3 @@
-# constructor vs ngOnInit in Angular
-
-This document explains **constructor vs ngOnInit** in Angular in a **practical, interview‑ready way**.
-
----
-
 ## 1. Execution Order
 
 ```text
@@ -123,5 +117,3 @@ ngOnInit() {
 > ngOnInit is used for component initialization logic.
 
 ---
-
-✅ End of document

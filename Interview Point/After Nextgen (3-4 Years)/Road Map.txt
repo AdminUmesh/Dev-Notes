@@ -1,0 +1,221 @@
+Priority 1: Master .NET Core Backend
+
+You already use .NET Core, but make sure you're strong in:
+
+Dependency Injection (DI)
+Middleware
+Authentication & Authorization (JWT, OAuth)
+Exception Handling
+Logging (Serilog)
+Configuration Management
+Background Services
+API Versioning
+Rate Limiting
+Caching (Memory Cache, Redis)
+
+Example interview questions:
+
+Difference between AddTransient, AddScoped, AddSingleton?
+How does middleware execution work?
+How do you implement JWT authentication?
+Priority 2: Entity Framework Core & LINQ
+
+Since you wanted to learn EF Core from scratch, this should be a major focus.
+
+Learn:
+
+DbContext
+DbSet
+Migrations
+Relationships (1-1, 1-Many, Many-Many)
+Lazy Loading vs Eager Loading
+Tracking vs No Tracking
+LINQ Queries
+Performance optimization
+
+Example:
+
+var employees = await _context.Employees
+    .Where(x => x.IsActive)
+    .OrderBy(x => x.Name)
+    .ToListAsync();
+Priority 3: SQL Server (Very Important)
+
+Many .NET interviews are SQL-heavy.
+
+Learn:
+
+Indexes
+Execution Plans
+Query Optimization
+Stored Procedures
+Transactions
+CTEs
+Window Functions
+Deadlocks
+Isolation Levels
+
+You have already started learning execution plans and stored procedures, so continue deeper.
+
+Priority 4: Dapper
+
+Since your current project uses Dapper:
+
+Learn:
+
+Multi-mapping
+QueryMultiple
+Transactions
+Bulk Operations
+Performance comparisons with EF Core
+
+Know when to use:
+
+EF Core → Faster development
+Dapper → Maximum performance
+Priority 5: System Design
+
+This is what separates 5–8 LPA developers from 15–20+ LPA developers.
+
+Learn:
+
+Load Balancing
+Caching
+Database Scaling
+Message Queues
+API Gateway
+Microservices
+Event-Driven Architecture
+
+Start with:
+
+Design a URL Shortener
+Design a Food Delivery App
+Design an E-commerce System
+Priority 6: Cloud (Azure Preferred)
+
+Because .NET and Azure are commonly paired.
+
+Learn:
+
+Microsoft Azure App Service
+Azure SQL Database
+Blob Storage
+Key Vault
+Azure Functions
+Azure Service Bus
+Azure DevOps CI/CD
+
+You have already created Azure SQL DBs and Storage Accounts, so you're ahead here.
+
+Priority 7: Caching
+
+A common interview topic.
+
+Learn:
+
+In-Memory Cache
+Distributed Cache
+Redis
+
+Example:
+
+services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+});
+
+Understand:
+
+Cache Aside Pattern
+Cache Expiration
+Distributed Cache
+Priority 8: Microservices
+
+Learn:
+
+Service Communication
+API Gateway
+Service Discovery
+Event Bus
+Distributed Transactions
+
+Tools:
+
+Docker
+RabbitMQ
+Kafka (basics)
+Priority 9: Frontend (React)
+
+Since you already know Angular well, don't spend too much time becoming an Angular expert.
+
+Instead learn:
+
+React
+TypeScript
+Hooks
+State Management
+API Integration
+
+Companies often look for developers who can work with both Angular and React.
+
+Priority 10: AI Integration (High Demand in 2026)
+
+This is one of the best investments right now.
+
+Learn:
+
+Generative AI APIs
+Agentic AI concepts
+Retrieval-Augmented Generation (RAG)
+Vector Databases
+AI Chatbots in .NET
+
+Example:
+
+User Question
+      ↓
+Vector Search
+      ↓
+Relevant Documents
+      ↓
+LLM
+      ↓
+Answer
+Suggested 6-Month Roadmap
+Month 1–2
+EF Core
+LINQ
+SQL Optimization
+Advanced Dapper
+Month 3
+Redis
+Authentication
+Authorization
+Logging
+Month 4
+Azure
+CI/CD
+Docker
+Month 5
+System Design
+Microservices
+RabbitMQ
+Month 6
+Generative AI
+Agentic AI
+RAG with .NET
+If your goal is 15–20 LPA quickly
+
+Focus on these in order:
+
+SQL Server (Advanced)
+EF Core + LINQ
+System Design
+Azure
+Redis
+Microservices
+React + TypeScript
+AI Integration with .NET
+
+These skills will give you much more interview value than spending months on niche .NET features.
