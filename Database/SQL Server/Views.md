@@ -1,5 +1,7 @@
 # What is a View in SQL Server?
-A view is a virtual table created by a query that retrieves data from one or more tables. `Unlike a physical table, a view does not store data itself.` Instead, it provides a way to access data in a more flexible, simplified, or secured manner.
+A view is a virtual table created by a query that retrieves data from one or more tables. Which does not store data itself like a a physical table.
+
+ `It provides a way to access data in a more flexible, simplified, or secured manner.`
 
 ## Views can be used to:
 - Simplify complex queries by encapsulating them into a single object.
@@ -22,25 +24,10 @@ FROM table_name
 WHERE condition;
 ```
 
-**Example:**
-```sql
-CREATE VIEW EmployeeView AS
-SELECT FirstName, LastName, Department
-FROM Employees
-WHERE IsActive = 1;
--- This creates a view called EmployeeView that retrieves FirstName, LastName, and Department columns from the Employees table where the IsActive flag is set to 1.
-```
-
 ## How to Execute a View
 **Syntax:**
 ```sql
 SELECT * FROM view_name;
-```
-
-**Example:**
-```sql
-SELECT * FROM EmployeeView;
--- This will return all rows and columns from the EmployeeView view.
 ```
 
 ## How to Alter a View
@@ -52,33 +39,16 @@ FROM table_name
 WHERE condition;
 ```
 
-**Example:**
-```sql
-ALTER VIEW EmployeeView AS
-SELECT FirstName, LastName, Department, Salary
-FROM Employees
-WHERE IsActive = 1;
--- This alters the EmployeeView to also include the Salary column.
-```
-
 ## How to Drop a View
 **Syntax:**
 ```sql
 DROP VIEW view_name;
 ```
 
-**Example:**
-```sql
-DROP VIEW EmployeeView;
--- This will delete the EmployeeView from the database.
-```
-
 # Types of Views
 ### Simple Views:
 
-A simple view retrieves data from a single table.
-It can include filtering, sorting, and other operations.
-These views are often used for basic queries.
+A simple view retrieves data from a single table.It can include filtering, sorting, and other operations.These views are often used for basic queries.
 
 ```sql
 CREATE VIEW SimpleEmployeeView AS

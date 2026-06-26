@@ -1,6 +1,6 @@
 # Temporary Tables in SQL Server
 
-In SQL Server, temporary tables are used to store data temporarily for the duration of a session or query.
+Temporary tables are used to store data temporarily for the duration of a session.
 `These tables are often used when you need to perform intermediate operations or complex calculations and you don't want to store the results permanently in the database.`
 
 # Types of Temporary Tables

@@ -1,6 +1,6 @@
 # What is a Stored Procedure in SQL Server?
 
-A Stored Procedure (SP) in is a precompiled collection of one or more SQL statements that can be executed together. Stored procedures are often used for repetitive tasks, data validation, and complex operations.
+A Stored Procedure is a precompiled collection SQL statements that can be executed when call. Stored procedures are often used for repetitive tasks, data validation, and complex operations.
 
 ## Benefits of Stored Procedures
 

@@ -1,5 +1,5 @@
 # INNER JOIN
-An INNER JOIN only returns rows where there is a match in both tables. If there is no match, will not appear in the final result of the query.
+An INNER JOIN only returns rows where there is a match in both tables. If there is no match, will not return any rows.
 
 ## Example:
 Imagine we have two tables:
@@ -35,8 +35,6 @@ ON e.emp_id = d.emp_id;
 | -------- | ----------- |
 | Alice |	HR |
 | Bob |	Engineering |
-
-In this case, only Alice and Bob are included because their emp_id exists in both the employees and departments tables.
 
 # OUTER JOIN (LEFT, RIGHT, FULL)
 ### LEFT JOIN (or LEFT OUTER JOIN)

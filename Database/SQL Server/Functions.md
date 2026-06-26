@@ -1,5 +1,5 @@
 # Functions in SQL Server
-Functions are objects that return a value or a table. They encapsulate reusable logic that can be called in a query or other expressions.
+Functions are encapsulate reusable logic that return a value or a table and can be called in a query or other expressions.
 `Functions are similar to stored procedures but differ in that they return a value, which can be a scalar value or a table.`
 
 ## There are two main types of functions in SQL Server:
