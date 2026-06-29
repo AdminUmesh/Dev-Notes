@@ -32,8 +32,8 @@ Budget- 6.5-7 LPA
 Name:- Priya
 Source:- Naukakari.com
 Que Ask:- Experience, Technologies CTC and Current Company
-Response:- Will Notify if sortlist (Send Latest Resume)
-Interview Scheduled Status: Pending
-Interview Status: Pending
+Response:- I Submitted Response From My Side
+Interview Scheduled Status: Done
+Interview Status: Done
 Result:- Pending
 -----------------------------------------------------

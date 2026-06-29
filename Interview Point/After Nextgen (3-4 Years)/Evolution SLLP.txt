@@ -1,0 +1,16 @@
+1. Brief Introduction
+2. What is Repository Pattern
+3. Why you use 3 architecture layer in API While Monolithic is easy and Convenient
+4. Write a Query Without using looping function: How many 'S' in umesh Kumar Singh
+5. Why Use DI. when use singleton. Explain Example with 1 Use Case
+6. Rete YourSelf in sql and C#
+7. Temperary table/ virtual table vs CTE
+8. How to Create Temperary Table
+9. How many types of parameter in Stored Procedure
+10. If My stored Procedure Return Data Very Slow Then How to debug it if Db is on Production server and have very large query in SP like 2000 3000 line of query code
+11. Dapper vs Mapper
+12. What is Orm 
+13. which orm you use
+14. Abstract Class vs Interface
+15. Explain Singleton Pattern
+16. Partial class in C#
