@@ -1,0 +1,7 @@
+1. Introduction with Experience and work
+2. Explain Your Project
+3. How many way to create table
+4. How to create table without SSMS
+5. How to create/run/open a MVC Project
+6. What you do in DMS link share or something else
+7. What work you done in SQL and C#
