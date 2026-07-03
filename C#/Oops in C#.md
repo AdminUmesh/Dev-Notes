@@ -542,9 +542,9 @@ class Program
 ```
 
 # Interface
-Interface is similar to a class but  implicitly  contains abstract methods (This means that the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
+Interface is similar to a class but it contains abstract methods (This means the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
 
-### **Interfaces are also used for: C#**
+### **Interfaces are also used for:**
 
 - Multiple inheritance
 - Loose coupling
@@ -554,7 +554,7 @@ Interface is similar to a class but  implicitly  contains abstract methods (This
 
 - An interface class is declared using the interface keyword.
 - To achieve interface implementation in C#, use the : syntax.
-- Interface methods are implicitly public and abstract.
+- Interface methods are by default public and abstract.
 - Interfaces cannot contain instance fields (variables).
 - If a class implements an interface, it must provide implementations for all the methods defined in that interface.
 
