@@ -1,12 +1,3 @@
-# .NET Memory Management & Garbage Collection
-
-## Complete Deep-Dive Guide (Beginner → Senior → Architect)
-
-Author: Structured for Backend Developers (Especially ASP.NET Core
-Developers)
-
-------------------------------------------------------------------------
-
 # SECTION 1 -- FOUNDATIONS
 
 ## 1.1 What Is Memory? (Ultra Basic)
@@ -16,9 +7,6 @@ Memory is simply space where your program stores data while running.
 When your .NET application starts: - CLR (Common Language Runtime) is
 loaded - Memory space is allocated - GC (Garbage Collector) becomes
 active
-
-Think of memory like a giant whiteboard. Your variables are writings on
-that whiteboard. When no one needs the writing, GC erases it.
 
 ------------------------------------------------------------------------
 

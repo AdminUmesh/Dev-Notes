@@ -1,26 +1,59 @@
 # .NET Memory Management & Garbage Collection
 
-### Beginner to Senior Level (Story Based Explanation)
+### What is Garbage Collection?
 
-------------------------------------------------------------------------
+Garbage Collection is the process by which the .NET CLR automatically identifies and removes unused objects from managed memory (Heap), reclaiming memory to prevent memory leaks.
 
-# 1️⃣ The Very Beginning -- What Happens When You Create a Variable?
+### Why do we need Garbage Collection?
 
-Imagine your computer memory is like a hotel.
+**Without GC:**
 
-When your program runs, it asks the hotel: "Give me some rooms to store
-my data."
+- Memory keeps increasing.
+- Unused objects remain in memory.
+- Application becomes slow.
+- Eventually it crashes with OutOfMemoryException.
 
-There are TWO main areas in this hotel:
+**GC solves these problems automatically.**
 
--   Stack (Small, fast rooms)
--   Heap (Big, flexible rooms)
+```csharp
+// Example
+public void Test()
+{
+    Employee emp = new Employee();
 
-------------------------------------------------------------------------
+    emp.Name = "Umesh";
 
-# 2️⃣ Stack vs Heap (The Hotel Story)
+} // Method ends
+```
 
-## 🔹 Stack -- Short Stay Rooms
+When the method ends:
+
+Employee object has no reference pointing to it. `It becomes eligible for Garbage Collection.` `GC will eventually remove it from memory.`
+
+
+**GC Process**
+```csharp
+Create Object
+      │
+      ▼
+Heap Memory
+
+      │
+Reference Lost
+
+      ▼
+Object becomes Garbage
+
+      │
+GC runs automatically
+
+      ▼
+Memory Reclaimed
+```
+
+## What Happens When You Create a Variable?
+
+### 🔹 Stack 
 
 If you write:
 
@@ -41,7 +74,7 @@ Value Types: - int - double - bool - struct
 
 ------------------------------------------------------------------------
 
-## 🔹 Heap -- Long Stay Area
+### 🔹 Heap 
 
 If you write:
 
@@ -59,7 +92,7 @@ Heap is: - Slower than stack - Flexible size - Managed by GC
 
 ------------------------------------------------------------------------
 
-# 3️⃣ Garbage Collector (GC) -- The Cleaner
+## Garbage Collector (GC) -- The Cleaner
 
 GC is like hotel housekeeping.
 
@@ -71,7 +104,7 @@ Important: GC runs automatically. You don't manually delete objects.
 
 ------------------------------------------------------------------------
 
-# 4️⃣ Generations (Why GC is Smart)
+## Generations (Why GC is Smart)
 
 .NET divides objects into generations.
 
@@ -79,7 +112,7 @@ Because:
 
 Most objects die young.
 
-## 🔹 Gen 0 -- Baby Objects
+### 🔹 Gen 0 
 
 Short life objects: - Method variables - Temporary strings - API request
 objects
@@ -88,7 +121,7 @@ GC cleans Gen 0 very often.
 
 ------------------------------------------------------------------------
 
-## 🔹 Gen 1 -- Teenagers
+### 🔹 Gen 1
 
 Objects that survived Gen 0.
 
@@ -96,7 +129,7 @@ Medium lifetime.
 
 ------------------------------------------------------------------------
 
-## 🔹 Gen 2 -- Old Objects
+### 🔹 Gen 2 
 
 Long-lived objects: - Static fields - Singleton services - Cached data
 
@@ -106,7 +139,7 @@ Senior Thinking: Reducing Gen 2 collections improves performance.
 
 ------------------------------------------------------------------------
 
-# 5️⃣ LOH (Large Object Heap)
+## LOH (Large Object Heap)
 
 If object size \> 85,000 bytes → goes to LOH.
 
@@ -123,7 +156,7 @@ Large JSON responses often go to LOH.
 
 ------------------------------------------------------------------------
 
-# 6️⃣ GC Pauses (Why Performance Drops)
+## GC Pauses (Why Performance Drops)
 
 When GC runs: All threads pause.
 
@@ -135,7 +168,7 @@ If your API handles 10,000 requests/sec: Frequent Gen 2 = slow API
 
 ------------------------------------------------------------------------
 
-# 7️⃣ IDisposable & Using
+## IDisposable & Using
 
 GC cleans memory.
 
@@ -159,7 +192,7 @@ When block ends: Dispose() is called. Connection released immediately.
 
 ------------------------------------------------------------------------
 
-# 8️⃣ Finalizers (Danger Zone)
+## Finalizers (Danger Zone)
 
 ``` csharp
 ~MyClass()
@@ -176,33 +209,8 @@ Senior rule: Avoid finalizers unless necessary.
 
 ------------------------------------------------------------------------
 
-# 9️⃣ Why Memory Leaks Happen in Managed Code
 
-Even with GC, leaks happen.
-
-## 1️⃣ Static Variables
-
-``` csharp
-public static List<User> cache = new();
-```
-
-Never collected.
-
-------------------------------------------------------------------------
-
-## 2️⃣ Events Not Unsubscribed
-
-If subscriber not removed: Object never freed.
-
-------------------------------------------------------------------------
-
-## 3️⃣ Singleton Holding References
-
-Long-lived service storing short-lived objects.
-
-------------------------------------------------------------------------
-
-# 🔟 Why Async Increases Memory
+## Why Async Increases Memory
 
 Async creates:
 
@@ -226,7 +234,7 @@ High traffic API = high allocations.
 
 ------------------------------------------------------------------------
 
-# 1️⃣1️⃣ Object Pooling
+## Object Pooling
 
 Instead of creating new object every time:
 
@@ -238,7 +246,7 @@ Reduces: - Allocations - GC pressure - Gen 2 collections
 
 ------------------------------------------------------------------------
 
-# 1️⃣2️⃣ Senior Level Thinking
+## Senior Level Thinking
 
 Junior: "I wrote working API."
 
@@ -248,13 +256,3 @@ minute? - Any LOH allocations? - GC pause time?
 Tools: - dotnet-counters - dotnet-trace - PerfView
 
 ------------------------------------------------------------------------
-
-# Final Mental Model
-
-Stack → Fast, short life Heap → Managed memory Gen 0 → Young Gen 2 →
-Expensive LOH → Heavy objects Finalizer → Slow path Async → Hidden
-allocations Static → Possible leak Pooling → Optimization
-
-------------------------------------------------------------------------
-
-End of Notes.
