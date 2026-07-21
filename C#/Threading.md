@@ -87,7 +87,6 @@ UI remains responsive & Download runs separately
 using System.Threading;
 
 Thread t = new Thread(Print);
-
 t.Start();
 
 Console.WriteLine("Main Thread");

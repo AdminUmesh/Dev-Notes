@@ -4,19 +4,10 @@
 - The object type is the base type from which all other types in C# inherit.It can hold any data type (value types like int, double, char, or reference types like classes, interfaces, etc.).
 - It is commonly used when you want to store a variable of unknown type, but you still want to ensure type safety at compile-time.
 
-### Key Points:
-- **Type Safety:** When you store a value in an object, the compiler ensures type safety, but you'll often need to cast the object back to its original type to access its members.
-
-- **Boxing/Unboxing:** For value types, storing them in an object involves a process called "boxing," where the value is wrapped in an object. Unboxing is the reverse process, where you cast the object back to the original value type.
-
 **Example**
 ```c#
 object myObj = 10;  // Can hold any type
 Console.WriteLine(myObj);  // Prints 10
-
-// To use it as an integer, you need to cast it:
-int myInt = (int)myObj;  // Unboxing
-Console.WriteLine(myInt);  // Prints 10
 ```
 ### Common Use Case: 
 The object type is often used in collections like ArrayList or in APIs that can return multiple types, such as System.Object in collections of mixed types. However, it requires explicit casting, which can be error-prone.
@@ -44,7 +35,7 @@ Console.WriteLine(myObj.Name);  // Prints Alice
 ```
 
 # `var` type
-In C#, the var keyword is used for implicit typing, meaning that the type of a variable is determined by the compiler at compile-time based on the right-hand side (assigned value). 
+Var keyword is used for implicit typing, meaning that the type of a variable is determined by the compiler at compile-time based on the right-hand side (assigned value). 
 
 ### Implicit Typing:
 When you use var, the C# compiler determines the type of the variable at compile time based on the type of the assigned value. You don't explicitly declare the type.

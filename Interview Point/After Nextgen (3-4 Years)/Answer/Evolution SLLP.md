@@ -244,6 +244,20 @@ Mention strengths and learning areas.
   No indexes           Supports indexes
   Good for recursion   Good for large intermediate data
 
+
+CTE = Temporary Result (exists only for one query)
+Temp Table = Temporary Table (exists until dropped or session ends)
+
+CTE vs Temp Table
+Feature	CTE (Common Table Expression)	Temp Table
+Storage	Not physically stored	Stored in tempdb
+Lifetime	One statement only	Until dropped or session ends
+Can create indexes?	❌ No	✅ Yes
+Can update/delete?	Limited (through base table in some cases)	✅ Yes
+Can reuse multiple times?	❌ No	✅ Yes
+Performance	Better for small datasets	Better for large datasets
+Syntax	WITH	CREATE TABLE #Table
+
 ## Doubts
 
 ### Q: Which is faster?

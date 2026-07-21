@@ -1,5 +1,5 @@
 # What are Indexes in MS SQL?
-An index is a database object used to improve the performance of queries. Indexes allow the SQL Server to quickly locate and access the data in a table without having to scan the entire table.
+An index is a database object used to improve the performance of queries. Indexes allow quickly locate and access the data in a table without having to scan the entire table.
 `Indexes are mainly created on columns that are frequently used in WHERE, JOIN, ORDER BY, or GROUP BY clauses.`
 
 ## Purpose of Indexes:

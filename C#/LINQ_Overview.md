@@ -2,7 +2,7 @@
 # LINQ – Language Integrated Query
 
 ## 🔹 What is LINQ?
-LINQ allows you to query collections (like arrays, lists, or database sets) in a consistent, readable, SQL-like way, using C# syntax.
+LINQ is a feature in C# that lets you find, filter, sort, and work with data in an easy and readable way.
 
 You can use LINQ with:
 - Arrays

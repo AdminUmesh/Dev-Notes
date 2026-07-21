@@ -729,13 +729,14 @@ foreach (var item in customDataStructure) {
 `In C#, the foreach loop is used to iterate over collections that implement the IEnumerable interface, which makes them` iterable.
 
 # Encapsulation
-Encapsulation in C# is a concept used to hide the internal workings of a class and expose only the necessary parts through public methods or properties. It enhances data security, provides flexibility for future changes, and makes the system easier to maintain and scale.
+Encapsulation is a concept used to hide the internal workings of a class and expose only the necessary parts through public methods or properties. It enhances data security and makes the system easier to maintain and scale.
 
-Encapsulation allows access to private variables indirectly by providing controlled access through public methods (also called getters and setters) or properties. This means that the private variables themselves cannot be accessed directly from outside the class, but their values can be accessed or modified using public methods or properties.
+Encapsulation allows access to private variables indirectly by providing controlled access through public methods (also called getters and setters) or properties. 
+`This means that the private variables themselves cannot be accessed directly from outside the class, but their values can be accessed or modified using public methods or properties.`
 
 - Declare the class variable as private.
 - Declare the class method as public
-
+ 
 ```csharp
 class Welcome {
     private int value;

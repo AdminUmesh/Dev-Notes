@@ -46,7 +46,7 @@ SELECT * FROM Employees WHERE Salary > 50000;
 
 ## 🔨 Key Features of EF
 
-| Feature                 | Description                              |
+| Feature                | Description                              |
 |------------------------|------------------------------------------|
 | ORM                    | Maps C# classes to DB tables             |
 | LINQ to Entities       | Use LINQ to query database               |

@@ -17,7 +17,6 @@ A view is a virtual table created by a query that retrieves data from one or mor
 ## How to Create a View
 **Syntax:**
 ```sql
-Copy code
 CREATE VIEW view_name AS
 SELECT column1, column2, ...
 FROM table_name
@@ -48,8 +47,7 @@ DROP VIEW view_name;
 # Types of Views
 ### Simple Views:
 
-A simple view retrieves data from a single table.It can include filtering, sorting, and other operations.These views are often used for basic queries.
-
+A simple view retrieves data from a single table.
 ```sql
 CREATE VIEW SimpleEmployeeView AS
 SELECT FirstName, LastName
