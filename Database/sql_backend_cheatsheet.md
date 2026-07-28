@@ -238,15 +238,3 @@ WHERE rn = 1;
   Top N per Group    Best rows per category
 
 ------------------------------------------------------------------------
-
-# Interview Tip
-
-Most SQL interview questions are based on:
-
--   Window Functions
--   JOIN logic
--   Top N per group
--   Aggregation
--   Subqueries vs CTE
-
-Master these and you can solve most real-world SQL problems.

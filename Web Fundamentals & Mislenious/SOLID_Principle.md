@@ -2,7 +2,7 @@
 # SOLID Principles in C# (.NET Core) – All in One Example
 
 ## What is SOLID?
-**SOLID** is an acronym for five design principles introduced by Robert C. Martin (Uncle Bob):
+SOLID is a set of 5 object-oriented design principles that help you write code that is clean, maintainable, scalable, and easy to modify.
 
 - **S - Single Responsibility Principle (SRP)**: A class should have only one reason to change.
 - **O - Open/Closed Principle (OCP)**: Software should be open for extension but closed for modification.

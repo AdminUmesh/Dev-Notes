@@ -1,16 +1,14 @@
-# Transactions & ACID Properties (SQL Interview Notes)
+# Transactions & ACID Properties
 
 ## What is a Transaction?
 
 A **Transaction** is a sequence of one or more SQL operations that are
 treated as a **single unit of work**.
 
-A transaction either: - **Commits** (all changes are saved), or -
-**Rolls back** (all changes are undone).
+A transaction either:
 
-> **Interview Definition:** A transaction is a logical unit of work that
-> executes one or more database operations while ensuring data
-> consistency.
+-   **Commits** (all changes are saved permanently)
+-   **Rolls back** (all changes are undone)
 
 ------------------------------------------------------------------------
 
@@ -47,7 +45,7 @@ If the second update fails:
 ROLLBACK;
 ```
 
-No money is lost.
+No money is lost because the entire transaction is undone.
 
 ------------------------------------------------------------------------
 
@@ -55,7 +53,7 @@ No money is lost.
 
 ## BEGIN TRANSACTION
 
-Starts a transaction.
+Starts a new transaction.
 
 ``` sql
 BEGIN TRANSACTION;
@@ -63,7 +61,7 @@ BEGIN TRANSACTION;
 
 ## COMMIT
 
-Saves all changes permanently.
+Permanently saves all changes made during the transaction.
 
 ``` sql
 COMMIT;
@@ -71,13 +69,151 @@ COMMIT;
 
 ## ROLLBACK
 
-Undoes all changes since the transaction started.
+Undoes all changes made since the transaction began.
 
 ``` sql
 ROLLBACK;
 ```
 
 ------------------------------------------------------------------------
+
+# SAVE TRANSACTION (Savepoint)
+
+A **Savepoint** creates a checkpoint inside a transaction. You can roll
+back to the savepoint instead of rolling back the entire transaction.
+
+``` sql
+BEGIN TRANSACTION;
+
+UPDATE Accounts
+SET Balance = Balance - 1000
+WHERE AccountId = 1;
+
+SAVE TRANSACTION TransferStarted;
+
+UPDATE Accounts
+SET Balance = Balance + 1000
+WHERE AccountId = 2;
+
+-- Something went wrong
+ROLLBACK TRANSACTION TransferStarted;
+
+COMMIT;
+```
+
+> **Note:** `ROLLBACK TRANSACTION` without a savepoint name rolls back
+> the entire transaction.
+
+------------------------------------------------------------------------
+
+# @@ROWCOUNT
+
+`@@ROWCOUNT` returns the number of rows affected by the last SQL
+statement.
+
+### Example
+
+``` sql
+UPDATE Accounts
+SET Balance = Balance - 1000
+WHERE AccountId = 1;
+
+SELECT @@ROWCOUNT;
+```
+
+Output:
+
+``` text
+1
+```
+
+### Practical Example
+
+``` sql
+BEGIN TRANSACTION;
+
+UPDATE Accounts
+SET Balance = Balance - 1000
+WHERE AccountId = 1;
+
+IF @@ROWCOUNT = 0
+BEGIN
+    ROLLBACK;
+    PRINT 'Source account not found.';
+    RETURN;
+END
+
+UPDATE Accounts
+SET Balance = Balance + 1000
+WHERE AccountId = 2;
+
+IF @@ROWCOUNT = 0
+BEGIN
+    ROLLBACK;
+    PRINT 'Destination account not found.';
+    RETURN;
+END
+
+COMMIT;
+```
+
+------------------------------------------------------------------------
+
+# Auto-Commit in SQL Server
+
+SQL Server uses **Auto-Commit mode** by default.
+
+-   Every `INSERT`, `UPDATE`, or `DELETE` statement is automatically
+    committed.
+-   To manage transactions manually, use `BEGIN TRANSACTION`, `COMMIT`,
+    and `ROLLBACK`.
+
+``` sql
+BEGIN TRANSACTION;
+
+-- SQL statements
+
+COMMIT;
+```
+
+or
+
+``` sql
+ROLLBACK;
+```
+
+> **Interview Tip:** `SELECT @@autocommit` is available in **MySQL**,
+> **not SQL Server**.
+
+------------------------------------------------------------------------
+
+# Interview Questions
+
+### Q1. What is a transaction?
+
+A transaction is a group of SQL statements executed as a single unit of
+work. It either succeeds completely (**COMMIT**) or fails completely
+(**ROLLBACK**).
+
+### Q2. What is the difference between COMMIT and ROLLBACK?
+
+-   **COMMIT:** Saves changes permanently.
+-   **ROLLBACK:** Reverts all uncommitted changes.
+
+### Q3. What is a Savepoint?
+
+A savepoint is a checkpoint inside a transaction that allows partial
+rollback without undoing the entire transaction.
+
+### Q4. What is `@@ROWCOUNT` used for?
+
+It returns the number of rows affected by the most recently executed SQL
+statement.
+
+### Q5. Does SQL Server support `@@autocommit`?
+
+No. `@@autocommit` is a MySQL feature. SQL Server uses auto-commit mode
+by default but does not expose it through a variable.
 
 # ACID Properties
 
@@ -128,21 +264,6 @@ if the server crashes.
 
 ------------------------------------------------------------------------
 
-# Real-Life Example
-
-ATM Withdrawal
-
-1.  Check balance
-2.  Deduct amount
-3.  Dispense cash
-4.  Update account
-
-If cash cannot be dispensed, the deduction is rolled back.
-
-------------------------------------------------------------------------
-
-# Common Interview Questions
-
 1.  What is a transaction?
 2.  Difference between COMMIT and ROLLBACK?
 3.  Explain ACID properties.
@@ -151,14 +272,3 @@ If cash cannot be dispensed, the deduction is rolled back.
 6.  What problems does Isolation solve?
 
 ------------------------------------------------------------------------
-
-# Interview Answer (1 Minute)
-
-> A transaction is a logical unit of work that groups multiple database
-> operations into a single execution. It ensures that either all
-> operations succeed or none are applied. Transactions follow the ACID
-> properties: Atomicity (all or nothing), Consistency (database remains
-> valid), Isolation (concurrent transactions don't interfere), and
-> Durability (committed data remains permanent even after failures). SQL
-> provides `BEGIN TRANSACTION`, `COMMIT`, and `ROLLBACK` to manage
-> transactions.

@@ -118,35 +118,6 @@ This sorts values before concatenation.
 
 ------------------------------------------------------------------------
 
-# 6. Simple Understanding
-
-### CONCAT
-
-    Row level joining
-    FirstName + LastName
-
-### GROUP_CONCAT
-
-    Group level joining
-    All rows in a group combined
-
-------------------------------------------------------------------------
-
-# 7. Real World Examples
-
-### CONCAT
-
--   Create full name
--   Combine address fields
--   Build formatted strings
-
-### GROUP_CONCAT
-
--   Show all products for an order
--   List all roles of a user
--   Combine tags or categories
-
-------------------------------------------------------------------------
 
 # Final Summary
 

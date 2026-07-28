@@ -175,12 +175,3 @@ Deleting one row accidentally removes important information.
 5.  Why isn't every database fully normalized?
 
 ------------------------------------------------------------------------
-
-# Interview Answer (1 Minute)
-
-> Normalization is the process of organizing data into related tables to
-> reduce redundancy and improve data integrity. It removes duplicate
-> data and prevents insert, update, and delete anomalies. The most
-> commonly used normal forms are 1NF, 2NF, and 3NF. While normalization
-> improves consistency, it may require additional JOINs, so in some
-> reporting scenarios denormalization is preferred for performance.
