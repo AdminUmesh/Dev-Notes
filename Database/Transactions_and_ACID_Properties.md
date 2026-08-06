@@ -2,8 +2,9 @@
 
 ## What is a Transaction?
 
-A **Transaction** is a sequence of one or more SQL operations that are
-treated as a **single unit of work**.
+A transaction is a group of SQL statements executed as a single unit of
+work. It either succeeds completely (**COMMIT**) or fails completely
+(**ROLLBACK**).
 
 A transaction either:
 
@@ -17,7 +18,6 @@ A transaction either:
 -   Maintain data consistency
 -   Prevent partial updates
 -   Handle failures safely
--   Support concurrent users
 
 ------------------------------------------------------------------------
 

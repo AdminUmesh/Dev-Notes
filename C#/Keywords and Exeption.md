@@ -331,24 +331,35 @@ class Child : Parent
 Purpose: Declare fields that can only be assigned during initialization or in the constructor.
 
 ```csharp
-using System;
-
+// Example:- 1
 class MyClass {
     public readonly int MyField;
 
-    public MyClass(int value) {
-        MyField = value;  // Can only be set here or in the constructor
+    public MyClass() {
+        MyField = 10;  // only be assign in the constructor if not allready assigned
     }
 }
 
-class Program {
-    static void Main() {
-        MyClass obj = new MyClass(10);
-        Console.WriteLine(obj.MyField);  // Output: 10
-        // obj.MyField = 20;  // Error: Cannot assign to 'MyField' because it is readonly
+// Example:- 2
+class MyClass {
+    public readonly int MyField ; 
+
+    public MyClass() {
+    }
+
+    public NormalMethod() {
+        MyField = 10;  // not allowed in normal method, except in the constructor.
     }
 }
-// Output: 10
+
+// Example:- 3
+class MyClass {
+    public readonly int MyField =10 ; // allowed here
+
+    public MyClass() {
+        MyField = 10;  // not allowed in constructor because already assigned
+    }
+}
 ```
 
 # readonly vs const
@@ -371,6 +382,7 @@ public Employee(int id)
 {
     EmployeeId = id;
 }
+```
 
 # 4. this
 Purpose: Refers to the current instance of the class.
@@ -398,6 +410,7 @@ class Program {
 }
 // Output: Value: 5
 ```
+
 # 5. new
 **Purpose:**
 1. Used to create objects

@@ -86,6 +86,16 @@ app.MapControllers();
 
 ---
 
+### Middleware Class vs Normal Class
+|Middleware Class|	Normal Class|
+|----------------|--------------|
+|Used to process HTTP requests|	Used for any purpose|
+|Registered using app.UseMiddleware<>()|	Usually created with new or by DI|
+|Must have Invoke() or InvokeAsync()|	No special methods required|
+|Usually receives RequestDelegate|	Doesn't need RequestDelegate|
+|Runs for every request (when in the pipeline)|	Runs only when you call it|
+|Can call the next middleware|	Cannot participate in the request pipeline|
+
 ### **Example: Exception Handling Middleware**
 ```csharp
 public class ExceptionMiddleware

@@ -1,7 +1,8 @@
 ### What is a Delegate?
 - A delegate is like a pointer to a method. It is used to pass methods as parameters. This enables more dynamic and reusable code.
 
-- A delegate is a type-safe function pointer — it stores a reference to a method that matches its signature (i.e., same return type and parameter types).
+- A delegate is a type-safe function pointer 
+- it stores a reference to a method that matches its signature (i.e., same return type and parameter types).
 
 ### Basic Syntax:
 ```csharp
