@@ -1,92 +1,446 @@
-# What are Indexes in MS SQL?
-An index is a database object used to improve the performance of queries. Indexes allow quickly locate and access the data in a table without having to scan the entire table.
-`Indexes are mainly created on columns that are frequently used in WHERE, JOIN, ORDER BY, or GROUP BY clauses.`
+# What is an Index?
 
-## Purpose of Indexes:
-**Speeding up queries:** Indexes can significantly reduce the time it takes to retrieve data.
+An **Index** is a database object that helps SQL Server find data **faster**.
 
-**Unique data enforcement:** Unique indexes ensure that no two rows have the same values in the indexed columns.
+Without an index, SQL Server checks every row in the table (**Table Scan**).
 
-**Improve JOIN performance:** Indexes can enhance the performance of join operations.
+With an index, SQL Server directly locates the required rows (**Index Seek**).
 
-**Optimizing sorting and filtering:** Indexes speed up sorting (ORDER BY) and filtering (WHERE) operations.
+> **Indexes are mainly created on columns that are frequently used in:**
+> - WHERE
+> - JOIN
+> - ORDER BY
+> - GROUP BY
 
-# Types of Indexes in MS SQL
+---
 
-## Clustered Index:
+# Why Do We Use Indexes?
 
-The clustered index determines the physical order of data in the table. A table can have only one clustered index.
-- When you create a table with a primary key, SQL Server automatically creates a corresponding clustered index that includes primary key columns.
+Indexes improve database performance by:
 
-- When a clustered index is created, the data rows are rearranged to match the order of the indexed column.
+- Speeding up SELECT queries
+- Improving WHERE clause performance
+- Making JOIN operations faster
+- Improving ORDER BY and GROUP BY
+- Enforcing uniqueness using UNIQUE indexes
 
-**When a table does not have a primary key (which is very rare), you can use the CREATE CLUSTERED INDEX**
-```sql
--- create a clustered index manually.
-CREATE CLUSTERED INDEX idx_clustered ON Employee(EmployeeID);
-```
-https://www.sqlservertutorial.net/sql-server-indexes/sql-server-clustered-indexes/
+---
 
-## Non-Clustered Index: 
-A non-clustered index is a separate structure from the data table. It contains pointers to the data rows rather than rearranging the data itself.
-`A table can have multiple non-clustered indexes.` The data is not rearranged, and the index stores pointers to the actual data.
+# Example Without Index
+Suppose we have 10,00,000 employee records.
 
 ```sql
--- for a single column
-CREATE [NONCLUSTERED] INDEX index_name
-ON table_name(column_list);
-
--- for multiple column
-CREATE INDEX ix_customers_name 
-ON sales.customers(last_name, first_name);
+SELECT *
+FROM Employee
+WHERE EmployeeID = 500000;
 ```
-https://www.sqlservertutorial.net/sql-server-indexes/sql-server-create-index/
 
-## RENAME Index
-**Renaming an index using the system stored procedure sp_rename**
+### Without Index
 
-renames the index ix_customers_city of the sales.customers table to ix_cust_city:
+SQL Server checks every row until it finds the employee.
+
+```
+1
+2
+3
+4
+...
+500000
+```
+
+This is called a **Table Scan**.
+
+It is slow.
+
+---
+
+### With Index
+
+SQL Server directly jumps to EmployeeID = 500000.
+
+```
+Index
+ │
+ ├──100
+ ├──200
+ ├──300
+ └──500000 ✔
+```
+
+This is called an **Index Seek**.
+
+It is much faster.
+
+---
+
+# Types of Indexes
+
+There are several types of indexes in SQL Server.
+
+1. Clustered Index
+2. Non-Clustered Index
+3. Unique Index
+4. Filtered Index
+
+---
+
+# 1. Clustered Index
+
+A **Clustered Index** stores the table data in sorted order.
+
+The data itself is physically arranged according to the indexed column.
+
+> A table can have **only ONE Clustered Index** because data can be sorted in only one way.
+
+---
+
+## Example
+
 ```sql
-EXEC sp_rename 
-        N'sales.customers.ix_customers_city',
-        N'ix_cust_city' ,
-        N'INDEX';
+CREATE TABLE Employee
+(
+    EmployeeID INT PRIMARY KEY,
+    Name NVARCHAR(100),
+    Salary DECIMAL(10,2)
+);
 ```
-**using the SQL Server Management Studio (SSMS)**
+
+When the primary key is created, SQL Server automatically creates a **Clustered Index** (by default).
+
+The data is stored like this:
+
+| EmployeeID | Name |
+|------------|------|
+| 1 | Amit |
+| 2 | Rahul |
+| 3 | Mohan |
+| 4 | Neha |
+
+Notice the data is physically stored in EmployeeID order.
+
+---
+
+## Create Clustered Index Manually
+
+Use this only if the table has no clustered index.
+
 ```sql
--- under database -> table -> indexes -> right click on index and Rename
+CREATE CLUSTERED INDEX IX_Employee
+ON Employee(EmployeeID);
 ```
 
-## UNIQUE Index
-A unique index ensures the index key columns do not contain any duplicate values.
+---
 
-A unique index may consist of one or many columns. If a unique index has one column, the values in this column will be unique. In case the unique index has multiple columns, the combination of values in these columns is unique.
+## Advantages
 
-`Any attempt to insert or update data into the unique index key columns that cause the duplicate will result in an error.`
+- Very fast searching
+- Very fast range queries
+- Faster sorting
 
-`A unique index can be clustered or non-clustered.`
+---
+
+## Disadvantages
+
+- Only one clustered index per table
+- INSERT/UPDATE can become slower because SQL Server may need to rearrange data
+
+---
+
+# 2. Non-Clustered Index
+
+A **Non-Clustered Index** is stored separately from the table.
+
+It does **NOT** rearrange the table data.
+
+Instead, it stores:
+
+- Indexed value
+- Pointer to the actual row
+
+A table can have **multiple Non-Clustered Indexes**.
+
+---
+
+## Example
+
+Employee table
+
+| EmployeeID | Name | City |
+|------------|------|------|
+| 1 | Amit | Delhi |
+| 2 | Rahul | Noida |
+| 3 | Neha | Jaipur |
+
+Create index
 
 ```sql
--- Syntax to creating a unique index
-CREATE UNIQUE INDEX index_name
-ON table_name(column_list);
+CREATE INDEX IX_Employee_Name
+ON Employee(Name);
 ```
 
-## DROP Index
-The DROP INDEX statement removes one or more indexes from the current database.
+SQL Server creates a separate structure like:
+
+| Name | Row Pointer |
+|------|-------------|
+| Amit | Row 1 |
+| Neha | Row 3 |
+| Rahul | Row 2 |
+
+The table itself remains unchanged.
+
+---
+
+## Multiple Column Index
 
 ```sql
--- single index droped
-DROP INDEX [IF EXISTS] index_name
-ON table_name;
-
---multiple index droped
-DROP INDEX [IF EXISTS] 
-    index_name1 ON table_name1,
-    index_name2 ON table_name2,
-    ...;
+CREATE INDEX IX_Customer_Name
+ON Customers(LastName, FirstName);
 ```
 
-## How to Disable Index
-## How to Enable Index
-## What is Filter Index
+Useful when both columns are searched together.
+
+---
+
+## Advantages
+
+- Multiple indexes allowed
+- Improves search speed
+- Improves JOIN performance
+
+---
+
+## Disadvantages
+
+- Uses extra storage
+- INSERT, UPDATE and DELETE become slightly slower because indexes must also be updated
+
+---
+
+# Clustered vs Non-Clustered
+
+| Clustered Index | Non-Clustered Index |
+|-----------------|---------------------|
+| Data is physically sorted | Data remains unchanged |
+| Only one per table | Many allowed |
+| Faster for range queries | Faster for searching specific columns |
+| Default on Primary Key | Created manually |
+
+---
+
+# 3. Unique Index
+
+A **Unique Index** prevents duplicate values.
+
+If duplicate values are inserted, SQL Server throws an error.
+
+---
+
+## Example
+
+```sql
+CREATE UNIQUE INDEX IX_Email
+ON Employee(Email);
+```
+
+Allowed
+
+| Email |
+|-------|
+| abc@gmail.com |
+| xyz@gmail.com |
+
+Not Allowed
+
+| Email |
+|-------|
+| abc@gmail.com |
+| abc@gmail.com ❌ |
+
+---
+
+## Note
+
+A Unique Index can be:
+
+- Clustered
+- Non-Clustered
+
+---
+
+# 4. Filtered Index
+
+A **Filtered Index** indexes only a subset of rows.
+
+This makes the index:
+
+- Smaller
+- Faster
+- Uses less storage
+
+---
+
+## Example
+
+Employee table
+
+| EmployeeID | IsActive |
+|------------|----------|
+| 1 | 1 |
+| 2 | 0 |
+| 3 | 1 |
+| 4 | 0 |
+
+Suppose we only search active employees.
+
+```sql
+CREATE INDEX IX_ActiveEmployees
+ON Employee(EmployeeID)
+WHERE IsActive = 1;
+```
+
+Now SQL Server stores only:
+
+| EmployeeID |
+|------------|
+| 1 |
+| 3 |
+
+instead of all rows.
+
+---
+
+## Benefits
+
+- Smaller index
+- Faster queries
+- Less maintenance
+
+---
+
+# Rename an Index
+
+```sql
+EXEC sp_rename
+    N'dbo.Employee.IX_OldName',
+    N'IX_NewName',
+    N'INDEX';
+```
+
+Or
+
+```
+SSMS
+Database
+   └── Tables
+        └── Table
+              └── Indexes
+                    Right Click → Rename
+```
+
+---
+
+# Drop an Index
+
+Single index
+
+```sql
+DROP INDEX IX_Employee_Name
+ON Employee;
+```
+
+Multiple indexes
+
+```sql
+DROP INDEX
+    IX_Name ON Employee,
+    IX_City ON Employee;
+```
+
+---
+
+# Disable an Index
+
+Sometimes you want to keep the index but stop SQL Server from using it.
+
+```sql
+ALTER INDEX IX_Employee_Name
+ON Employee
+DISABLE;
+```
+
+The index still exists but SQL Server cannot use it.
+
+---
+
+# Enable (Rebuild) an Index
+
+```sql
+ALTER INDEX IX_Employee_Name
+ON Employee
+REBUILD;
+```
+
+This enables the disabled index again.
+
+---
+
+# View All Indexes
+
+```sql
+EXEC sp_helpindex 'Employee';
+```
+
+Or
+
+```sql
+SELECT *
+FROM sys.indexes
+WHERE object_id = OBJECT_ID('Employee');
+```
+
+---
+
+
+# Interview Questions
+
+### Can a table have multiple Clustered Indexes?
+
+No.
+
+Only one Clustered Index is allowed.
+
+---
+
+### Can a table have multiple Non-Clustered Indexes?
+
+Yes.
+
+A table can have many Non-Clustered Indexes.
+
+---
+
+### Does Primary Key create an index?
+
+Yes.
+
+By default, SQL Server creates a Clustered Index for the Primary Key.
+
+---
+
+### Do indexes improve INSERT performance?
+
+No.
+
+Indexes make INSERT, UPDATE, and DELETE slightly slower because SQL Server must also update the indexes.
+
+---
+
+### Which operations become faster using indexes?
+
+- SELECT
+- WHERE
+- JOIN
+- ORDER BY
+- GROUP BY
+
+---

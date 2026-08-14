@@ -5,12 +5,6 @@ Redis is an in-memory NoSQL database used mainly for:
 - Caching
 - Session storage
 - Real-time applications
-- Pub/Sub messaging
-- Queue systems
-
-Official Website:
-https://redis.io
-
 ---
 
 # Why Redis is Fast
