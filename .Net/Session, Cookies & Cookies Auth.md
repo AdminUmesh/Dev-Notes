@@ -1,4 +1,6 @@
-# Session 🔥
+# Session
+Session is server-side storage used to temporarily store information about a user's interaction with a website.
+
 ## Session Settings in Program.cs file
 
 **(A) Register session services (before builder.Build())**
@@ -59,19 +61,26 @@ HttpContext.Session.Remove("MyName");
 HttpContext.Session.Clear();
 ```
 
-# Cookies 🔥
-Cookies are small text files sent from a website to your browser that help websites remember information.
+## When Session will clear 
+- 1. Session expires after inactivity (configure idle time in Program.cs)
+- 2. Cleared manually
+- 3. Session can also disappear when the server/app restarts
+- **Note:-** Browser closing does NOT necessarily mean server Session is immediately cleared
+
+# Cookies
+Cookies are small pieces of data stored in the user's browser that help websites remember information.
+- `about 4 KB (4096 bytes)`
 
 ## 1. Server-side (C#)
 Server has full control.
 
 **Server can create:**
 
-- Normal cookies
-- HttpOnly cookies
-- Secure cookies
-- SameSite cookies
-- Auth cookies (encrypted, signed)
+- **Normal cookies** (Small data stored in the browser and accessible to JavaScript.)
+- **HttpOnly cookies** (Cookies that JavaScript cannot access; useful for sensitive data.)
+- **Secure cookies** (Cookies sent to the server only over HTTPS connections.)
+- **SameSite cookies** (Control whether cookies are sent with cross-site requests.)
+- **Auth cookies (encrypted, signed)** (Cookies used for authentication, usually containing encrypted or signed authentication information.)
 
 ```C#
 // Normal cookies

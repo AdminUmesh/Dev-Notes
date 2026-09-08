@@ -1,12 +1,12 @@
 ### Pipeline
 
-The request pipeline in .NET is a sequence of middleware components configured using app.Use and app.Map that process an incoming HTTP request and generate a response in order.
+The request pipeline is a sequence of middleware components configured using app.Use and app.Map that process an incoming HTTP request and generate a response in order.
 
 `Request pipeline = ordered middleware that handles request and response.`
 
 ### Middleware
 
-Middleware is a component in ASP.NET Core that handles HTTP requests and responses in a pipeline, executing in the order they are added.
+Middleware is a component that handles HTTP requests and responses in a pipeline, executing in the order they are added.
 
 `Middleware = code that processes request and response in sequence.`
 
@@ -20,7 +20,7 @@ Middleware is a component in ASP.NET Core that handles HTTP requests and respons
   app.UseSession()
   app.UseHttpsRedirection()
  ```
-
+    
 ### Difference: Use vs Run vs Map
 **1. app.Use()**
 Middleware that can call the next middleware

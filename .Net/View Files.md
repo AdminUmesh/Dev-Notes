@@ -1,32 +1,48 @@
-# Structure of a View:
-A view in ASP.NET Core MVC is typically a .cshtml file, which stands for C# HTML (C# Razor). Razor allows you to embed C# code directly into HTML markup. 
+# Razor Views (`.cshtml`) in ASP.NET Core MVC
 
-## A `.cshtml` file typically consists of:
-1. HTML content.
-2. Razor syntax for dynamic data and logic.
+A `.cshtml` file is a **Razor View**.
 
-## The Razor View File (.cshtml)
-The Razor syntax uses special symbols to differentiate between HTML markup and C# code.
-`Razor used @ Symbol to indicate C# code inside HTML.`
+It mainly contains:
+
+1. **HTML** — defines the UI.
+2. **Razor syntax** — allows C# code to be used inside HTML.
+
+Razor uses the **`@` symbol** to switch from HTML to C#.
+
+---
+
+## 1. Basic Razor Syntax
 
 ```cshtml
 <h1>Welcome to the site!</h1>
+
 <p>Current time: @DateTime.Now</p>
 ```
-**C#code block**
-```csharp
-@foreach (var item in Model.Items)
-{
-    <p>@item.Name</p>
-}
-```
-**`HTML Helpers:` ASP.NET Core provides helper methods to generate common HTML tags with C# code.**
+
+Here:
+
+* `<h1>` and `<p>` → HTML
+* `@DateTime.Now` → C# expression
+
+---
+
+## 2. C# Code in Razor
+
+You can write multiple lines of C# using `@{ }`.
+
 ```cshtml
-Example: @Html.DisplayFor(model => model.Property)
-Example: @Html.TextBoxFor(model => model.Name)
+@{
+    var name = "Umesh";
+    var age = 25;
+}
+
+<h2>Hello @name</h2>
+<p>Age: @age</p>
 ```
-**Conditional Logic:** You can use standard C# conditional logic within a Razor view.
-```csharp
+
+### If Condition
+
+```cshtml
 @if (Model.IsActive)
 {
     <p>The user is active.</p>
@@ -36,163 +52,573 @@ else
     <p>The user is not active.</p>
 }
 ```
-**Loops:** You can use C# loops to iterate over collections in Razor views.
+
+### Foreach Loop
+
 ```cshtml
 <ul>
-  @foreach (var item in Model.Items)
-  {
-      <li>@item.Name</li>
-  }
+    @foreach (var item in Model.Items)
+    {
+        <li>@item.Name</li>
+    }
 </ul>
 ```
 
-# Naming Convention:
-```markdown
-/Views
-    /Home
-        - Index.cshtml
-        - About.cshtml
-        - Contact.cshtml
-    /Account
-        - Login.cshtml
-        - Register.cshtml
-````
+---
 
-# Shared Files in ASP.NET MVC
-A Shared View typically refers to views that are shared across different controllers. These views are often placed in the `Views/Shared/ folder.`
+## 3. HTML Helpers
 
-### Characteristics:
-- A shared view can be used across multiple controllers.
-- It can include layout or partial views that should be accessible to the entire application.
-- Common views or components (like _Layout.cshtml, _LoginPartial.cshtml) that need to be accessed globally are placed in the Views/Shared/ folder.
+HTML Helpers are methods that help generate HTML elements using C#.
 
-## 1. _Layout Page in Shared:
-A Layout View is a template that defines the common structure of your application, such as the header, footer, sidebar, or navigation menu. It is used to provide a consistent look and feel across multiple pages of the site.
+```cshtml
+@Html.DisplayFor(model => model.Name)
+```
 
-**_Layout.cshtml Example:**
-```html
-<!-- .cshtml file -->
+```cshtml
+@Html.TextBoxFor(model => model.Name)
+```
+
+### Tag Helpers
+
+In modern ASP.NET Core MVC, **Tag Helpers** are also commonly used.
+
+```cshtml
+<input asp-for="Name" />
+
+<label asp-for="Name"></label>
+```
+
+> **Remember:** HTML Helpers and Tag Helpers both help generate HTML from Razor/C# data.
+
+---
+
+# 4. View Folder Structure
+
+Views are normally organized according to controllers.
+
+```text
+Views/
+│
+├── Home/
+│   ├── Index.cshtml
+│   ├── About.cshtml
+│   └── Contact.cshtml
+│
+├── Account/
+│   ├── Login.cshtml
+│   └── Register.cshtml
+│
+└── Shared/
+    ├── _Layout.cshtml
+    ├── _LoginPartial.cshtml
+    └── _Header.cshtml
+```
+
+For example:
+
+```text
+HomeController
+      ↓
+Views/Home/
+      ↓
+Index.cshtml
+About.cshtml
+Contact.cshtml
+```
+
+---
+
+# 5. Shared Views
+
+The `Views/Shared` folder contains views/components that can be used by **multiple controllers or views**.
+
+Example:
+
+```text
+Views/
+└── Shared/
+    ├── _Layout.cshtml
+    ├── _Header.cshtml
+    └── _Footer.cshtml
+```
+
+Common shared files include:
+
+* `_Layout.cshtml`
+* `_Header.cshtml`
+* `_Footer.cshtml`
+* `_LoginPartial.cshtml`
+* Other reusable partial views
+
+---
+
+# 6. Layout View
+
+A **Layout View** is the common structure/template of your website.
+
+For example:
+
+```text
+--------------------------------
+|           Header             |
+--------------------------------
+|                              |
+|        Page Content          |
+|                              |
+--------------------------------
+|           Footer             |
+--------------------------------
+```
+
+Instead of writing the header and footer in every page, we put them in `_Layout.cshtml`.
+
+## `_Layout.cshtml`
+
+```cshtml
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/Content/styles.css" />
+    <title>@ViewData["Title"]</title>
 </head>
+
 <body>
+
     <header>
-        <nav>
-            @Html.Partial("_Navigation")  <!-- Include navigation menu -->
-        </nav>
+        <h1>My Website</h1>
     </header>
 
     <main>
-        @RenderBody()  <!-- Content of the individual view will be inserted here -->
+        @RenderBody()
     </main>
 
     <footer>
-        <p>&copy; 2025 My Application</p>
+        <p>© 2026 My Application</p>
     </footer>
+
 </body>
 </html>
 ```
-### Apply the Custom Layout 
-```csharp
-@page //this will make a page Razor pages (treat as Razor pages)
 
+The important part is:
+
+```cshtml
+@RenderBody()
+```
+
+`@RenderBody()` is where the **content of the current view** is inserted.
+
+---
+
+# 7. `_ViewStart.cshtml`
+
+`_ViewStart.cshtml` is used to specify the **default layout** for views.
+
+Typical structure:
+
+```text
+Views/
+├── _ViewStart.cshtml
+├── Home/
+│   └── Index.cshtml
+└── Shared/
+    └── _Layout.cshtml
+```
+
+## `_ViewStart.cshtml`
+
+```cshtml
 @{
-    Layout = "_CustomLayout";  // Specifies the custom layout for this view
+    Layout = "_Layout";
 }
 ```
 
-### Not Using Any Layout
-```csharp
-@page
+Now views under `Views` will normally use `_Layout.cshtml`.
 
+The flow is:
+
+```text
+_ViewStart.cshtml
+       ↓
+Layout = "_Layout"
+       ↓
+Home/Index.cshtml
+       ↓
+Uses _Layout.cshtml
+```
+
+---
+
+# 8. Changing the Layout for One View
+
+You can override the default layout in a particular view.
+
+```cshtml
 @{
-    Layout = null;  // Disables layout for this view
+    Layout = "_CustomLayout";
 }
 ```
-# `_ViewStart.cshtml` (Defines the Default Layout):
 
-This file is usually located in the Views/ folder. if you mention a layout in this view it kame this layout as default for all pages.
+That view will use `_CustomLayout.cshtml` instead of the default layout.
 
-```csharp
+## No Layout
+
+If you don't want to use any layout:
+
+```cshtml
 @{
-    Layout = "_Layout";  // This defines the default layout for all views
+    Layout = null;
 }
 ```
 
-### Home/Index.cshtml (Uses Default Layout):
+> **Important:** `@page` is not required in a normal MVC View.
 
-If you don't specify a custom layout in the Index.cshtml, it will automatically use the default layout defined in _ViewStart.cshtml.
+`@page` is primarily associated with **Razor Pages**.
 
-```html
-<h1>Welcome to the Home Page</h1>
-<p>This page uses the default layout.</p>
+### MVC
+
+```text
+Controller
+     ↓
+View (.cshtml)
 ```
 
-# Partial Views:
-A Partial View in ASP.NET Core MVC is a view component that can be reused across multiple views within your application.
-`Partial views are typically used to render small sections of a page, such as a header, footer, navigation menu, or any reusable UI component.`
+### Razor Pages
 
-### Key Features of Partial Views:
-- **Reusability:** A partial view allows you to reuse the same HTML across multiple views, making your code more maintainable and consistent.
-- **Modularization:** It helps in breaking down a page into smaller chunks that are easier to manage and maintain.
-- **Separation of Concerns:** Partial views help in separating different parts of the UI from the rest of the page, which promotes cleaner code.
+```text
+Razor Page (.cshtml)
+     ↓
+PageModel
+```
 
-### 1. Creating a Partial View
-Let's say you have a partial view called `_Header.cshtml` for the header section of your website.
+---
 
-```html
-<!-- Views/Shared/_Header.cshtml -->
+# 9. Partial Views
+
+A **Partial View** is a small, reusable piece of UI.
+
+For example, if multiple pages need the same header:
+
+```text
+_Header.cshtml
+```
+
+You can create:
+
+```text
+Views/
+└── Shared/
+    └── _Header.cshtml
+```
+
+## `_Header.cshtml`
+
+```cshtml
 <div class="header">
+
     <h1>Welcome to My Website</h1>
+
     <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/About">About</a></li>
-            <li><a href="/Contact">Contact</a></li>
-        </ul>
+        <a href="/">Home</a>
+        <a href="/About">About</a>
+        <a href="/Contact">Contact</a>
     </nav>
+
 </div>
 ```
 
-### 2. Rendering a Partial View in Another View
-To render the partial view within a parent view, you use `@Html.Partial()` or `@Html.RenderPartial()`.
+---
 
-**Using @Html.Partial():**
-```html
-<!-- Views/Home/Index.cshtml -->
-@{
-    ViewData["Title"] = "Home Page";
-}
+# 10. Rendering a Partial View
 
-@Html.Partial("_Header")  <!-- This renders the partial view _Header.cshtml -->
+In modern ASP.NET Core, a common approach is:
 
-<h2>Home Page Content</h2>
-<p>Welcome to the home page!</p>
-```
-The above code will include the header defined in _Header.cshtml within the Index.cshtml view.
-
-**Using @Html.RenderPartial():**
-```html
-<!-- Views/Home/Index.cshtml -->
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-@{ Html.RenderPartial("_Header"); }  <!-- Renders the partial view _Header.cshtml -->
-
-<h2>Home Page Content</h2>
-<p>Welcome to the home page!</p>
+```cshtml
+<partial name="_Header" />
 ```
 
-## Difference Between `@Html.Partial()` and `@Html.RenderPartial()`:
-- `@Html.Partial():` Returns a string, so it can be used in assignments, if needed.
-- `@Html.RenderPartial():` Writes the output directly to the response stream and does not return a value.
+You may also encounter:
 
-## Later
-- **Partial Views with ViewData ?**
-- **Rendering Partial Views Dynamically ?**
-- **Advantages of Using Partial Views ?**
-- **Partial Views vs Layout Views ?**
+```cshtml
+@await Html.PartialAsync("_Header")
+```
+
+Older MVC code may use:
+
+```cshtml
+@Html.Partial("_Header")
+```
+
+The basic idea is:
+
+> A parent view can include a reusable Partial View.
+
+---
+
+# 11. Partial Views with ViewData
+
+You can pass additional data to a Partial View using `ViewData`.
+
+### Parent View
+
+```cshtml
+@{
+    ViewData["HeaderTitle"] = "My Website";
+}
+
+<partial name="_Header" />
+```
+
+### `_Header.cshtml`
+
+```cshtml
+<h1>@ViewData["HeaderTitle"]</h1>
+```
+
+The flow is:
+
+```text
+Parent View
+     ↓
+ViewData
+     ↓
+Partial View
+```
+
+---
+
+# 12. Passing a Model to a Partial View
+
+Instead of `ViewData`, you can pass a strongly typed model.
+
+### Parent View
+
+```cshtml
+<partial name="_Header" model="Model.Header" />
+```
+
+### `_Header.cshtml`
+
+```cshtml
+@model HeaderViewModel
+
+<h1>@Model.Title</h1>
+```
+
+Using a model is usually cleaner when the Partial View requires structured data.
+
+---
+
+# 13. Rendering Partial Views Dynamically
+
+Sometimes you don't know which Partial View should be displayed until runtime.
+
+For example:
+
+```cshtml
+@{
+    var partialName = Model.IsAdmin
+        ? "_AdminMenu"
+        : "_UserMenu";
+}
+
+<partial name="@partialName" />
+```
+
+If:
+
+```text
+Model.IsAdmin = true
+```
+
+then:
+
+```text
+_AdminMenu
+```
+
+is rendered.
+
+Otherwise:
+
+```text
+_UserMenu
+```
+
+is rendered.
+
+### Simple Definition
+
+> **Dynamic Partial Rendering means choosing which Partial View to render at runtime.**
+
+---
+
+# 14. Advantages of Partial Views
+
+## 1. Reusability
+
+Write the UI once and reuse it.
+
+```text
+_Header.cshtml
+      ↓
+ ┌────┼────┐
+ ↓    ↓    ↓
+Home Account Dashboard
+```
+
+## 2. Cleaner Views
+
+Instead of one huge `.cshtml` file:
+
+```text
+Index.cshtml
+ ├── Header
+ ├── Menu
+ ├── User Information
+ ├── Table
+ └── Footer
+```
+
+you can break the UI into smaller Partial Views.
+
+## 3. Maintainability
+
+If the header changes, you only modify:
+
+```text
+_Header.cshtml
+```
+
+instead of changing every page.
+
+## 4. Consistency
+
+The same Partial View can be used throughout the application, keeping the UI consistent.
+
+---
+
+# 15. Partial View vs Layout View
+
+This is an important interview question.
+
+| Layout View                                 | Partial View                                   |
+| ------------------------------------------- | ---------------------------------------------- |
+| Defines the common **page structure**       | Defines a reusable **small UI section**        |
+| Usually contains header, navigation, footer | Usually contains menu, table, form, card, etc. |
+| Uses `@RenderBody()`                        | Does not use `@RenderBody()`                   |
+| Usually `_Layout.cshtml`                    | Usually `_Header.cshtml`, `_Menu.cshtml`, etc. |
+| Provides the overall page template          | Provides a reusable UI component               |
+
+## Easy Way to Remember
+
+### Layout = Whole Page Structure
+
+```text
+_Layout.cshtml
+ ├── Header
+ ├── Navigation
+ ├── @RenderBody()
+ └── Footer
+```
+
+### Partial = Small Reusable Section
+
+```text
+_Header.cshtml
+_Menu.cshtml
+_UserCard.cshtml
+_ProductTable.cshtml
+```
+
+---
+
+# 16. Layout and Partial Views Together
+
+In real applications, Layouts and Partial Views are often used together.
+
+Example:
+
+```text
+Views/
+│
+├── _ViewStart.cshtml
+│
+├── Home/
+│   └── Index.cshtml
+│
+└── Shared/
+    ├── _Layout.cshtml
+    ├── _Header.cshtml
+    └── _Footer.cshtml
+```
+
+The flow is:
+
+```text
+                 _ViewStart.cshtml
+                        │
+                        ↓
+                  _Layout.cshtml
+                  /            \
+                 ↓              ↓
+          _Header.cshtml    _Footer.cshtml
+                 │
+                 ↓
+             @RenderBody()
+                 │
+                 ↓
+           Home/Index.cshtml
+```
+
+### In simple terms
+
+> **`_Layout.cshtml` provides the overall page structure, while Partial Views provide small reusable sections inside that structure.**
+
+---
+
+# Quick Revision
+
+| Concept             | Meaning                                     |
+| ------------------- | ------------------------------------------- |
+| `.cshtml`           | Razor View file                             |
+| Razor               | Allows C# inside HTML                       |
+| `@`                 | Indicates Razor/C# syntax                   |
+| `_Layout.cshtml`    | Common page structure                       |
+| `@RenderBody()`     | Location where the current View is inserted |
+| `_ViewStart.cshtml` | Defines the default Layout                  |
+| Partial View        | Small reusable UI component                 |
+| `Views/Shared`      | Common Views, Layouts and Partial Views     |
+| `ViewData`          | Passes additional data to a View/Partial    |
+| Dynamic Partial     | Selects a Partial View at runtime           |
+| Layout              | Whole page/template                         |
+| Partial             | Small reusable section                      |
+
+---
+
+# Most Important Difference
+
+```text
+                    ASP.NET Core MVC
+                           │
+                           ↓
+                    Controller Action
+                           │
+                           ↓
+                      View (.cshtml)
+                           │
+              ┌────────────┴────────────┐
+              ↓                         ↓
+        Layout View              Partial Views
+       (_Layout.cshtml)        (_Header.cshtml)
+              │                 (_Menu.cshtml)
+              │                 (_Footer.cshtml)
+              ↓
+        @RenderBody()
+              │
+              ↓
+       Current View Content
+```
+
+**Remember this one line:**
+
+> **Layout controls the overall page structure; Partial Views divide reusable UI sections into smaller components.**
