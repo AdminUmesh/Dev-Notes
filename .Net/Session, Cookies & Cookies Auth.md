@@ -1,5 +1,11 @@
 # Session
-Session is server-side storage used to temporarily store information about a user's interaction with a website.
+Session is server-side storage used to temporarily store information.
+
+### Server session limits depend on 
+- Available server memory — if using AddDistributedMemoryCache()
+- Number of users/sessions
+- Size of the objects you're storing
+- Session timeout
 
 ## Session Settings in Program.cs file
 
@@ -71,7 +77,7 @@ HttpContext.Session.Clear();
 Cookies are small pieces of data stored in the user's browser that help websites remember information.
 - `about 4 KB (4096 bytes)`
 
-## 1. Server-side (C#)
+## 1. Server-side (using C#)
 Server has full control.
 
 **Server can create:**

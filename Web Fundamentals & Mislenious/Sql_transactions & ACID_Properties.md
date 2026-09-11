@@ -2,12 +2,12 @@
 # SQL Transactions and Commands
 
 ## What is a Transaction in SQL?
-A transaction in SQL is a sequence of one or more SQL statements that are executed as a single unit of work. The idea is that all the operations within a transaction should either complete successfully together (**COMMIT**) or fail together (**ROLLBACK**)—ensuring data integrity.
+transaction is the sequence of SQL statements that are executed as a single unit of work. It ensure all queries either complete successfully together (**COMMIT**) or fail together (**ROLLBACK**)—ensuring data integrity.
 
 ## ACID
 ACID properties are four rules that make database transactions reliable and safe.
 
-`We use ACID so that a transaction involves multiple database operations, the database doesn't end up in an incorrect or half-completed state.`
+`We use ACID so that a transaction involves multiple table or database operations, the database doesn't end up in an incorrect or half-completed state.`
 
 ## Key Properties – ACID
 

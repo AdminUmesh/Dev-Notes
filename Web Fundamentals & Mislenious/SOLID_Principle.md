@@ -1,5 +1,5 @@
 
-# SOLID Principles in C# (.NET Core) – All in One Example
+# SOLID Principles
 
 ## What is SOLID?
 SOLID is a set of 5 object-oriented design principles that help you write code that is clean, maintainable, scalable, and easy to modify.
@@ -18,7 +18,7 @@ SOLID is a set of 5 object-oriented design principles that help you write code t
 
 ---
 
-## ✅ Example: Notification System
+## Example: Notification System
 
 This example demonstrates all five SOLID principles in a simple notification system using C#.
 

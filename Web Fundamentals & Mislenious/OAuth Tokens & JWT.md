@@ -1,11 +1,11 @@
-# 🔥 OAuth
-- OAuth (pronounced “oh-auth”) stands for Open Authorization.
+# OAuth
+- OAuth stands for Open Authorization.
 - It is not “authentication” — it is mainly authorization.
 - It is used everywhere — Google Login, Facebook Login, GitHub Login, etc.
 
 **OAuth allows one application to access limited data from another application without sharing your password.**
 
-**Example:**
+### Example:
 - You want to log in to a website using Google Login.
 
 - You click “Login with Google”.
@@ -66,7 +66,7 @@ Instead:
 
 ## Types of Token
 
-**JWT (JSON Web Token)- Stateless**
+### JWT (JSON Web Token)- Stateless
 - Server does NOT store session information.
 - Each request must carry all required data
 
@@ -77,7 +77,7 @@ Instead:
 
 Server only verifies the token using a secret key — no database lookup.
 
-**Session Token- Stateful**
+### Session Token- Stateful
 Like opaque tokens but tied to server-side session.
 
 **📌 How it works**

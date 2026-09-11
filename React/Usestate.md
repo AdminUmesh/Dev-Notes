@@ -3,11 +3,7 @@
 `useState` is a **React Hook** used to **create and manage state inside
 functional components**.
 
-State represents **data that can change over time** and causes the UI to
-update automatically.
-
-Before React Hooks, state could only be used in **class components**.
-Now we can use it in **functional components**.
+- It update automatically to UI when data change over time
 
 ------------------------------------------------------------------------
 
@@ -79,37 +75,6 @@ count = count + 1;
 ```
 
 Direct modification **will not update the UI**.
-
-------------------------------------------------------------------------
-
-# Multiple State Variables
-
-You can create multiple state variables.
-
-Example:
-
-``` jsx
-const [name, setName] = useState("");
-const [age, setAge] = useState(0);
-const [isLoggedIn, setIsLoggedIn] = useState(false);
-```
-
-**Example component:**
-
-``` jsx
-function Profile(){
-
-  const [name, setName] = useState("Umesh");
-  const [age, setAge] = useState(25);
-
-  return (
-    <div>
-      <h1>{name}</h1>
-      <p>{age}</p>
-    </div>
-  );
-}
-```
 
 ------------------------------------------------------------------------
 
@@ -269,16 +234,6 @@ function LikeButton(){
     Component Re-render
             ↓
     Updated UI
-
-------------------------------------------------------------------------
-
-# Best Practices
-
-✔ Keep state minimal\
-✔ Do not modify state directly\
-✔ Use multiple states for different data\
-✔ Use functional update when needed\
-✔ Keep state close to where it is used
 
 ------------------------------------------------------------------------
 
