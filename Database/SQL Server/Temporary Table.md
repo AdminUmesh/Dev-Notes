@@ -1,7 +1,7 @@
 # Temporary Tables in SQL Server
 
 Temporary tables are used to store data temporarily for the duration of a session.
-`These tables are often used when you need to perform intermediate operations or complex calculations and you don't want to store the results permanently in the database.`
+`They are useful when you need to store and process data temporarily without permanently saving it in the database.`
 
 # Types of Temporary Tables
 ## Local Temporary Tables:
@@ -16,17 +16,21 @@ CREATE TABLE #TempTable (ID INT, Name VARCHAR(50));
 
 ## Global Temporary Tables:
 
-These tables are created with a double ## symbol before the table name.
-
-**Scope:** Global temporary tables are visible to all sessions. `They are dropped when the session that created them is closed and there are no other active connections that are using the table.`
+- Created using ## before the table name.
+- All sessions/users can access them.
+- They are deleted when the creating session ends and no other session is using them.
 
 ```sql
-CREATE TABLE ##GlobalTempTable (ID INT, Name VARCHAR(50));
+CREATE TABLE ##GlobalTemp
+(
+    Id INT,
+    Name VARCHAR(50)
+);
 ```
 
 ## Uses of Temporary Tables
 
-- **Intermediate Data Storage:** Temporary tables are useful when you need to store intermediate results of a query or complex operations (e.g., calculations, aggregations) that are not required for permanent storage.
+- **Intermediate Data Storage:** Temporary tables are useful when you need to store intermediate results of a query that are not required for permanent storage.
 
 - **Performance Optimization:** They can improve performance by breaking a complex query into smaller parts, storing intermediate results, and referencing the temporary table later.
 

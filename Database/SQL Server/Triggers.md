@@ -107,7 +107,8 @@ END;
 
 # **Uses of Triggers**
 
-- **Data Validation:** Make sure the data is correct before saving — for example, stop negative values from being inserted.
+### Data Validation:
+ Make sure the data is correct before saving — for example, stop negative values from being inserted.
 ```sql
 CREATE TRIGGER PreventNegativeSalary
 ON Employee
@@ -121,7 +122,8 @@ BEGIN
     END
 END;
 ```
-- **Auditing:** Track changes record - who changed what and when.
+## Auditing:
+Track changes record - who changed what and when.
 ```sql
 CREATE TABLE EmployeeAudit (
     EmpID INT,
@@ -140,7 +142,8 @@ BEGIN
 END;
 ```
 
-- **Cascading Actions:** Automatically change related tables — for example, delete child records when a parent record is deleted.
+### Cascading Actions:
+ Automatically change related tables — for example, delete child records when a parent record is deleted.
 ```sql
 CREATE TRIGGER CascadeDeleteDependents
 ON Employee
@@ -152,7 +155,8 @@ BEGIN
 END;
 ```
 
-- **Preventing Invalid Transactions:** Stop unwanted changes — like blocking updates if a record is marked as "Reviewed".
+### Preventing Invalid Transactions:
+ Stop unwanted changes — like blocking updates if a record is marked as "Reviewed".
 ```sql
 CREATE TRIGGER PreventReviewedUpdate
 ON Orders

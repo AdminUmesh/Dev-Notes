@@ -1,18 +1,11 @@
 # What is a View in SQL Server?
-A view is a virtual table created by a query that retrieves data from one or more tables. Which does not store data itself like a a physical table.
-
- `It provides a way to access data in a more flexible, simplified, or secured manner.`
+A view is a virtual table created by a query that retrieves data from one or more tables. `Which does not store data itself like a a physical table.`
 
 ## Views can be used to:
-- Simplify complex queries by encapsulating them into a single object.
-- Provide a level of abstraction, hiding the complexity of database structures from the user.
-- Enhance security by restricting access to certain columns or rows of a table.
-- Allow for reuse of frequently used queries.
-
-## Uses of Views
-- **Data Abstraction:** Views can hide the complexity of the underlying table structure.
-- **Simplify Queries:** Instead of repeatedly writing complex queries, you can create a view and use it just like a table.
-- **Security:** Views can be used to restrict access to specific columns or rows. For example, users can be given access to a view that only shows non-sensitive data.
+- **Simplify complex queries** → Make difficult queries easier to use.
+- **Hide database complexity** → Show only the required data.
+- **Improve security** → Restrict access to specific rows or columns.
+- **Reuse queries** → Use the same query again and again.
 
 ## How to Create a View
 **Syntax:**
@@ -56,7 +49,6 @@ FROM Employees;
 
 ### Complex Views:
 A complex view can involve multiple tables, joins, aggregations (such as SUM, AVG, etc.), and even subqueries.
-They are used to present data in a more advanced manner and might include calculations, filtering, or grouping.
 
 ```sql
 CREATE VIEW EmployeeSummaryView AS
@@ -81,7 +73,6 @@ VALUES ('John', 'Doe', 'Sales', 50000);
 ```
 
 ### Inline Views:
-
 These are subqueries used directly in a FROM clause of a query.
 They do not store any data and are often used temporarily for specific queries.
 
@@ -89,3 +80,20 @@ They do not store any data and are often used temporarily for specific queries.
 SELECT Department, EmployeeCount
 FROM (SELECT Department, COUNT(*) AS EmployeeCount FROM Employees GROUP BY Department) AS Dep
 ```
+
+# Views
+
+## Note
+
+* We **cannot add an `UPDATE` query** while creating or altering a View.
+* A View is created using a **`SELECT` query**.
+* We can **update, delete, or insert data through an existing simple View**.
+* Views using **`DISTINCT`, `GROUP BY`, or `JOIN`** are generally **not directly updatable**.
+
+## View vs Function
+
+| View                                     | Function                                        |
+| ---------------------------------------- | ----------------------------------------------- |
+| Mainly used to **retrieve/display data** | Used to **perform reusable logic/calculations** |
+| Usually does not take parameters         | Can take **parameters**                         |
+| Acts like a **virtual table**            | Returns a **value or table**                    |
