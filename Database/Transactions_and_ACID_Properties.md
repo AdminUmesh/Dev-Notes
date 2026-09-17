@@ -1,6 +1,4 @@
-# Transactions & ACID Properties
-
-## What is a Transaction?
+# Transactions
 
 A transaction is a group of SQL statements executed as a single unit of
 work. It either succeeds completely (**COMMIT**) or fails completely
@@ -13,7 +11,7 @@ A transaction either:
 
 ------------------------------------------------------------------------
 
-# Why Do We Need Transactions?
+## Why Do We Need Transactions?
 
 -   Maintain data consistency
 -   Prevent partial updates
@@ -21,7 +19,7 @@ A transaction either:
 
 ------------------------------------------------------------------------
 
-# Example: Bank Transfer
+## **Example:** Bank Transfer
 
 Transfer ₹1000 from Account A to Account B.
 
@@ -77,11 +75,12 @@ ROLLBACK;
 
 ------------------------------------------------------------------------
 
-# SAVE TRANSACTION (Savepoint)
+# SAVE TRANSACTION (Sql Server) / SAVEPOINT (MySql)
 
-A **Savepoint** creates a checkpoint inside a transaction. You can roll
+A **Savepoint/ Save Transaction** creates a checkpoint inside a transaction. You can roll
 back to the savepoint instead of rolling back the entire transaction.
 
+## For Sql Server
 ``` sql
 BEGIN TRANSACTION;
 
@@ -90,6 +89,7 @@ SET Balance = Balance - 1000
 WHERE AccountId = 1;
 
 SAVE TRANSACTION TransferStarted;
+-- SAVEPOINT TransferStarted; //For Mysql
 
 UPDATE Accounts
 SET Balance = Balance + 1000
@@ -97,21 +97,22 @@ WHERE AccountId = 2;
 
 -- Something went wrong
 ROLLBACK TRANSACTION TransferStarted;
+-- ROLLBACK TO SAVEPOINT TransferStarted; // For Mysql
 
 COMMIT;
 ```
 
-> **Note:** `ROLLBACK TRANSACTION` without a savepoint name rolls back
+> **Note:** `ROLLBACK TRANSACTION` or `ROLLBACK TO` without a savepoint name rolls back
 > the entire transaction.
 
 ------------------------------------------------------------------------
 
-# @@ROWCOUNT
+# @@ROWCOUNT (Sql Server) /ROW_COUNT() (MySql)
 
-`@@ROWCOUNT` returns the number of rows affected by the last SQL
+`@@ROWCOUNT` , `ROW_COUNT()` returns the number of rows affected by the last SQL
 statement.
 
-### Example
+### Example Sql Sqever
 
 ``` sql
 UPDATE Accounts
@@ -119,6 +120,7 @@ SET Balance = Balance - 1000
 WHERE AccountId = 1;
 
 SELECT @@ROWCOUNT;
+-- SELECT ROW_COUNT(); //For MySql
 ```
 
 Output:
@@ -127,7 +129,7 @@ Output:
 1
 ```
 
-### Practical Example
+### Practical Example (SQL Server)
 
 ``` sql
 BEGIN TRANSACTION;
@@ -137,6 +139,7 @@ SET Balance = Balance - 1000
 WHERE AccountId = 1;
 
 IF @@ROWCOUNT = 0
+-- IF ROW_COUNT() = 0; //For MySql
 BEGIN
     ROLLBACK;
     PRINT 'Source account not found.';
@@ -148,6 +151,7 @@ SET Balance = Balance + 1000
 WHERE AccountId = 2;
 
 IF @@ROWCOUNT = 0
+-- IF ROW_COUNT() = 0; //For MySql
 BEGIN
     ROLLBACK;
     PRINT 'Destination account not found.';
@@ -217,40 +221,18 @@ by default but does not expose it through a variable.
 
 # ACID Properties
 
-ACID ensures every transaction is reliable.
+ACID properties are four rules that make database transactions reliable and safe.
 
-## A - Atomicity
+`We use ACID so that a transaction involves multiple table or database operations, the database doesn't end up in an incorrect or half-completed state.`
 
-**All or Nothing**
+## Key Properties – ACID
 
-Either every operation succeeds or none do.
-
-**Example:** Money is deducted and credited together. If one fails,
-everything is rolled back.
-
-------------------------------------------------------------------------
-
-## C - Consistency
-
-A transaction moves the database from one valid state to another.
-
-Rules, constraints, and relationships remain valid.
-
-------------------------------------------------------------------------
-
-## I - Isolation
-
-Multiple transactions should not interfere with each other.
-
-Each transaction behaves as if it is running alone.
-
-------------------------------------------------------------------------
-
-## D - Durability
-
-Once a transaction is committed, the data is permanently stored---even
-if the server crashes.
-
+| Property | Description |
+|----------|-------------|
+| A – Atomicity | All operations in the transaction are treated as a single unit. Either all succeed, or none do. |
+| C – Consistency | The database remains in a consistent state before and after the transaction. |
+| I – Isolation | Transactions do not interfere with each other. Intermediate results are hidden until commit. |
+| D – Durability | Once committed, the transaction changes are permanent—even in case of a crash. |
 ------------------------------------------------------------------------
 
 # ACID Summary

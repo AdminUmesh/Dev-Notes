@@ -1,7 +1,7 @@
 ## What is a CTE in SQL Server
 
-CTE (Common Table Expression) is a temporary result set that we can use within a query (like a readable inline view).
-`It makes complex queries cleaner, modular, and easier to understand.`
+CTE (Common Table Expression) is a temporary result set that we can use within a query
+`It makes complex queries cleaner and easier to understand.`
 
 **Basic Syntax**
 ```sql
@@ -70,7 +70,6 @@ FROM EmployeeHierarchy;
 |-------|------|----------------------|
 |Storage|	Memory (logical)	|TempDB (physical)
 |Reusability|	Single query only	|Multiple queries
-|Performance|	Good (small data)	|Better for large data
 |Indexing|	❌ Not possible	|✅ Possible
 
 ## **CTE vs Subquery**

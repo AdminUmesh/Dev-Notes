@@ -1,5 +1,5 @@
 # Functions in SQL Server
-Functions are encapsulate reusable logic that return a value or a table and can be called in a query or other expressions.
+Functions are reusable logic that return a value or a table and can be called in a query or other expressions.
 `Functions are similar to stored procedures but differ in that they return a value, which can be a scalar value or a table.`
 
 ## There are two main types of functions in SQL Server:
@@ -8,7 +8,8 @@ Functions are encapsulate reusable logic that return a value or a table and can 
 2. **Table-Valued Functions (TVF)**
 
 ## 1. Scalar Functions
-A scalar function returns a single value based on the input parameters. This value could be of any data type (e.g., int, varchar, datetime).
+A scalar function returns a single value based on the input parameters.
+`This value could be of any data type (e.g., int, varchar, datetime).`
 
 **Types of Scalar Functions:**
 
@@ -34,7 +35,9 @@ A table-valued function returns a table rather than a scalar value.
 # Predefined vs. User-Defined Functions
 
 ## Predefined Functions (System Functions):
-These are functions that are built into SQL Server. You don’t need to define them, and they provide a variety of common tasks, such as string manipulation, date functions, mathematical operations, and more.
+Predefined functions are built into SQL Server. You don’t need to define them.
+
+They provide common tasks such as `string manipulation`, `date functions`, `mathematical operations`, and more.
 
 **Examples:**
 - GETDATE()
@@ -43,7 +46,7 @@ These are functions that are built into SQL Server. You don’t need to define t
 - CONVERT()
 
 ## User-Defined Functions (UDFs):
-These are custom functions created by the user to encapsulate logic that is not covered by the predefined functions.
+User-Defined functions created by the user to encapsulate logic .
 `UDFs can be scalar or table-valued functions, depending on their return type.`
 
 **Example:**
@@ -224,14 +227,19 @@ WHERE o.type = 'FN'  -- 'FN' is the type for functions (scalar or table-valued)
 AND o.name = 'GetEmployeesByDepartment';
 ```
 
-## benifites of using a function 
-- **Code Reusability:** Functions allow you to write a block of code once and reuse it multiple times throughout your program.
+## Benefits of Using Functions
 
-- **Modularity:** Functions help break down large, complex programs into smaller, manageable pieces. Each function can perform a specific task, making it easier to read, understand, and maintain the code.
+- **Code Reusability:**  
+  Write the code once and use it many times.
 
-- **Abstraction:** Functions allow you to hide the complexity of certain operations. You can call a function without knowing all the details of its implementation, which simplifies the logic of your program.
+- **Modularity:**  
+  Break a large program into small parts. Each function can handle one specific task.
 
-- **Testing and Debugging:** Since functions encapsulate specific logic, it's easier to isolate and test individual parts of your code. This makes debugging more efficient.
+- **Abstraction:**  
+  Hide complex logic inside a function. You only need to call the function without knowing how it works internally.
 
-- **Improved Readability:** By giving descriptive names to your functions, you make your code more readable. This improves collaboration and long-term maintainability.
+- **Easy Testing and Debugging:**  
+  Since each function handles a specific task, it is easier to test and find errors.
 
+- **Better Readability:**  
+  Give functions meaningful names so that the code is easier to understand and maintain.
