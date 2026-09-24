@@ -1,8 +1,6 @@
-# Database Normalization Notes
-
 ## What is Normalization?
 
-Normalization is the process of dividing large tables into smaller related tables to reduce data duplication and improve data integrity.
+Normalization is the process in which divide large tables into smaller related tables to reduce data duplication.
 
 ------------------------------------------------------------------------
 

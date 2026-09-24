@@ -1,12 +1,8 @@
-# SQL Backend Performance Cheat Sheet
-
-## 1. Query Performance Tips
+# 1. Query Performance Tips
 
 ### Use Indexes on Filter and Join Columns
 
 Indexes help databases locate rows faster.
-
-Example:
 
 ``` sql
 CREATE INDEX idx_users_email ON Users(email);
@@ -235,33 +231,3 @@ Next page uses last received ID.
 -   Cannot jump to arbitrary page numbers
 
 ------------------------------------------------------------------------
-
-# 4. OFFSET vs Keyset Comparison
-
-  Feature              OFFSET Pagination         Keyset Pagination
-  -------------------- ------------------------- -------------------
-  Performance          Slower for large tables   Very fast
-  Random Page Access   Yes                       No
-  Index Usage          Limited                   Excellent
-  Best For             Small datasets            Large datasets
-
-------------------------------------------------------------------------
-
-# 5. Backend Developer Best Practices
-
-Always: - Use indexes on filters - Limit returned rows - Avoid N+1
-queries - Use pagination - Analyze queries using EXPLAIN
-
-For large APIs: - Prefer keyset pagination - Cache frequently used
-data - Avoid heavy joins when unnecessary
-
-------------------------------------------------------------------------
-
-# Quick Summary
-
-  Topic               Key Idea
-  ------------------- ---------------------------------------
-  Query Performance   Use indexes and avoid full scans
-  API SQL Mistakes    Avoid N+1 and returning huge datasets
-  Pagination          Use OFFSET for simple cases
-  Large Systems       Prefer keyset pagination
