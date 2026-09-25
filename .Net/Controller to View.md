@@ -219,15 +219,18 @@ public IActionResult GetData()
 - ViewBag.key = Value
 - store data + there corresponding data type
 - Work on Same Request (Only use same Controllers' ViewPage)
+- Common use: Passing data to View (Usually Simple Data)
 
 **ViewData:-** ViewBag is used to send data from controller to view.
 - Dictionary formate
 - ViewData["key"] = Value
 - Only data can store (not dataType)
 - Work on Same Request (Only use same Controllers' ViewPage)
+- Common use: Passing data to View (Can be compex data)
 
 **TempData:-** ViewBag is used to send data from controller to view.
 - Dictionary formate
 - TempData["key"] = Value
 - Only data can store (not dataType)
 - Work on Same as well as different Request (Can be used on different Controllers' ViewPage)
+- Common use: Success/error message after redirect
