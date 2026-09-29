@@ -1,6 +1,8 @@
-# What is a Stored Procedure in SQL Server?
+# Stored Procedure in SQL Server?
 
-A Stored Procedure is a precompiled collection SQL statements that can be executed when call. Stored procedures are often used for repetitive tasks, data validation, and complex operations.
+A Stored Procedure is a precompiled collection SQL statements that can be executed when call.
+
+- Stored procedures are often used for `repetitive tasks`, `data validation`, and `complex operations.`
 
 ## Benefits of Stored Procedures
 
@@ -25,50 +27,33 @@ BEGIN
     -- SQL Statements
     SELECT * FROM TableName;
 END;
-```
 
-## Without Parameters:
-**Example:**
-
-```sql
-CREATE PROCEDURE GetAllEmployees
-AS
-BEGIN
-    SELECT * FROM Employees;
-END;
-```
-
-## With Parameter:
-**Example:**
-```SQL
-CREATE PROCEDURE GetEmployeeByID (@EmployeeID INT)
+-- With Parameter
+CREATE PROCEDURE ProcedureName (@EmployeeID INT)
 AS
 BEGIN
     SELECT * FROM Employees WHERE EmployeeID = @EmployeeID;
 END;
 ```
 
-# How to Call a Stored Procedure
-## Without Parameters:
+# Call a Stored Procedure
+### Without Parameters:
 ```SQL
 EXEC ProcedureName;
 ```
 
-## With Parameters:
+### With Parameters:
 ```SQL
 EXEC GetEmployeeByID @EmployeeID = 123;
 ```
 
-## How to Show Queries in a Stored Procedure
-To view the SQL code of an existing stored procedure, you can use the sp_helptext system stored procedure:
+## Show Stored Procedure Queries
 
 ```SQL
 EXEC sp_helptext 'ProcedureName';
-This command will display the text (the SQL code) of the stored procedure.
 ```
 
-# How to Alter a Stored Procedure
-To modify an existing stored procedure, use the ALTER PROCEDURE statement:
+# Alter a Stored Procedure
 
 **Syntax:**
 
@@ -81,8 +66,7 @@ BEGIN
 END;
 ```
 
-# How to Drop a Stored Procedure
-To delete a stored procedure, use the DROP PROCEDURE 
+# Drop a Stored Procedure
 
 **Syntax:**
 ```sql
@@ -102,17 +86,10 @@ DROP PROCEDURE ProcedureName;
 
 - `Drop a stored procedure using DROP PROCEDURE.`
 
-These techniques help in creating efficient, reusable, and secure database operations.
 
 # Stored Procedures in ADO.net
 ```c#
-namespace CSATSU_RMS.Controllers
-{
-    public class SPController : ApiController
-    {
-        public IEnumerable<string> Get()
-        {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["229999"].ConnectionString);
+ SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["229999"].ConnectionString);
             con.Open();
 
             DataSet ds = new DataSet();
@@ -140,13 +117,10 @@ namespace CSATSU_RMS.Controllers
             }
 
             return null;
-        }
-    }
-}
 ``` 
 
-# Stored Procedure vs SQL function
-Both stored procedures and functions are used in database management systems (DBMS) to encapsulate SQL queries and logic, but they have some key differences:
+# Stored Procedure vs function
+Both are used to encapsulate SQL queries and logic, but they have some key differences:
 
 ## Purpose and Usage
 **Stored Procedure:**
