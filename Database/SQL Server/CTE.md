@@ -1,9 +1,9 @@
-## What is a CTE in SQL Server
+# CTE in SQL Server
 
 CTE (Common Table Expression) is a temporary result set that we can use within a query
-`It makes complex queries cleaner and easier to understand.`
+- `It makes complex queries cleaner and easier to understand.`
 
-**Basic Syntax**
+### Basic Syntax
 ```sql
 WITH CTE_Name AS
 (
@@ -24,9 +24,9 @@ This works like a temporary result set (not stored permanently)
 - Reuse query logic
 - Useful in recursion (very important)
 
-### **Types of CTE**
+## **Types of CTE**
 
-**1. Simple CTE**
+### 1. Simple CTE
 
 Basic filtering or transformation
 
@@ -38,13 +38,13 @@ WITH DeptCTE AS
 SELECT * FROM DeptCTE;
 ```
 
-**2. Recursive CTE**
+### 2. Recursive CTE
 
 Used for hierarchical data like:
 - Employee → Manager
 - Category → Subcategory
 
-### **Example:** Employee Hierarchy
+**Example:**
 ```sql
 WITH EmployeeHierarchy AS
 (
@@ -79,14 +79,14 @@ FROM EmployeeHierarchy;
 |Reuse	|✅ Yes	|❌ No|
 |Complexity	|Handles better	|Gets messy|
 
-## **Important Rules- 
+## Important Rules
 
 - Must start with `WITH`
 - Must be followed by a SELECT/INSERT/UPDATE/DELETE
 - Scope is only for one query
 - Cannot use `ORDER BY` inside CTE (unless TOP is used)
 
-## **Real-World Example**
+### **Real-World Example**
 Get Top 3 Highest Salaries
 
 ```sql

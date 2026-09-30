@@ -1,7 +1,7 @@
-# What is a Trigger in MS SQL?
+# Trigger in MS SQL?
 A trigger is just like a stored procedure that runs automatically when someone insert, update, or delete data in a table or view.
 
-# Types of Triggers in SQL Server:
+# Types of Triggers
 
 ### **1. DML Triggers (Data Manipulation Language Triggers):**
 
@@ -9,8 +9,8 @@ A trigger is just like a stored procedure that runs automatically when someone i
 Run after an INSERT, UPDATE, or DELETE.
 
 ```sql
-CREATE TRIGGER LogEmployeeInsert
-ON Employee
+CREATE TRIGGER TriggerName
+ON TableName
 AFTER INSERT
 AS
 BEGIN
@@ -23,8 +23,8 @@ END;
 Run instead of the actual INSERT, UPDATE, or DELETE.
 
 ```sql
-CREATE TRIGGER PreventActiveDelete
-ON Employee
+CREATE TRIGGER TriggerName
+ON TableName
 INSTEAD OF DELETE
 AS
 BEGIN
@@ -54,23 +54,12 @@ END;
 **Example:** Prevent users from dropping important tables.
 
 ```sql
-CREATE TRIGGER PreventCreateAlterTables
+CREATE TRIGGER TriggerName
 ON DATABASE
-FOR CREATE_TABLE, ALTER_TABLE
+FOR CREATE_TABLE, ALTER_TABLE, DROP_TABLE
 AS
 BEGIN
-    PRINT 'Creating or altering tables is not allowed in this database.';
-    ROLLBACK;
-END;
-```
-
-```sql
-CREATE TRIGGER PreventTableDrop
-ON DATABASE
-FOR DROP_TABLE
-AS
-BEGIN
-    PRINT 'You are not allowed to drop tables in this database.';
+    PRINT 'Creating, altering or drop tables is not allowed in this database.';
     ROLLBACK;
 END;
 ```
@@ -89,7 +78,7 @@ CREATE TABLE LoginAudit (
 
 ```sql
 --Step 2: Create the LOGON trigger
-CREATE TRIGGER LogUserLogin
+CREATE TRIGGER TriggerName
 ON ALL SERVER
 FOR LOGON
 AS
@@ -122,7 +111,7 @@ BEGIN
     END
 END;
 ```
-## Auditing:
+### Auditing:
 Track changes record - who changed what and when.
 ```sql
 CREATE TABLE EmployeeAudit (
@@ -173,42 +162,9 @@ BEGIN
 END;
 ```
 
-# **1. Creating a Trigger**
-Syntax for creating a trigger:
-```sql
-CREATE TRIGGER TriggerName
-ON TableName
-{AFTER | INSTEAD OF} {INSERT | UPDATE | DELETE}
-AS
-BEGIN
-   -- Trigger logic goes here
-END;
-```
 
-**Example:** This trigger logs the date and time whenever a row is inserted into the Employee table.
-```sql
-CREATE TRIGGER LogEmployeeInsert
-ON Employee
-AFTER INSERT
-AS
-BEGIN
-    INSERT INTO AuditLog (ActionType, TableName, ActionDate)
-    VALUES ('INSERT', 'Employee', GETDATE());
-END;
-```
 
-# **2. Executing a Trigger**
-Triggers are automatically executed when the specified event occurs on the table. You don't manually execute a trigger. It fires in response to an INSERT, UPDATE, or DELETE operation.
-
-**Example:** When you insert a row into the Employee table, the LogEmployeeInsert trigger will automatically execute:
-
-```sql
-INSERT INTO Employee (EmployeeID, Name, Position)
-VALUES (1, 'John Doe', 'Manager');
-```
-This will cause the trigger LogEmployeeInsert to log the action in the AuditLog table.
-
-# **3. Altering a Trigger**
+# **1. Altering a Trigger**
 To modify a trigger, you use the ALTER TRIGGER command.
 
 **Syntax:**
@@ -222,71 +178,12 @@ BEGIN
 END;
 ```
 
-**Example:** Modifying the LogEmployeeInsert trigger to log a message along with the insert action:
-```sql
-ALTER TRIGGER LogEmployeeInsert
-ON Employee
-AFTER INSERT
-AS
-BEGIN
-    INSERT INTO AuditLog (ActionType, TableName, ActionDate, Details)
-    VALUES ('INSERT', 'Employee', GETDATE(), 'New employee added');
-END;
-```
-
-# **4. Dropping a Trigger**
+# **2. Dropping a Trigger**
 To remove a trigger from a table, you can use the DROP TRIGGER command.
 
 **Syntax:**
 ```sql
 DROP TRIGGER TriggerName;
-```
-
-**Example:** Dropping the LogEmployeeInsert trigger:
-```sql
-DROP TRIGGER LogEmployeeInsert;
-```
-
-# **Example of Using Triggers**
-Here’s an example that combines multiple types of triggers:
-
-**Trigger for AFTER INSERT:** Automatically logs insert operations into an audit table.
-
-```sql
-CREATE TRIGGER AfterEmployeeInsert
-ON Employee
-AFTER INSERT
-AS
-BEGIN
-    DECLARE @EmployeeID INT;
-    DECLARE @EmployeeName NVARCHAR(100);
-    
-    SELECT @EmployeeID = EmployeeID, @EmployeeName = Name FROM INSERTED;
-    
-    INSERT INTO AuditLog (ActionType, TableName, ActionDate, Details)
-    VALUES ('INSERT', 'Employee', GETDATE(), CONCAT('Employee Added: ', @EmployeeName));
-END;
-```
-**Trigger for INSTEAD OF DELETE:** Prevents deletion of certain records, e.g., employees with a specific status.
-
-```sql
-CREATE TRIGGER PreventDeleteEmployee
-ON Employee
-INSTEAD OF DELETE
-AS
-BEGIN
-    DECLARE @EmployeeID INT;
-    SELECT @EmployeeID = EmployeeID FROM DELETED;
-    
-    IF EXISTS (SELECT * FROM Employee WHERE EmployeeID = @EmployeeID AND Status = 'Active')
-    BEGIN
-        PRINT 'Cannot delete active employees';
-    END
-    ELSE
-    BEGIN
-        DELETE FROM Employee WHERE EmployeeID = @EmployeeID;
-    END
-END;
 ```
 
 # **Magic Tables in SQL Server**

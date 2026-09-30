@@ -1,10 +1,10 @@
 # Temporary Tables in SQL Server
 
 Temporary tables are used to store data temporarily for the duration of a session.
-`They are useful when you need to store and process data temporarily without permanently saving it in the database.`
+- `They are useful when you need to store and process data temporarily without permanently saving it in the database.`
 
-# Types of Temporary Tables
-## Local Temporary Tables:
+## Types of Temporary Tables
+### Local Temporary Tables:
 
 These tables are created with a single # symbol before the table name.
 
@@ -14,7 +14,7 @@ These tables are created with a single # symbol before the table name.
 CREATE TABLE #TempTable (ID INT, Name VARCHAR(50));
 ```
 
-## Global Temporary Tables:
+### Global Temporary Tables:
 
 - Created using ## before the table name.
 - All sessions/users can access them.
@@ -36,9 +36,9 @@ CREATE TABLE ##GlobalTemp
 
 - **Data Transformation:** When performing transformations or cleansing of data, temporary tables can help store the transformed data before inserting it into permanent tables.
 
-# How to Create, Execute, Alter & Drop a Temp Table
+## How to Create, Execute, Alter & Drop a Temp Table
 
-## Creating Temporary Tables
+### Creating Temporary Tables
 
 **Local Temporary Table:**
 ```sql
@@ -56,18 +56,18 @@ CREATE TABLE ##GlobalTempTable (
 );
 ```
 
-## Inserting Data into Temporary Tables
+### Inserting Data into Temporary Tables
 ```sql
 INSERT INTO #TempTable (ID, Name)
 VALUES (1, 'John'), (2, 'Jane');
 ```
 
-## Executing Queries on Temporary Tables
+### Executing Queries on Temporary Tables
 ```sql
 SELECT * FROM #TempTable;
 ```
 
-## Altering Temporary Tables
+### Altering Temporary Tables
 ```sql
 -- Add a new column
 
@@ -77,7 +77,7 @@ ALTER TABLE #TempTable ADD Age INT;
 ALTER TABLE #TempTable ALTER COLUMN Name VARCHAR(100);
 ```
 
-## Dropping Temporary Tables
+### Dropping Temporary Tables
 ```sql
 DROP TABLE #TempTable;
 -- You don’t need to drop a local temporary table explicitly; SQL Server automatically drops it when the session ends.
@@ -85,7 +85,7 @@ DROP TABLE #TempTable;
 -- Global temporary tables will be dropped when there are no active connections referring to them.
 ```
 
-# How can i see my all Temp table in MSMS
+## Check all Temp table in MSMS
 
 ### Using Object Explorer panel
 You can check Under `database -> System Database -> Tempdb -> Temporary tables`
