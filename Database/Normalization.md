@@ -1,8 +1,6 @@
-## What is Normalization?
+# Normalization?
 
 Normalization is the process in which divide large tables into smaller related tables to reduce data duplication.
-
-------------------------------------------------------------------------
 
 ## Why is Normalization Needed?
 
@@ -14,43 +12,45 @@ Normalization is the process in which divide large tables into smaller related t
 
 ------------------------------------------------------------------------
 
-## Example (Without Normalization)
+### Example (Without Normalization)
 
-  StudentId   StudentName   Course    Teacher
-  ----------- ------------- --------- ---------
-  1           Umesh         C#        Rahul
-  1           Umesh         SQL       Amit
-  1           Umesh         Angular   Ravi
-  2           Mohit         SQL       Amit
+  |StudentId  | StudentName  | Course   | Teacher  |
+  |-----------| -------------| ---------| ---------|
+  |1          | Umesh        | C#       | Rahul    |
+  |1          | Umesh        | SQL      | Amit     |
+  |1          | Umesh        | Angular  | Ravi     |
+  |2          | Mohit        | SQL      | Amit     |
 
-Problems: - Student name is repeated. - Updating a student's name
-requires multiple updates. - Wasted storage.
+**Problems: -** 
+- Student name is repeated.
+- Updating a student's name requires multiple updates.
+- Wasted storage.
 
 ### After Normalization
 
 #### Student
 
-  StudentId   StudentName
-  ----------- -------------
-  1           Umesh
-  2           Mohit
+  |StudentId  | StudentName|
+  |-----------| -------------|
+  |1          | Umesh|
+  |2          | Mohit|
 
 #### Course
 
-  CourseId   Course
-  ---------- ---------
-  1          C#
-  2          SQL
-  3          Angular
+  |CourseId  | Course   |
+  |----------| ---------|
+  |1         | C#       |
+  |2         | SQL      |
+  |3         | Angular  |
 
 #### StudentCourse
 
-  StudentId   CourseId   Teacher
-  ----------- ---------- ---------
-  1           1          Rahul
-  1           2          Amit
-  1           3          Ravi
-  2           2          Amit
+ | StudentId  | CourseId  | Teacher  |
+ | -----------| ----------| ---------|
+ | 1          | 1         | Rahul    |
+ | 1          | 2         | Amit     |
+ | 1          | 3         | Ravi     |
+ | 2          | 2         | Amit     |
 
 ------------------------------------------------------------------------
 
@@ -58,84 +58,154 @@ requires multiple updates. - Wasted storage.
 
 ## 1NF (First Normal Form)
 
-Rules: - Every column contains atomic (single) values. - No repeating
-groups.
+**Rules:** 
+- Every column contains atomic (single) values. 
+- No repeating groups.
 
-❌ Bad
+#### ❌ Example — Not in 1NF
 
-  Student   Subjects
-  --------- ------------------
-  Umesh     C#, SQL, Angular
+ | Student  | Subjects          |
+ | ---------| ------------------|
+ | Umesh    | C#, SQL, Angular  |
 
-✅ Good
+Because The `Subjects` column contains multiple values in one cell.
 
-  Student   Subject
-  --------- ---------
-  Umesh     C#
-  Umesh     SQL
-  Umesh     Angular
+#### ✅ Solution — Split into separate tables.
+
+  |Student  | Subject  |
+  |---------| ---------|
+  |Umesh    | C#       |
+  |Umesh    | SQL      |
+  |Umesh    | Angular  |
+
+Now, each cell contains a single value.
 
 ------------------------------------------------------------------------
 
 ## 2NF (Second Normal Form)
 
-Rules: - Must satisfy 1NF. - Every non-key column must depend on the
-entire primary key.
+**Rules:** 
+- Must satisfy 1NF. 
+- Every non-key column must depend on the entire primary key.
 
-Example:
+#### ❌ Example — Not in 2NF
 
-  StudentId   CourseId   StudentName
-  ----------- ---------- -------------
-  1           101        Umesh
+  |StudentId  | CourseId  | StudentName   | CourseName |
+  |-----------| ----------| ------------- |------------|
+  |1          | 101       | Rahul         |   SQL      |
+  |1          | 102       | Rahul         |   Angular  |
+  |2          | 101       | Amit          |   SQL      |
 
-`StudentName` depends only on `StudentId`, so move it to a separate
-Student table.
+The composite primary key is `(StudentId, CourseId).`
+**But:**
+- StudentName depends only on StudentId.
+- CourseName depends only on CourseId.
 
+Neither depends on the whole composite key. These are called partial dependencies
+
+#### ✅ Solution — Split into separate tables.
+
+**Students**
+|StudentId (PK)	| StudentName |
+| ----------    | ----------  |
+|1	            | Rahul       |
+|2	            | Amit        |
+
+**Courses**
+|CourseId (PK)	| CourseName|
+| ------------  | --------  |
+|101	          |   SQL     |
+|102	          | Angular   |
+
+**StudentCourse**
+|StudentId (PK)	| CourseId (PK)|
+| ------------  | ----------   |
+|1	            |    101      |
+|1	            |    102      |
+|2	            |    101      |
+
+Now, each non-key column depends on the whole key of its table.
 ------------------------------------------------------------------------
 
 ## 3NF (Third Normal Form)
 
-Rules: - Must satisfy 2NF. - No transitive dependency.
+**Rules:** 
+- Must satisfy 2NF. 
+- A table must be in 2NF, and a non-key column should not depend on another non-key column.
 
-Example:
+#### ❌ Example — Not in 3NF
+Employee
 
-  EmployeeId   DepartmentId   DepartmentName
-  ------------ -------------- ----------------
-  1            10             IT
+  | EmployeeId (PK)  | EmployeeName  | DepartmentId | DepartmentName|
+  | ---------------  | ------------  | ------------ |  ------------ |
+  |      1           |     Rahul     |      10      |       IT      |
+  |      2           |     Amit      |      20      |       HR      |
+  |      3           |     Priya     |      10      |       IT      |
 
-Split into:
+**Dependencies:**
+- EmployeeId → DepartmentId
+- DepartmentId → DepartmentName
 
-### Employee
+**Explanation:**
+- EmployeeId determines which department an employee belongs to.
+- DepartmentId determines the department's name.
+- Therefore, we can find DepartmentName indirectly through DepartmentId.
+This is called an indirect dependency.
 
-  EmployeeId   DepartmentId
-  ------------ --------------
-  1            10
+It also creates duplicate data because the department name IT appears multiple times.
 
-### Department
+#### ✅ Solution — Split into two tables
+Employees
+| EmployeeId (PK)	| EmployeeName	| DepartmentId (FK)|
+|  ------------   |  ----------   |  --------------  |
+|      1	        |    Rahul	    |       10         |
+|      2	        |    Amit	      |       20         |
+|      3	        |    Priya	    |       10         |
 
-  DepartmentId   DepartmentName
-  -------------- ----------------
-  10             IT
+Departments
+|DepartmentId (PK) |	DepartmentName|
+|  --------------  |  ------------  |
+|        10        |	     IT       |
+|        20        |	     HR       |
+
+Now, department details are stored in one place, avoiding unnecessary duplication.
+
+**Remember:** In 3NF, avoid an indirect dependency where a non-key column depends on another non-key column instead of depending directly on the key.
 
 ------------------------------------------------------------------------
 
 # Data Anomalies
+Data anomalies are problems that occur when data is unnecessarily duplicated or poorly organized in database tables.
+`Normalization helps reduce these problems.`
 
-### Insert Anomaly
+## types of data anomalies
+There are three main types of data anomalies:
 
-Cannot insert required data without unrelated data.
+| EmployeeId|	EmployeeName	| DepartmentId	| DepartmentName |
+|  -------  |  -----------  | ------------  |  ------------  |
+|     1	    |    Rahul	    |      10	      |       IT       |
+|     2	    |    Amit	      |      20	      |       HR       |
+|     3	    |    Priya	    |      10	      |       IT       |
 
-### Update Anomaly
+### 1. Insert Anomaly
+An insert anomaly occurs when we cannot insert certain information without inserting some unrelated information.
 
-Same information must be updated in multiple rows.
+**EX:-** Problem: We want to add a new department, Finance, but no employee has joined it yet.
 
-### Delete Anomaly
+### 2. Update Anomaly
+An update anomaly occurs when the same information is stored in multiple rows and must be updated in every row.
 
-Deleting one row accidentally removes important information.
+**EX:-** Problem: The IT department changes its name to Technology.
+In the original table, we must update multiple rows.
 
+### 3. Delete Anomaly
+A delete anomaly occurs when deleting one record unintentionally removes other important information.
+
+**EX:-** Problem: Suppose Priya is the only employee in the Finance department.
+If Priya leaves and we delete her row, the only record containing the Finance department's details also disappears.
 ------------------------------------------------------------------------
 
-# Advantages
+## Advantages
 
 -   Less redundancy
 -   Better consistency
@@ -143,7 +213,7 @@ Deleting one row accidentally removes important information.
 -   Easier maintenance
 -   Better data integrity
 
-# Disadvantages
+## Disadvantages
 
 -   More tables
 -   More JOINs
@@ -152,19 +222,19 @@ Deleting one row accidentally removes important information.
 
 ------------------------------------------------------------------------
 
-# Normalization vs Denormalization
+## Normalization vs Denormalization
 
-  Normalization        Denormalization
-  -------------------- -----------------------------------
-  Removes redundancy   Adds redundancy
-  More tables          Fewer tables
-  More JOINs           Fewer JOINs
-  Better consistency   Better read performance
-  Used in OLTP         Used in reporting/data warehouses
+  | Normalization       | Denormalization          |
+  | --------------------| -------------------------|
+  | Removes redundancy  | Adds redundancy          |
+  | More tables         | Fewer tables             |
+  | More JOINs          | Fewer JOINs              |
+  | Better consistency  | Better read performance  |
+  | Used in OLTP        | Used in reporting/data warehouses|
 
 ------------------------------------------------------------------------
 
-# Interview Questions
+## Interview Questions
 
 1.  What is normalization?
 2.  Explain 1NF, 2NF, and 3NF.
