@@ -1,0 +1,26 @@
+1. install Ollama (using cmd or download exe file)
+==> http://localhost:11434/ check the working
+
+2. install the embedding model (ollama pull nomic-embed-text) 
+
+check In Postman
+http://localhost:11434/api/embeddings
+
+URL:
+http://localhost:11434/api/embeddings
+
+Method:
+POST
+
+2. Headers
+Add:
+Content-Type: application/json
+
+3. Body
+Select:
+Body → raw → JSON
+Use:
+{
+  "model": "nomic-embed-text",
+  "prompt": "Customer Rahul lives in Delhi"
+}
