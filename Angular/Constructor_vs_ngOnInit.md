@@ -1,15 +1,7 @@
-## 1. Execution Order
+# 1. constructor
+A constructor is a special method of a TypeScript class that runs automatically when an object of that class is created.
 
-```text
-constructor()  →  ngOnInit()
-```
-
-- `constructor` **always runs first**
-- `ngOnInit` runs **after Angular initializes the component**
-
----
-
-## 2. constructor
+`It is commonly used to inject dependencies such as services into a component.`
 
 ### When does it run?
 - When the component class is created
@@ -37,7 +29,10 @@ constructor(private userService: UserService) {
 
 ---
 
-## 3. ngOnInit
+# 2. ngOnInit
+ngOnInit() is a lifecycle hook that runs once after Angular initializes a component's input properties. 
+
+`It is commonly used to initialize component data, call APIs, and load data from services.`
 
 ### When does it run?
 - Runs once after:
@@ -60,7 +55,18 @@ ngOnInit() {
 
 ---
 
-## 4. Page Refresh Behavior
+## Execution Order
+
+```text
+constructor()  →  ngOnInit()
+```
+
+- `constructor` **always runs first**
+- `ngOnInit` runs **after Angular initializes the component**
+
+---
+
+## Page Refresh Behavior
 
 | Scenario | constructor | ngOnInit |
 |--------|------------|----------|
@@ -72,7 +78,7 @@ Both run again because the component is recreated.
 
 ---
 
-## 5. @Input() Example (Very Important)
+## @Input() Example (Very Important)
 
 ### ❌ Wrong
 ```ts
@@ -92,28 +98,7 @@ ngOnInit() {
 
 ---
 
-## 6. Best Practice Rule
-
-> **constructor = inject things**  
-> **ngOnInit = run things**
-
----
-
-## 7. Summary Table
-
-| Feature | constructor | ngOnInit |
-|------|------------|----------|
-| Runs first | ✅ | ❌ |
-| Dependency Injection | ✅ | ❌ |
-| API calls | ❌ | ✅ |
-| Access @Input | ❌ | ✅ |
-| Runs once per lifecycle | ❌ | ✅ |
-
----
-
-## 8. Interview One‑Liner
+## Interview One‑Liner
 
 > Constructor is used for dependency injection,  
 > ngOnInit is used for component initialization logic.
-
----
