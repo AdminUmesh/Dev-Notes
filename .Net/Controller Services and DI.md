@@ -336,6 +336,63 @@ Repeated everywhere.
 
 With DI, configuration is injected automatically.
 
+**Step 1:** appsettings.json
+
+```c#
+{
+  "EmailSettings": {
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "Username": "user@gmail.com",
+    "Password": ""
+  }
+}
+```
+**Step 2:** Create EmailSettings.cs
+
+```c#
+public class EmailSettings
+{
+    public string Host { get; set; } = "";
+    public int Port { get; set; }
+    public string Username { get; set; } = "";
+    public string Password { get; set; } = "";
+}
+```
+
+**Step 3:** Register in Program.cs
+
+```c#
+// Register configuration
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
+
+// Register EmailService
+builder.Services.AddScoped<EmailService>();
+```
+
+**Step 3:** Create EmailService.cs
+
+```c#
+using Microsoft.Extensions.Options;
+
+public class EmailService
+{
+    private readonly EmailSettings _settings;
+
+    public EmailService(IOptions<EmailSettings> options)
+    {
+        _settings = options.Value;
+    }
+
+    public void SendEmail()
+    {
+        Console.WriteLine(_settings.Host);
+        Console.WriteLine(_settings.Port);
+        Console.WriteLine(_settings.Username);
+    }
+}
+```
 ------------------------------------------------------------------------
 
 **Comparison**

@@ -542,7 +542,14 @@ class Program
 ```
 
 # Interface
-Interface is similar to a class but it contains abstract methods (This means the interface does not provide the body of the methods, but you cannot declare a method in an interface using the abstract keyword). `interfaces are used.To achieve abstraction in C#`
+Interface is similar to a class but it contains abstract methods (This means the interface does not provide the body of the methods)
+
+- `interfaces are used.To achieve abstraction in C#`
+- Interface methods are by default public and abstract.
+- you cannot declare a method in an interface using the abstract keyword.
+- Interfaces cannot contain instance fields (variables).
+- If a class implements an interface, it must provide implementations for all the methods defined in that interface.
+- Do not contain Instance Constructors
 
 ### **Interfaces are also used for:**
 
@@ -551,12 +558,6 @@ Interface is similar to a class but it contains abstract methods (This means the
 - Dependency Injection
 - Testability
 - Polymorphism
-
-- An interface class is declared using the interface keyword.
-- To achieve interface implementation in C#, use the : syntax.
-- Interface methods are by default public and abstract.
-- Interfaces cannot contain instance fields (variables).
-- If a class implements an interface, it must provide implementations for all the methods defined in that interface.
 
 ```csharp
 interface IAnimal {
@@ -582,10 +583,15 @@ class MainClass {
     }
 }
 ```
-**Why and when we use Interface?**
-1. **To Achieve Security -** An interface allows you to hide certain implementation details and expose only the essential methods and properties. This helps in encapsulating the logic, making the system more secure and easier to maintain.
 
-2. **To Achieve Multiple Inheritance -** C# does not support multiple inheritance (i.e., a class cannot inherit from multiple classes). However, you can implement multiple interfaces in a class. This allows you to inherit functionality from multiple sources without the complexities of multiple inheritance. Note: To implement multiple interfaces in C#, separate them with a comma (see example below).
+### Why and when we use Interface?
+An interface defines a contract that specifies which methods, properties, or other members a class must implement.
+
+1. **Loose coupling: -** A class depends on an abstraction rather than a specific implementation.
+
+2. **Maintainability and flexibility:** We can replace one implementation with another without changing the consuming code, provided the contract remains compatible.
+
+3. **Multiple interface implementation-**  A class can implement multiple interfaces, which C# allows even though it doesn't support multiple class inheritance (see example below).
 
 **Example and Clarification (class vs Interface)**
 ```C#
@@ -630,37 +636,27 @@ public class MainClass
     }
 }
 ```
+
 ```C#
 // Example of Interface
-public interface IEngine
+public interface IA_IService
 {
-    void Start();
-    void Stop();
+    Task<string> CompleteAsync(string prompt);
 }
 
-public class Truck : IEngine
+public class GroqService : IA_IService
 {
-    public void Start()
+    public async Task<string> CompleteAsync(string prompt)
     {
-        Console.WriteLine("Truck engine is starting...");
-    }
-
-    public void Stop()
-    {
-        Console.WriteLine("Truck engine is stopping...");
+        // Call the Groq API here.
     }
 }
 
-public class Car : IEngine
+public class OpenAIService : IA_IService
 {
-    public void Start()
+    public async Task<string> CompleteAsync(string prompt)
     {
-        Console.WriteLine("Car engine is starting...");
-    }
-
-    public void Stop()
-    {
-        Console.WriteLine("Car engine is stopping...");
+        // Call the OpenAI API here.
     }
 }
 
@@ -680,16 +676,6 @@ public class MainClass
     }
 }
 ```
-
-### Interface Key Point
-**Decoupling Code**
-Interfaces allow you to define functionality without tying your code to a specific implementation, which supports loose coupling and flexibility (e.g., using dependency injection).
-
-**Multiple Inheritance**
-A class can implement multiple interfaces, which is useful because C# does not support multiple inheritance of classes.
-
-**access modifiers**
-Where a Class have access modifiers (public, private, etc.). But interface are public by default, cannot have access modifiers.
 
 ## Static Methods and Properties
 - Declared with the **static** keyword:
