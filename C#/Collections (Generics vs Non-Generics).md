@@ -1,12 +1,21 @@
-# Generics VS Non-Generics
-There are two types of collections available in C#: non-generic collections and generic collections.
+# Collections
+Collection is a group of items stored together in a single variable.
 
-The `System.Collections` namespace contains the non-generic collection types and `System.Collections.Generic` namespace includes generic collection types.
+**Example**
+instead of creating separate variables for five student names, you can store all names in one collection
+
+```C#
+List<string> students = new List<string>();
+
+students.Add("Rahul");
+students.Add("Amit");
+students.Add("Priya");
+```
 
 ## Generics
-A generic collection is strongly typed (you can store one type of objects into it) so that we can eliminate runtime type mismatches, it improves the performance by avoiding boxing and unboxing
+`System.Collections.Generic` namespace includes generic collection types.
 
-- Generic collections are generally more efficient in terms of both execution speed and memory usage because they avoid the overhead of boxing and unboxing.
+A generic collection is strongly typed (you can store one type of objects into it) so that we can eliminate runtime type mismatches, it improves the performance by avoiding boxing and unboxing
 
 **Examples**
 
@@ -20,35 +29,10 @@ A generic collection is strongly typed (you can store one type of objects into i
 - SortedSet: `SortedSet<T>`
 - `IEnumerable<T>` and `ICollection<T>`
 
-**Example of Generic Stack()**
-```c#
-using System;
-using System.Collections.Generic;
-
-class Program
-{
-    static void Main()
-    {
-        // Create a stack that holds integers
-        Stack<int> intStack = new Stack<int>();
-        
-        intStack.Push(1);
-        intStack.Push(2);
-        intStack.Push(3);
-
-        // Retrieving elements from the stack
-        Console.WriteLine(intStack.Pop()); // Output: 3
-        Console.WriteLine(intStack.Pop()); // Output: 2
-        Console.WriteLine(intStack.Pop()); // Output: 1
-
-        // This will produce a compile-time error if you try to push a non-integer value
-        // intStack.Push("Hello"); // Error: Cannot convert string to int
-    }
-}
-```
-
 ## Non-Generics
-Loosely typed means you can store any type of value in the collection.Result type mismatches are not caught at compile time, you might encounter runtime errors due to incorrect type assumptions.
+`System.Collections` namespace contains the non-generic collection types.
+
+A non-generic collection is Loosely typed (means you can store any type of value in this collection).Result type mismatches are not caught at compile time, you might encounter runtime errors due to incorrect type assumptions.
 
 - Non-generic collections may have performance overhead due to the need for `boxing (converting value types to reference types)` and `unboxing (converting reference types back to value types).`
 
@@ -63,34 +47,11 @@ Loosely typed means you can store any type of value in the collection.Result typ
 - CollectionBase: CollectionBase
 - IDictionary Interface
 
-**Example of Non-Generic Stack()**
-```c#
-using System;
-using System.Collections;
+# List<T>
+List is a generic collection that can hold a dynamic number of elements.
 
-class Program
-{
-    static void Main()
-    {
-        Stack stack = new Stack();
-        
-        stack.Push(1);
-        stack.Push("Hello");
-        stack.Push(3.14);
-
-        // Retrieving elements from the stack
-        Console.WriteLine(stack.Pop()); // Output: 3.14
-        Console.WriteLine(stack.Pop()); // Output: Hello
-        Console.WriteLine(stack.Pop()); // Output: 1
-
-        // Casting example (unsafe)
-        // int number = (int)stack.Pop(); // This will throw an InvalidCastException if the cast is incorrect
-    }
-}
-```
-
-# `List<T>`
-a List<T> is a generic collection that can hold a dynamic number of elements. `It is part of the System.Collections.Generic namespace.` You can use List<T> to store elements of any type (e.g., integers, strings, custom objects, etc.).
+- `It is part of the System.Collections.Generic namespace.` 
+- You can use List<T> to store elements of any type (e.g., integers, strings, custom objects, etc.).
 
 ```c#
 using System;
@@ -100,42 +61,21 @@ class Program
 {
     static void Main()
     {
-        // Declare and initialize a List of integers
         List<int> numbers = new List<int>();
 
-        // Add elements to the list
         numbers.Add(10);
         numbers.Add(20);
-        numbers.Add(30);
         
-        // Insert an element at a specific index
         numbers.Insert(1, 15); // Insert 15 at index 1
         
-        // Display the elements
         Console.WriteLine("Numbers in the list:");
         foreach (var number in numbers)
         {
             Console.WriteLine(number);
         }
 
-        // Remove an element by value
         numbers.Remove(20);
-        
-        // Remove an element by index
         numbers.RemoveAt(1);
-
-        // Display the updated list
-        Console.WriteLine("\nUpdated Numbers:");
-        foreach (var number in numbers)
-        {
-            Console.WriteLine(number);
-        }
-        
-        // Check if a value exists in the list
-        if (numbers.Contains(10))
-        {
-            Console.WriteLine("\nThe number 10 is in the list.");
-        }
     }
 }
 ```
@@ -152,7 +92,10 @@ class Program
 - **Sort():** Sorts the list.
 
 # ArrayList
-ArrayList is non-generic, it can hold objects of any type, but you may need to explicitly cast the elements when retrieving them. **For example,** `if you add an int and later retrieve it, you will need to cast it back to int.`
+ArrayList is a non-generic collection in that can store elements of different data types.
+
+When retrieving an element, you may need to explicitly cast it to its original type. **For example** `if you store an int, you must cast the retrieved object back to int.`
+
 ```C#
 using System;
 using System.Collections;
@@ -170,34 +113,16 @@ class Program
         list.Add(3.14);         // Double
         list.Add(true);         // Boolean
 
-        // Insert an element at a specific index
         list.Insert(1, "World"); // Insert "World" at index 1
         
-        // Display the elements in the ArrayList
         Console.WriteLine("ArrayList elements:");
         foreach (var item in list)
         {
             Console.WriteLine(item);
         }
 
-        // Remove an element by value
         list.Remove(3.14); // Remove the double value 3.14
-        
-        // Remove an element by index
         list.RemoveAt(2);  // Remove element at index 2
-
-        // Display the updated ArrayList
-        Console.WriteLine("\nUpdated ArrayList:");
-        foreach (var item in list)
-        {
-            Console.WriteLine(item);
-        }
-
-        // Check if an element exists in the ArrayList
-        if (list.Contains(10))
-        {
-            Console.WriteLine("\nThe number 10 is in the ArrayList.");
-        }
     }
 }
 ```
@@ -216,14 +141,13 @@ ArrayList can be less efficient `than List<T>` when you're working with a large 
 - **IndexOf(object item):** Returns the index of the first occurrence of the specified element.
 - **ToArray():** Converts the ArrayList to an array.
 
-# `Dictionary: Dictionary<TKey, TValue>`
-Dictionary<TKey, TValue> is a collection that stores `key-value pairs`. It is part of the `System.Collections.Generic` namespace, and it is type-safe and efficient for looking up values based on keys.
+# Dictionary: Dictionary<TKey, TValue>
+Dictionary is a collection that stores `key-value pairs`.
 
-### Key Features of Dictionary<TKey, TValue>:
-- **Key-Value Pairs:** Each item in the dictionary is a pair where one part is the key and the other is the value.
-- **Efficient Lookup:** Provides fast access to values through keys.
-- **Unique Keys:** Keys in a dictionary must be unique; if you try to add a duplicate key, it will throw an exception.
+- It is part of the `System.Collections.Generic` namespace 
 - **Type-Safe:** Both the key and value types are strongly typed.
+- **Unique Keys:** Keys in a dictionary must be unique; if you try to add a duplicate key, it will throw an exception.
+- Provides fast access to values through keys.
 
 ```c#
 using System;
@@ -233,48 +157,15 @@ class Program
 {
     static void Main()
     {
-        // Declare and initialize a Dictionary with string keys and int values
         Dictionary<string, int> scores = new Dictionary<string, int>();
 
-        // Add key-value pairs to the dictionary
         scores.Add("Alice", 90);
         scores.Add("Bob", 85);
-        scores.Add("Charlie", 92);
 
-        // Display all elements in the dictionary
         Console.WriteLine("Scores:");
         foreach (var entry in scores)
         {
             Console.WriteLine($"Name: {entry.Key}, Score: {entry.Value}");
-        }
-
-        // Access a value using a key
-        Console.WriteLine("\nScore of Alice: " + scores["Alice"]);
-
-        // Check if a key exists before accessing its value
-        if (scores.ContainsKey("Bob"))
-        {
-            Console.WriteLine("Bob's score: " + scores["Bob"]);
-        }
-
-        // Remove an entry by key
-        scores.Remove("Charlie");
-
-        // Display the updated dictionary
-        Console.WriteLine("\nUpdated Scores:");
-        foreach (var entry in scores)
-        {
-            Console.WriteLine($"Name: {entry.Key}, Score: {entry.Value}");
-        }
-
-        // Try to get the value for a key safely
-        if (scores.TryGetValue("David", out int davidScore))
-        {
-            Console.WriteLine("\nDavid's score: " + davidScore);
-        }
-        else
-        {
-            Console.WriteLine("\nDavid is not in the dictionary.");
         }
     }
 }

@@ -367,7 +367,7 @@ class MyClass {
 | const | readonly |
 |---------|---------|
 | Compile-time constant | Runtime constant |
-| Must be assigned at declaration | Can be assigned in constructor |
+| Must be assigned at declaration |assigned at declaration or Can be assigned/ReAssign in constructor (not in Normal Method)|
 | Implicitly static | Not static by default |
 | Same value for all objects | Can vary per object |
 
