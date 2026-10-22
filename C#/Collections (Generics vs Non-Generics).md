@@ -148,6 +148,7 @@ Dictionary is a collection that stores `key-value pairs`.
 - **Type-Safe:** Both the key and value types are strongly typed.
 - **Unique Keys:** Keys in a dictionary must be unique; if you try to add a duplicate key, it will throw an exception.
 - Provides fast access to values through keys.
+- **Null keys:-** Not allowed
 
 ```c#
 using System;
@@ -182,14 +183,15 @@ class Program
 - **Clear():** Removes all key-value pairs from the dictionary.
 
 # Hashtable
-Hashtable is a non-generic collection that stores `key-value pairs`. It is part of the System.Collections namespace. Unlike Dictionary<TKey, TValue>
+Hashtable is also collection that stores `key-value pairs`. like Dictionary
 
-### Key Features of Hashtable:
-- **Key-Value Pairs:** Each entry in the hashtable consists of a key and a corresponding value.
-- **Non-Generic:** Since Hashtable is non-generic, both the keys and the values are stored as object types. You have to explicitly cast them when retrieving.
-- **Efficient Lookup:** Hash tables provide efficient lookups (constant time complexity, O(1) on average) for retrieving values based on keys.
-- **Unique Keys:** Keys in a Hashtable must be unique. If you try to add a duplicate key, an exception will be thrown.
+- It is part of the `System.Collections` namespace 
+- Stores keys and values as object
+- **Unique Keys:** Keys in a Hashtable must be unique; if you try to add a duplicate key, it will throw an exception.
+- Provides fast access to values through keys.
+- **Null keys:-** Not allowed
 - **Thread-Safety:** Hashtable is not thread-safe for concurrent operations by default. You need to use Hashtable.Synchronized to make it thread-safe.
+
 
 ```C#
 using System;
@@ -199,48 +201,16 @@ class Program
 {
     static void Main()
     {
-        // Declare and initialize a Hashtable
         Hashtable hashtable = new Hashtable();
 
-        // Add key-value pairs to the Hashtable
         hashtable.Add("Alice", 90);
         hashtable.Add("Bob", 85);
         hashtable.Add("Charlie", 92);
 
-        // Display all elements in the Hashtable
         Console.WriteLine("Scores:");
         foreach (DictionaryEntry entry in hashtable)
         {
             Console.WriteLine($"Name: {entry.Key}, Score: {entry.Value}");
-        }
-
-        // Access a value using a key
-        Console.WriteLine("\nScore of Alice: " + hashtable["Alice"]);
-
-        // Check if a key exists before accessing its value
-        if (hashtable.ContainsKey("Bob"))
-        {
-            Console.WriteLine("Bob's score: " + hashtable["Bob"]);
-        }
-
-        // Remove an entry by key
-        hashtable.Remove("Charlie");
-
-        // Display the updated Hashtable
-        Console.WriteLine("\nUpdated Scores:");
-        foreach (DictionaryEntry entry in hashtable)
-        {
-            Console.WriteLine($"Name: {entry.Key}, Score: {entry.Value}");
-        }
-
-        // Try to get the value for a key safely
-        if (hashtable.ContainsKey("David"))
-        {
-            Console.WriteLine("\nDavid's score: " + hashtable["David"]);
-        }
-        else
-        {
-            Console.WriteLine("\nDavid is not in the hashtable.");
         }
     }
 }
@@ -259,11 +229,15 @@ class Program
 - **Synchronized(Hashtable table):** Provides a thread-safe wrapper around a Hashtable.
 
 # `Queue<T>` (Generic Queue)
-A Queue is a collection that stores elements in a First-In, First-Out (FIFO) order, meaning the first element added is the first one to be removed.The `Queue<T>` class is part of the `System.Collections.Generic` namespace in .NET.
+A Queue is a collection that stores elements in a First-In, First-Out (FIFO) order. 
+
+**Meaning:** The first element added is the first one to be removed.
 
 ### Key Features of Queue<T>:
-- **Generic Type:** Queue<T> is a generic collection, meaning it can store elements of a specified type (e.g., int, string, MyClass).
-- **Type Safety:** Since it is generic, there is no need for casting when retrieving elements from the queue. It ensures type safety at compile time.
+- It is part of the `System.Collections.Generic` namespace 
+
+- **Type Safety:** Since it is generic, there is no need for casting when retrieving elements from the queue.
+
 - **Performance:** No casting is needed when accessing elements, which makes it more efficient in terms of performance compared to the non-generic Queue.
 
 ```c#
@@ -284,11 +258,17 @@ Console.WriteLine(queue.Dequeue());  // Output: 1
 - **Clear():** Removes all elements of type T from the queue.
 
 # Queue (Non-Generic Queue)
-Queue are collections used to store elements in a First-In, First-Out (FIFO). The class is part of the `System.Collections` namespace in .NET.
+A Queue is a collection that stores elements in a First-In, First-Out (FIFO) order. 
+
+**Meaning:** The first element added is the first one to be removed.
 
 ### Key Features:
+- It is part of the `System.Collections` namespace 
+
 - **Non-Generic:** The non-generic Queue can store elements of any type, but they are stored as objects. This means you must cast the elements to their appropriate type when retrieving them.
+
 - **No Type Safety:** Since it is non-generic, there is no compile-time type checking. You might encounter runtime errors if the cast is not performed correctly.
+
 - **Performance:** Requires casting when accessing elements, which may result in additional overhead and potential runtime exceptions.
 
 ```c#
@@ -310,10 +290,13 @@ Console.WriteLine(queue.Dequeue());  // Output: 1 (casts required when retrievin
 
 ### When to Use `Queue<T>` vs Queue (Non-Generic)
 - **Use Queue<T>** when you want type safety, avoid unnecessary casting, and work with a specific data type for better performance and compile-time checks.
+
 - **Use Queue (non-generic)** when you need flexibility in storing elements of various types, but be prepared to deal with runtime casting and the associated risks. This might be useful for older codebases or scenarios requiring more dynamic data handling.
 
-# `Stack<T>` (Generic Stack)
-`Stack<T>` is a generic collection, meaning it can store elements of a specific type (e.g., int, string, MyClass).
+# Stack<T> (Generic Stack)
+`Stack<T>` is a generic collection that follows the LIFO (Last In, First Out) principle.
+
+**Means:** The last item you add is the first item you remove.
 
 ### Key Features:
 - **Type Safety:** Since it is generic, it provides compile-time type safety, so no casting is required when retrieving elements from the stack.
@@ -347,7 +330,9 @@ class Program
 - **Clear():** Removes all elements of type T from the stack.
 
 # Stack (Non-Generic Stack)
-The non-generic Stack can store elements of any type, but elements are stored as object. This means you must cast the elements to their appropriate type when retrieving them.
+Stack is a non-generic collection that follows the LIFO (Last In, First Out) principle.
+
+**Means:** The last item you add is the first item you remove.
 
 ### Key Features:
 - **No Type Safety:** Since it is non-generic, there is no compile-time type checking. You might encounter runtime errors if the cast is not performed correctly.
@@ -381,8 +366,11 @@ class Program
 - **Count:** Gets the number of elements in the stack.
 - **Clear():** Removes all elements from the stack.
 
-# `SortedList<T>` (Generic Sorted List)
-SortedList<T> is a generic collection that stores key-value pairs where both the key and value are of a specified type (e.g., int, string, MyClass).
+# SortedList<T> (Generic Sorted List)
+SortedList<TKey, TValue> is a generic collection that stores key-value pairs sorted by their keys.
+
+Unlike a normal Dictionary<TKey, TValue>, which does not guarantee key-sorted iteration order, a SortedList maintains its keys in sorted order.
+
 ### Key Features:
 
 - **Type Safety:** Since it is generic, SortedList<T> provides compile-time type safety, meaning that the types of keys and values are known at compile time and no casting is required when retrieving them.
@@ -425,7 +413,9 @@ class Program
 - **Clear():** Removes all key-value pairs from the SortedList.
 
 # SortedList (Non-Generic Sorted List)
-The non-generic SortedList can store key-value pairs where both the key and value are of type object. You need to cast the key and value to their appropriate types when retrieving them.
+SortedList is a non-generic collection that stores key-value pairs sorted by their keys.
+
+Unlike a normal Dictionary, which does not guarantee key-sorted iteration order, a SortedList maintains its keys in sorted order.
 
 ### Key Features:
 - **No Type Safety:** Since it is non-generic, there is no compile-time type checking, and you may encounter runtime errors if casting is not done correctly.
