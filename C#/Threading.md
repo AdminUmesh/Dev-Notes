@@ -1,4 +1,6 @@
-#### **What happens when you run a C# program?**
+# Fundamental
+
+### **What happens when you run a C# program?**
 **Step 1:** OS creates a Process
 - Inside every process there is at least one thread.
 
@@ -478,3 +480,13 @@ Race Condition	Multiple threads causing inconsistent data
 Deadlock	Threads waiting forever for each other
 Parallel.ForEach	Executes loop iterations in parallel
 PLINQ	Executes LINQ queries in parallel
+
+# Follow Up
+1. What is the difference between a process and a thread?
+2. What is multithreading?
+3. What is the difference between a thread and a task in C#?
+
+# Interview-ready answer
+"A thread is the smallest unit of execution within a process. It is used to execute code. A process can have multiple threads that run concurrently and share the same process memory.
+
+In C#, we can create and manage threads using the Thread class from the System.Threading namespace. Threads are useful for performing multiple tasks concurrently, such as background processing."
