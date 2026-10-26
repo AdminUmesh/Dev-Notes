@@ -825,7 +825,7 @@ account.balance = -5000;
 **Control:** The Deposit and Withdraw methods control how money can be added or subtracted from the account, preventing invalid operations (like withdrawing more than the balance).
 
 # Polymorphism
-Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different is called polymorphism. or `Polymorphism allows the same interface or method call to behave differently depending on the object.`
+Polymorphism is a concept in which a class containg more than one method with the same name but behaviour of each method is different. or `Polymorphism allows the same interface or method call to behave differently depending on the object.`
 
 ### **Compile-time Polymorphism** (Method Overloading)(Static Polymorphism)
 A polymorphism which is exists at the time of compilation is called **`compile time`** or **`early binding`** or **`static polymorphism`**.
@@ -860,7 +860,7 @@ A polymorphism which is exists at run time is called **`run time`** or **`late b
 
 - **Method Overriding-** Whenever we writing method in Base and Derived classes in such a way thats method name and parameter must be same called method overriding.
 
-`In C#, having the same method name and parameters is not enough. The base method must be marked virtual, abstract, or already override, and the derived method must use override.`
+`Having the same method name and parameters is not enough. The base method must be marked virtual, abstract, or already override, and the derived method must use override.`
 
 ```csharp
 public class Base {
@@ -975,12 +975,21 @@ class MainClass {
 ```
 
 # Abstraction
-Data abstraction is the process of hiding certain details and showing only essential information to the user.
+Abstraction is an OOP principle that hides implementation details and exposes only the essential functionality to the user.
+
 `Abstraction can be achieved with either abstract classes or interfaces`
+
+### Benefits:
+
+- Hides unnecessary implementation details. (`The user knows what an object does, without needing to know all the details of how it works internally.`)
+
+- Reduces complexity (`You interact with a simple method instead of dealing with many internal steps`).
+
+- Makes code easier to maintain and extend (`you can change the internal implementation without changing the code that uses the abstraction,as long as the public contract remains the same`).
 
 ### In C#, abstraction is typically achieved using:
 
-**1.Using Abstract Classes**
+### 1.Using Abstract Classes
 ```csharp
 // Abstract class
 public abstract class Animal
@@ -1014,7 +1023,7 @@ public class Program
 }
 ```
 
-**2.Using Interfaces**
+### 2.Using Interfaces
 ```c#
 // Interface
 public interface IDriveable
@@ -1041,18 +1050,21 @@ public class Program
 }
 ```
 ### Why Do We Use Abstraction?
-Abstraction provides several important benefits in software development:
 
-**Simplification of Complex Systems:**
-By focusing on essential features and hiding the internal complexities, abstraction makes it easier to understand and use complex systems.
-Example: When using a mobile app, you don’t need to know how the phone’s hardware works or how the app processes data. You just interact with the user interface.
+** 1. Simplification of Complex Systems:**
+Hides internal complexity and shows only the necessary functionality.
 
-**Code Reusability:**
-With abstraction, you can reuse abstract classes or interfaces across multiple classes. The abstract class or interface can provide a common structure for all derived classes.
+**Example:** An IPaymentService interface with a ProcessPayment() method. The calling code does not need to know how the payment is processed internally.
 
-**Increased Security and Safety:**
-By exposing only the necessary operations and hiding the rest, abstraction prevents the misuse of parts of a class or system that shouldn’t be accessed.
-**Example:** If you have a class that handles bank transactions, abstracting certain methods can ensure that sensitive information or operations are not accessible to unauthorized users.
+** 2. Code Reusability:**
+Abstract classes and interfaces define a common contract that multiple classes can implement or extend.
+
+**Example:** Different payment providers, such as StripePaymentService and PayPalPaymentService, can implement the same IPaymentService interface while providing their own payment-processing logic.
+
+** 3.Increased Security and Safety:**
+Abstraction exposes only the required operations, while encapsulation and access modifiers help control access to internal data and implementation details.
+
+**Example:** A banking service exposes a TransferMoney() method instead of allowing callers to directly modify account balances. The service can validate the transaction before updating the balances.
 
 ### What Happens If Abstraction Doesn't Exist?
 
