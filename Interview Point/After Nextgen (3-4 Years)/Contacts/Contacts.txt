@@ -97,7 +97,7 @@ Budget- 6.5
 Name:- Prudhvi
 Source:- Naukakari.com
 Que Ask:- Experience, Location to Delhi
-Response:- ask about tech, location and packages
+Response:- Inform if Shortlisted
 Interview Scheduled Status: Pending
 Interview Status: Pending
 Result:- Pending
@@ -110,7 +110,21 @@ Budget-
 Name:- 
 Source:- Naukakari.com
 Que Ask:- 
-Response:- I will Scheduled Interview for 28th October
+Response:- Will notify for next round
+Interview Scheduled Status: Done
+Interview Status: Done
+Result:- Pending
+-----------------------------------------------------
+Date:- 28/10/2026
+Contact No :- 7011564562
+Contact Name:- Refer 28-10-26
+Company: 
+Budget- 
+Name:- 
+Source:- Shubham Reference
+Que Ask:- Experience, Location , Tech, curr_package(4.5), exp_pkg(8)
+Response:- Ok, I Submitted the response 
 Interview Scheduled Status: Pending
 Interview Status: Pending
 Result:- Pending
+-----------------------------------------------------
