@@ -4,6 +4,8 @@
 
 ### 3. what is rate limiting
 
+### 4. DTO vs efCore
+
 ### 4. Which HTTP status code would you return if a user is authenticated but not authorized to access a resource?
 
 ### 5. How will a user know that they have exceeded the API rate limit? what code you return

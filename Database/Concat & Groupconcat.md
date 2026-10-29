@@ -11,13 +11,6 @@ string.
 CONCAT(string1, string2, string3, ...)
 ```
 
-### Example
-
-``` sql
-SELECT CONCAT(FirstName, ' ', LastName) AS FullName
-FROM Employees;
-```
-
 ### Characteristics
 -   Combines **columns or strings in the same row**
 -   Works row by row
@@ -26,15 +19,25 @@ FROM Employees;
 ### Example with multiple columns
 
 ``` sql
-SELECT CONCAT(City, '-', Country)
+SELECT CONCAT(Department, '-', EmployeeName) as empDepartment
 FROM Customers;
 ```
 
-Output example:
+### Example Data
 
-    Delhi-India
-    London-UK
-    Paris-France
+| Department | EmployeeName |
+|------------|--------------|
+| IT         | John         |
+| IT         | Mike         |
+| HR         | Sara         |
+| HR         | Anna         |
+
+### Result
+
+| empDepartment |
+|---------------|
+| IT-John       |
+| HR-Sara       |
 
 ------------------------------------------------------------------------
 
@@ -60,19 +63,19 @@ GROUP BY Department;
 
 ### Example Data
 
-  Department   EmployeeName
-  ------------ --------------
-  IT           John
-  IT           Mike
-  HR           Sara
-  HR           Anna
+| Department | EmployeeName |
+|------------|--------------|
+| IT         | John         |
+| IT         | Mike         |
+| HR         | Sara         |
+| HR         | Anna         |
 
 ### Result
 
-  Department   Employees
-  ------------ -----------
-  IT           John,Mike
-  HR           Sara,Anna
+| Department | Employees |
+|------------|-----------|
+| IT         | John,Mike |
+| HR         | Sara,Anna |
 
 ------------------------------------------------------------------------
 
@@ -117,7 +120,6 @@ This sorts values before concatenation.
   |Use Case           | Combine fields      |  Combine rows into |one string|
 
 ------------------------------------------------------------------------
-
 
 # Final Summary
 

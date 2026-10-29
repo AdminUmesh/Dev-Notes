@@ -328,7 +328,7 @@ Inheritance allows one class to acquire the properties and methods of another cl
 - Provides code reusability.
 - Method overriding is only possible through inheritance.
 
-1. **Single Inheritance**
+1. ### Single Inheritance
 Single inheritance support only one supper and one Derived class
 ```csharp
 using System;
@@ -364,7 +364,7 @@ class Program
 
 ```
 
-2. **Multilevel Inheritance**
+2. ### Multilevel Inheritance
 In Multilevel inheritance, we will have more than 2 classes and a parent class will be inherited by a child class then that child class will be inherited by the another child class.
 ```csharp
 public class Base {
@@ -386,7 +386,7 @@ public class Sub2 : Sub1 {
 }
 ```
 
-3. **Hierarchical Inheritance**
+3. ### Hierarchical Inheritance
  In Hierarchical inheritance, a parent class is direct inherited by more than one child class.
 ```csharp
 public class Base {
@@ -408,7 +408,7 @@ public class Sub2 : Base {
 }
 ```
 
-4. **Multiple Inheritance:**
+4. ### Multiple Inheritance:
 C# does not support multiple inheritance directly. However, it supports multiple inheritance through interfaces.
 ```c#
 class A
@@ -426,6 +426,7 @@ class C : A, B  // Error: Cannot have multiple base classes
 }
 // this is not possible in C#
 ```
+
 ## Why C# does not support multiple inheritance?
 When a class inherits from multiple classes, there may be methods with the same name in both base classes. This leads to ambiguity—it's unclear which method should be called. For example:
 
@@ -544,7 +545,7 @@ class Program
 # Interface
 Interface is similar to a class but it contains abstract methods (This means the interface does not provide the body of the methods)
 
-- `interfaces are used.To achieve abstraction in C#`
+- interfaces are used.To achieve abstraction in C#
 - Interface methods are by default public and abstract.
 - you cannot declare a method in an interface using the abstract keyword.
 - Interfaces cannot contain instance fields (variables).
@@ -1270,3 +1271,29 @@ static void Main()
 
 // Output: Mike
 ```
+
+# Check this
+### Abstract Class vs Interface in C#
+
+| Point | Abstract Class | Interface |
+|---|---|---|
+| 1. Keyword | `abstract class` | `interface` |
+| 2. Methods | Can contain abstract and non-abstract methods | Can contain method declarations and default implementations |
+| 3. Implementation | Can contain implemented methods | Can contain default method implementations (C# 8+) |
+| 4. Fields | Can contain instance fields | Cannot contain instance fields |
+| 5. Constructors | Can have constructors | Cannot have instance constructors |
+| 6. Object creation | Cannot be instantiated directly | Cannot be instantiated directly |
+| 7. Inheritance | A class can inherit only one class | A class can implement multiple interfaces |
+| 8. Access modifiers | Supports `public`, `protected`, `private`, etc. | Ordinary interface members are public by default; other modifiers are supported for specific members |
+| 9. Properties | Can have properties with backing fields | Can declare properties but cannot store per-instance state |
+| 10. State | Can store object state in fields | Cannot store per-instance state |
+| 11. Static members | Supports static members | Supports certain static members, including static abstract members in modern C# |
+| 12. Purpose | Shares common code and state | Defines a contract or capability |
+| 13. Inheritance syntax | `class Dog : Animal` | `class Dog : IFlyable` |
+| 14. Multiple inheritance | Cannot inherit multiple classes | Can implement multiple interfaces |
+| 15. Best use | Closely related classes that share functionality | Related or unrelated classes that share a common capability |
+
+### Key Difference
+
+- **Abstract class:** Used to share common implementation and state.
+- **Interface:** Used to define a contract that classes agree to implement.
