@@ -1278,18 +1278,15 @@ static void Main()
 | Point | Abstract Class | Interface |
 |---|---|---|
 | 1. Keyword | `abstract class` | `interface` |
-| 2. Methods | Can contain abstract and non-abstract methods | Can contain method declarations and default implementations |
 | 3. Implementation | Can contain implemented methods | Can contain default method implementations (C# 8+) |
 | 4. Fields | Can contain instance fields | Cannot contain instance fields |
 | 5. Constructors | Can have constructors | Cannot have instance constructors |
-| 6. Object creation | Cannot be instantiated directly | Cannot be instantiated directly |
 | 7. Inheritance | A class can inherit only one class | A class can implement multiple interfaces |
 | 8. Access modifiers | Supports `public`, `protected`, `private`, etc. | Ordinary interface members are public by default; other modifiers are supported for specific members |
 | 9. Properties | Can have properties with backing fields | Can declare properties but cannot store per-instance state |
 | 10. State | Can store object state in fields | Cannot store per-instance state |
 | 11. Static members | Supports static members | Supports certain static members, including static abstract members in modern C# |
 | 12. Purpose | Shares common code and state | Defines a contract or capability |
-| 13. Inheritance syntax | `class Dog : Animal` | `class Dog : IFlyable` |
 | 14. Multiple inheritance | Cannot inherit multiple classes | Can implement multiple interfaces |
 | 15. Best use | Closely related classes that share functionality | Related or unrelated classes that share a common capability |
 
