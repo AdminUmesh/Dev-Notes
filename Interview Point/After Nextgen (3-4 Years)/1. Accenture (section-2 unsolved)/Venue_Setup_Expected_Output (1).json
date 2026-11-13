@@ -1,0 +1,91 @@
+{
+  "event_id": "FAIRGROUND-LIVE-001",
+  "status": "completed",
+  "schedule": [
+    {
+      "task_id": "T1",
+      "start_slot": 1,
+      "finish_slot": 2
+    },
+    {
+      "task_id": "T2",
+      "start_slot": 3,
+      "finish_slot": 4
+    },
+    {
+      "task_id": "T3",
+      "start_slot": 1,
+      "finish_slot": 1
+    },
+    {
+      "task_id": "T4",
+      "start_slot": 2,
+      "finish_slot": 2
+    },
+    {
+      "task_id": "T5",
+      "start_slot": 3,
+      "finish_slot": 5
+    },
+    {
+      "task_id": "T6",
+      "start_slot": 5,
+      "finish_slot": 6
+    }
+  ],
+  "completed_task_ids": [
+    "T1",
+    "T3",
+    "T4",
+    "T2",
+    "T5",
+    "T6"
+  ],
+  "failed_task_ids": [],
+  "dropped_task_ids": [],
+  "rejected_constraints": [
+    {
+      "constraint": "all",
+      "reason": "low_confidence"
+    }
+  ],
+  "trace": [
+    {
+      "step": "T1",
+      "kind": "execution",
+      "attempt": 1,
+      "status": "SUCCESS"
+    },
+    {
+      "step": "T3",
+      "kind": "execution",
+      "attempt": 1,
+      "status": "SUCCESS"
+    },
+    {
+      "step": "T4",
+      "kind": "execution",
+      "attempt": 1,
+      "status": "SUCCESS"
+    },
+    {
+      "step": "T2",
+      "kind": "execution",
+      "attempt": 1,
+      "status": "SUCCESS"
+    },
+    {
+      "step": "T5",
+      "kind": "execution",
+      "attempt": 1,
+      "status": "SUCCESS"
+    },
+    {
+      "step": "T6",
+      "kind": "execution",
+      "attempt": 1,
+      "status": "SUCCESS"
+    }
+  ],
+  "error": null
+}

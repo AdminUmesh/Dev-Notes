@@ -150,7 +150,7 @@ Name:-
 Source:- Naukakari.com
 Que Ask:- Experience, Location (Delhi), Accademic %, Career Gap etc
 Response:- Inform if Shortlisted
-Interview Scheduled Status: Pending
-Interview Status: Pending
-Result:- Pending
+Interview Scheduled Status: Done
+Interview Status: Done
+Result:- Rejected
 -----------------------------------------------------

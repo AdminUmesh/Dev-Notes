@@ -1,0 +1,16 @@
+VENUE SETUP PLANNING AGENT — RECONSTRUCTED QUESTION
+
+Build an agent that prepares a one-day conference venue from an operations
+lead's free-text brief and a structured task list.
+
+Implement run(event_id, tasks, brief) in src/venue_agent.py.
+
+The agent must validate tasks and dependencies, detect cycles, use an LLM to
+extract ready_by / not_during / elevated_mandatory / drop_priority constraints,
+validate the JSON response and confidence, schedule tasks under deadlines and
+crew capacity, drop optional tasks in the requested order when necessary,
+execute tasks with a bounded retry policy and backups, enforce a tool-call
+ceiling, and return a structured execution report.
+
+See ASSIGNMENT.md for the full reconstructed specification.
+This is not guaranteed to be the company's exact original prompt.
