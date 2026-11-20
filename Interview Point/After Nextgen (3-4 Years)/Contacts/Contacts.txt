@@ -141,7 +141,7 @@ Interview Scheduled Status: Pending
 Interview Status: Pending
 Result:- Pending
 -----------------------------------------------------
-Date:- 28/10/2026
+Date:- 09/11/2026
 Contact No :- 8056279449
 Contact Name:- Naukari 09-11-26 (Accenture)
 Company: Accenture
@@ -153,4 +153,30 @@ Response:- Inform if Shortlisted
 Interview Scheduled Status: Done
 Interview Status: Done
 Result:- Rejected
+-----------------------------------------------------
+Date:- 17/11/2026
+Contact No :- 8056279449
+Contact Name:- Naukari 17-11-26
+Company: 
+Budget- 
+Name:- 
+Source:- Naukakari.com
+Que Ask:- Experience, Location (Delhi), Tech Stck, Curr CTC, Avg CTC
+Response:- Inform if Shortlisted
+Interview Scheduled Status: Pending
+Interview Status: Pending
+Result:- Pending
+-----------------------------------------------------
+Date:- 20/11/2026
+Contact No :- 8056279449
+Contact Name:- Naukari 20-11-26
+Company: 
+Budget- 
+Name:- 
+Source:- Naukakari.com
+Que Ask:- Experience, Location (Delhi), Tech Stck, Curr CTC, Avg CTC, (agree to relocate Gurugram?)
+Response:- Inform if Shortlisted
+Interview Scheduled Status: Pending
+Interview Status: Pending
+Result:- Pending
 -----------------------------------------------------
